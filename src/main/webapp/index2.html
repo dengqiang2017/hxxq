@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>和谐小区</title>
+<link rel="stylesheet" href="jquery-weui/lib/weui.min.css">
+<link rel="stylesheet" href="jquery-weui/css/jquery-weui.min.css">
+</head>
+<body>
+	<div class="weui-tab">
+		<div class="weui-tab__bd">
+			<div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+				<div class="weui-panel weui-panel_access">
+					<div class="weui-panel__hd">公告列表</div>
+					<div class="weui-panel__bd">
+						<a href="javascript:void(0);" id="wz1"
+							class="weui-media-box weui-media-box_appmsg">
+							<div class="weui-media-box__bd">
+								<h4 class="weui-media-box__title">标题一</h4>
+								<p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+							</div>
+						</a> 
+						<a href="javascript:void(0);"
+							class="weui-media-box weui-media-box_appmsg">
+							<div class="weui-media-box__hd">
+								<img class="weui-media-box__thumb"
+									src="./images/icon_nav_button.png">
+							</div>
+							<div class="weui-media-box__bd">
+								<h4 class="weui-media-box__title">标题二</h4>
+								<p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+							</div>
+						</a>
+					</div>
+					<div class="weui-panel__ft">
+						<a href="javascript:void(0);"
+							class="weui-cell weui-cell_access weui-cell_link">
+							<div class="weui-cell__bd">查看更多</div> <span class="weui-cell__ft"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div id="tab2" class="weui-tab__bd-item"
+				style="margin:0 5px;">
+				<div id="tp">
+				<h2 style="margin-top: 5px;" id="tp_title">投票标题投票标题投票标题投票标题</h2>
+				<div style="text-align: center;">
+					<button type="button" class="weui-btn weui-btn_primary"
+						style="width: 45%;display: inline-block;background-color: #FE5F5C;" id="tpty">同意</button>
+					<button type="button" class="weui-btn weui-btn_primary"
+						style="width: 45%;display: inline-block;background-color: #5380FD;" id="tpfd">反对</button>
+				</div>
+				</div>
+				<div id="tpjg">
+					<div style="margin-top: 10px;"><label>投票状态:</label>&emsp;<span id="tpzt">进行中</span></div>
+					<div style="margin-top: 10px;"><label>开始时间:</label>&emsp;<span id="kssj">2018-02-21 14:10:10</span></div>
+					<div style="margin-top: 10px;"><label>截止时间:</label>&emsp;<span id="jzsj">2018-03-21 14:10:10</span></div>
+					<div style="margin-top: 10px;"><label>投票结果:</label>&emsp;
+					<div style="display: inline-block;">
+						<div style="display: inline-block;background-color: #FE5F5C;padding: 2px 20px;color: white;" id="tp_tys">同意10000票</div>
+						<div style="display: inline-block;background-color: #5380FD;padding: 2px 20px;color: white;" id="tp_fds">反对10票</div>
+					</div>
+						<div style="margin-left: 84px;color: #BBBBBB;">赞同票超过2/3,投票通过</div>
+					</div>
+					<div style="margin-top: 10px;"><label>我的投票:</label>&emsp;<span id="me_tp">同意</span>
+					</div>
+					<div style="margin-top: 10px;"><label>留言状态:</label>&emsp;<span id="me_ly_zt">审核通过</span></div>
+					<div style="margin-top: 10px;"><label>我的留言:</label>&emsp;<span id="me_ly">留言留言留言</span><a href="#" style="float: right;margin-right: 3px;">修改</a></div>
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+			<div id="tab3" class="weui-tab__bd-item">
+				<div class="weui-cells__title">公告发布</div>
+				<div class="weui-cells weui-cells_form">
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">公告标题</label>
+						</div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="text" placeholder="请输入公告标题">
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label for="" class="weui-label">有效日期</label>
+						</div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="date">
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__bd">
+							<textarea class="weui-textarea" placeholder="请输入公告内容" rows="10"></textarea>
+							<div class="weui-textarea-counter">
+								<span>0</span>/20000
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="weui-cells weui-cells_form">
+					<div class="weui-cell">
+						<div class="weui-cell__bd">
+							<div class="weui-uploader">
+								<div class="weui-uploader__hd">
+									<p class="weui-uploader__title">图片上传</p>
+									<div class="weui-uploader__info">0/2</div>
+								</div>
+								<div class="weui-uploader__bd">
+									<ul class="weui-uploader__files" id="uploaderFiles">
+										<li class="weui-uploader__file"
+											style="background-image:url(./images/pic_160.png)"></li>
+										<li class="weui-uploader__file weui-uploader__file_status"
+											style="background-image:url(./images/pic_160.png)">
+											<div class="weui-uploader__file-content">50%</div>
+										</li>
+									</ul>
+									<div class="weui-uploader__input-box">
+										<input id="uploaderInput" class="weui-uploader__input"
+											type="file" accept="image/*" multiple="">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="tab4" class="weui-tab__bd-item">
+				<h1 style="text-align: center;color: #3cc51f;">个人中心</h1>
+				<div>
+				<img src="images/avatar.jpg" style="">
+				</div>
+				<div><label>小区位置:</label><input type="text" class="weui-input" style="width: auto;border: 1px solid #ccc;" id='city-picker' value="金牛区" readonly="readonly" /></div>
+				<div class="weui-cells">
+		          <div class="weui-cell weui-cell_swiped" style="cursor: pointer;">
+		            <div class="weui-cell__bd">
+		              <div class="weui-cell">
+		                <div class="weui-cell__bd">
+		                  <p>标题标题标题标题标题标题标题</p>
+		                </div>
+		                <div class="weui-cell__ft"></div>
+		              </div>
+		            </div>
+		            <div class="weui-cell__ft">
+		              <a class="weui-swiped-btn weui-swiped-btn_warn delete-swipeout" href="javascript:">删除</a>
+		              <a class="weui-swiped-btn weui-swiped-btn_default close-swipeout" href="javascript:">关闭</a>
+		            </div>
+		          </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="weui-tabbar">
+			<a href="#tab1" class="weui-tabbar__item weui-bar__item--on"> <span
+				class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>
+				<div class="weui-tabbar__icon">
+					<img src="./images/icon_nav_button.png" alt="">
+				</div>
+				<p class="weui-tabbar__label">公告</p>
+			</a> <a href="#tab2" class="weui-tabbar__item">
+				<div class="weui-tabbar__icon">
+					<img src="./images/icon_nav_msg.png" alt="">
+				</div>
+				<p class="weui-tabbar__label" id="tpbtn">投票</p>
+			</a> <a href="#tab3" class="weui-tabbar__item">
+				<div class="weui-tabbar__icon">
+					<img src="./images/icon_nav_article.png" alt="">
+				</div>
+				<p class="weui-tabbar__label">发布</p>
+			</a> <a href="#tab4" class="weui-tabbar__item">
+				<div class="weui-tabbar__icon">
+					<img src="./images/icon_nav_cell.png" alt="">
+				</div>
+				<p class="weui-tabbar__label">我</p>
+			</a>
+		</div>
+	</div>
+
+<div id="about" class="weui-popup__container">
+  <div class="weui-popup__overlay"></div>
+  <div class="weui-popup__modal">
+  <div id="content">
+	你的内容放在这里...
+  </div>
+  <button type="button" class='close-popup weui-btn weui-btn_primary'>关闭</button>
+  </div>
+</div>
+	<div class="weui-footer weui-footer_fixed-bottom">
+		<p class="weui-footer__text">Copyright ©2018 DengQiang</p>
+	</div>
+<script type="text/javascript" src="jquery-weui/lib/jquery-2.1.4.js"></script>
+<!-- 如果使用了某些拓展插件还需要额外的JS -->
+<script type="text/javascript" src="jquery-weui/lib/fastclick.js"></script>
+<script type="text/javascript" src="jquery-weui/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="jquery-weui/js/swiper.min.js"></script>  
+<!-- <script type="text/javascript" src="jquery-weui/js/city-picker.min.js"></script>  -->
+<script type="text/javascript" src="jquery-weui/js/swipeout.js"></script> 
+	<script>
+		$(function() {
+			FastClick.attach(document.body);
+			$("#wz1").click(function(){
+				$("#about").popup();
+			});
+			
+			$(".weui-cell_swiped").swipeout();
+			
+// 			$("#city-picker").cityPicker({
+// 			    title: "请选择小区位置",inputReadOnly:true,rotateEffect:true
+// 			  });
+			
+			$("#city-picker").picker({
+				  title: "请选择小区位置",
+				  cols: [
+				    {
+				      textAlign: "center",
+				      values: ["金牛区","锦江区","青羊区","武侯区","成华区","温江区"]
+				    }
+				  ]
+				});
+	          
+			$("#tpty").click(function(){
+			$.prompt({
+				  title: "投票留言",
+				  text: "请文明发表意见并严格遵守国家相关法律规定!",
+				  input: "",//输入框默认值,可用于修改
+				  empty: false, // 是否允许为空
+				  onOK: function (text) {
+				    //点击确认
+					  $.toast("操作成功");
+				  },
+				  onCancel: function () {
+				    //点击取消
+				  }
+				});
+			});
+		$("#tpbtn").click(function(){
+			$.actions({
+				  actions: [{
+				    text: "发起投票",
+				    onClick: function() {
+				      //do something
+				    }
+				  },{
+				    text: "参与投票",
+				    onClick: function() {
+				      //do something
+				    }
+				  }]
+				});
+		});
+	});
+	</script>
+</body>
+</html>
