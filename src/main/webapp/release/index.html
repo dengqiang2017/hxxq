@@ -14,8 +14,8 @@
 
 <div class="weui-tab">
 		<div class="weui-tab__bd">
-			<div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active" style="margin:0 3px;">
-				<div class="weui-cells weui-cells_form">
+			<div id="tab1" class="weui-tab__bd-item" style="margin:0 3px;">
+				<div class="weui-cells weui-cells_form" style="height: 120%;overflow:scroll;">
 					<div class="weui-cell">
 						<div class="weui-cell__hd">
 							<label class="weui-label">投票标题</label>
@@ -87,19 +87,19 @@
 							</div>
 						</div>
 					</div>
-				</div>
 				<label for="weuiAgree" class="weui-agree">
 			      <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
 			      <span class="weui-agree__text">
 			        阅读并同意<a href="javascript:void(0);">《相关条款》</a>
 			      </span>
-			    </label>
-			    <div class="weui-btn-area">
+			    </label><div class="weui-btn-area">
 			      <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">确定</a>
-			    </div>
+			    </div></div>
+				
+			    
 			</div>
-			<div id="tab3" class="weui-tab__bd-item">
-				<div class="weui-cells weui-cells_form" style="height: 110%;overflow:scroll;">
+			<div id="tab3" class="weui-tab__bd-item weui-tab__bd-item--active">
+				<div class="weui-cells weui-cells_form" style="height: 115%;overflow:scroll;">
 					<div class="weui-cell">
 						<div class="weui-cell__hd">
 							<label class="weui-label">公告标题</label>
@@ -110,7 +110,7 @@
 					</div>
 					<div class="weui-cell">
 						<div class="weui-cell__hd">
-							<label for="" class="weui-label">展示日期</label>
+							<label for="" class="weui-label">显示日期</label>
 						</div>
 						<div class="weui-cell__bd">
 							<input class="weui-input" type="datetime-local">
@@ -165,7 +165,6 @@
 			    <div class="weui-btn-area">
 			      <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">确定</a>
 			    </div>
-					
 				</div>
 			</div>
 			<div id="tab4" class="weui-tab__bd-item">
@@ -201,17 +200,17 @@
 			</div>
 		</div>
 	<div class="weui-tabbar">
-			 <a href='#tab1' class="weui-tabbar__item weui-bar__item--on">
-				<div class="weui-tabbar__icon">
-					<img src="../images/icon_nav_msg.png" alt="">
-				</div>
-				<p class="weui-tabbar__label" id="tpbtn">发起投票</p>
-			</a>
-			<a href='#tab3' class="weui-tabbar__item">
+			<a href='#tab3' class="weui-tabbar__item weui-bar__item--on">
 				<div class="weui-tabbar__icon">
 					<img src="../images/icon_nav_article.png" alt="">
 				</div>
 				<p class="weui-tabbar__label">发布信息</p>
+			</a>
+			 <a href='#tab1' class="weui-tabbar__item">
+				<div class="weui-tabbar__icon">
+					<img src="../images/icon_nav_msg.png" alt="">
+				</div>
+				<p class="weui-tabbar__label" id="tpbtn">发起投票</p>
 			</a>
 			<a href="#tab4" class="weui-tabbar__item">
 				<div class="weui-tabbar__icon">

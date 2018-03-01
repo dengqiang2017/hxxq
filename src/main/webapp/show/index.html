@@ -134,12 +134,13 @@
 		FastClick.attach(document.body);
 		$("#tpty").click(function(){
 			$.prompt({
-				  title: "投票留言",
+				  title: "留言",
 				  text: "请文明发表意见并严格遵守国家相关法律规定!",
-				  input: "",//输入框默认值,可用于修改
+				  input:"",
 				  empty: false, // 是否允许为空
 				  onOK: function (text) {
 				    //点击确认
+					  $.confirm(text);
 					  $.toast("操作成功");
 				  },
 				  onCancel: function () {

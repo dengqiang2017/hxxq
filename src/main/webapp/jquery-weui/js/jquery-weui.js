@@ -3343,7 +3343,7 @@ if (typeof define === 'function' && define.amd) {
   };
 
   //如果参数过多，建议通过 config 对象进行配置，而不是传入多个参数。
-  $.prompt = function(text, title, onOK, onCancel, input) {
+  $.prompt1 = function(text, title, onOK, onCancel, input) {
     var config;
     if (typeof text === 'object') {
       config = text;
@@ -3395,6 +3395,58 @@ if (typeof define === 'function' && define.amd) {
     });
 
     return modal;
+  };
+  $.prompt = function(text, title, onOK, onCancel, input) {
+	  var config;
+	  if (typeof text === 'object') {
+		  config = text;
+	  } else {
+		  if (typeof title === 'function') {
+			  input = arguments[3];
+			  onCancel = arguments[2];
+			  onOK = arguments[1];
+			  title = undefined;
+		  }
+		  config = {
+				  text: text,
+				  title: title,
+				  input: input,
+				  onOK: onOK,
+				  onCancel: onCancel,
+				  empty: false  //allow empty
+		  };
+	  }
+	  var modal = $.modal({//
+		  text: '<p class="weui-prompt-text">'+(config.text || '')+'</p><textarea rows="5" cols="30" id="weui-prompt-input">' + (config.input || '') + '</textarea>',
+		  title: config.title,
+		  autoClose: false,
+		  buttons: [
+		            {
+		            	text: defaults.buttonCancel,
+		            	className: "default",
+		            	onClick: function () {
+		            		$.closeModal();
+		            		config.onCancel && config.onCancel.call(modal);
+		            	}
+		            },
+		            {
+		            	text: defaults.buttonOK,
+		            	className: "primary",
+		            	onClick: function() {
+		            		var input = $("#weui-prompt-input").val();
+		            		if (!config.empty && (input === "" || input === null)) {
+		            			modal.find('.weui-prompt-input').focus()[0].select();
+		            			return false;
+		            		}
+		            		$.closeModal();
+		            		config.onOK && config.onOK.call(modal, input);
+		            	}
+		            }]
+	  }, function () {
+		  this.find('.weui-prompt-input').focus()[0].select();
+	  });
+	  
+	  return modal;
   };
 
   //如果参数过多，建议通过 config 对象进行配置，而不是传入多个参数。
