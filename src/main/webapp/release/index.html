@@ -8,13 +8,6 @@
 <link rel="stylesheet" href="../jquery-weui/css/jquery-weui.min.css">
 <link rel="stylesheet" href="../css/public.css">
 <style type="text/css">
-.demos-title {
-    text-align: center;
-    font-size: 20px;
-    color: #3cc51f;
-    font-weight: 400;
-    margin: 0 15%;
-}
 </style>
 </head>
 <body>
@@ -22,7 +15,6 @@
 <div class="weui-tab">
 		<div class="weui-tab__bd">
 			<div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active" style="margin:0 3px;">
-<!-- 				<div class="demos-title">发起投票</div> -->
 				<div class="weui-cells weui-cells_form">
 					<div class="weui-cell">
 						<div class="weui-cell__hd">
@@ -54,6 +46,14 @@
 					      <input class="weui-switch" type="checkbox" checked="checked">
 					    </div>
 					  </div>
+					<div class="weui-cell weui-cell_switch" style="display: none;">
+					    <div class="weui-cell__bd">实名发起</div>
+					    <div class="weui-cell__ft">
+					      <input class="weui-switch" type="checkbox" checked="checked">
+					    </div>
+					  </div>
+<!-- 				      <span>投票状态:审核通过</span> -->
+<!-- 				      <span>投票发起人:xxx</span> -->
 					<div class="weui-cell">
 						<div class="weui-cell__hd">
 							<label class="weui-label">投票描述</label>
@@ -61,6 +61,30 @@
 						<div class="weui-cell__bd">
 							<textarea class="weui-textarea" placeholder="请输入投票描述" rows="10" maxlength="500"></textarea>
       						<div class="weui-textarea-counter"><span>0</span>/500</div>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__bd">
+							<div class="weui-uploader">
+								<div class="weui-uploader__hd">
+									<p class="weui-uploader__title">附件上传</p>
+									<div class="weui-uploader__info">0/2</div>
+								</div>
+								<div class="weui-uploader__bd">
+									<ul class="weui-uploader__files" id="uploaderFiles">
+										<li class="weui-uploader__file"
+											style="background-image:url(../images/pic_160.png)"></li>
+										<li class="weui-uploader__file weui-uploader__file_status"
+											style="background-image:url(../images/pic_160.png)">
+											<div class="weui-uploader__file-content">50%</div>
+										</li>
+									</ul>
+									<div class="weui-uploader__input-box">
+										<input id="uploaderInput" class="weui-uploader__input"
+											type="file" accept="image/*" multiple="">
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -86,10 +110,10 @@
 					</div>
 					<div class="weui-cell">
 						<div class="weui-cell__hd">
-							<label for="" class="weui-label">有效日期</label>
+							<label for="" class="weui-label">展示日期</label>
 						</div>
 						<div class="weui-cell__bd">
-							<input class="weui-input" type="date">
+							<input class="weui-input" type="datetime-local">
 						</div>
 					</div>
 					<div class="weui-cell weui-cell_switch">
@@ -98,6 +122,8 @@
 					      <input class="weui-switch" type="checkbox" checked="checked">
 					    </div>
 					  </div>
+<!-- 				      <span>信息状态:审核通过</span> -->
+<!-- 				      <span>信息发布人:xxx</span> -->
 					<div class="weui-cell">
 						<div class="weui-cell__bd">
 							<textarea class="weui-textarea" placeholder="请输入公告描述或内容" rows="10" maxlength="20000"></textarea>
