@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>和谐小区-信息展示</title>
+<title>和谐小区</title>
 <link rel="stylesheet" href="../jquery-weui/lib/weui.min.css">
 <link rel="stylesheet" href="../jquery-weui/css/jquery-weui.min.css">
 <link rel="stylesheet" href="../css/public.css">
@@ -14,26 +14,43 @@
 		<div class="weui-tab__bd">
 			<div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
 				<div class="weui-panel weui-panel_access">
-					<div class="weui-panel__hd">公告列表</div>
+			<div class="weui-search-bar" id="searchBar">
+  <form class="weui-search-bar__form">
+    <div class="weui-search-bar__box">
+      <i class="weui-icon-search"></i>
+      <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required="">
+      <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+    </div>
+    <label class="weui-search-bar__label" id="searchText">
+      <i class="weui-icon-search"></i>
+      <span>搜索</span>
+    </label>
+  </form>
+  <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+</div>
+					<div class="weui-panel__hd">信息列表</div>
 					<div class="weui-panel__bd">
 						<a href="javascript:void(0);" id="wz1"
 							class="weui-media-box weui-media-box_appmsg">
 							<div class="weui-media-box__bd">
-								<h4 class="weui-media-box__title">标题一</h4>
+								<h4 class="weui-media-box__title">消息标题一</h4>
 								<p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
 							</div>
 						</a> 
-						<a href="javascript:void(0);"
+						<a href="javascript:void(0);" id="wz1"
 							class="weui-media-box weui-media-box_appmsg">
-							<div class="weui-media-box__hd">
-								<img class="weui-media-box__thumb"
-									src="../images/icon_nav_button.png">
-							</div>
 							<div class="weui-media-box__bd">
-								<h4 class="weui-media-box__title">标题二</h4>
+								<h4 class="weui-media-box__title">消息标题一</h4>
 								<p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
 							</div>
-						</a>
+						</a> 
+						<a href="javascript:void(0);" id="wz1"
+							class="weui-media-box weui-media-box_appmsg">
+							<div class="weui-media-box__bd">
+								<h4 class="weui-media-box__title">消息标题一</h4>
+								<p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+							</div>
+						</a> 
 					</div>
 					<div class="weui-panel__ft">
 						<a href="javascript:void(0);"
@@ -45,15 +62,33 @@
 			</div>
 			<div id="tab2" class="weui-tab__bd-item"
 				style="margin:0 5px;">
-				<div id="tp">
-				<h2 style="margin-top: 5px;" id="tp_title">投票标题投票标题投票标题投票标题</h2>
-				<div style="text-align: center;">
-					<button type="button" class="weui-btn weui-btn_primary"
-						style="width: 45%;display: inline-block;background-color: #FE5F5C;" id="tpty">同意</button>
-					<button type="button" class="weui-btn weui-btn_primary"
-						style="width: 45%;display: inline-block;background-color: #5380FD;" id="tpfd">反对</button>
-				</div>
-				</div>
+				<div class="weui-panel weui-panel_access">
+<div class="weui-search-bar" id="searchBar">
+  <form class="weui-search-bar__form">
+    <div class="weui-search-bar__box">
+      <i class="weui-icon-search"></i>
+      <input type="search" class="weui-search-bar__input" id="voteSearchInput" placeholder="搜索" required="">
+      <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+    </div>
+    <label class="weui-search-bar__label" id="searchText">
+      <i class="weui-icon-search"></i>
+      <span>搜索</span>
+    </label>
+  </form>
+  <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+</div>
+<!-- 				<div class="weui-panel__hd">投票</div> -->
+					<div class="weui-panel__bd">
+						<div id="tp">
+						<h2 style="margin-top: ;" id="tp_title">投票标题投票标题投票标题投票标题</h2>
+						<div style="text-align: center;">
+							<button type="button" class="weui-btn weui-btn_primary"
+								style="width: 45%;display: inline-block;background-color: #FE5F5C;" id="tpty">同意</button>
+							<button type="button" class="weui-btn weui-btn_primary"
+								style="width: 45%;display: inline-block;background-color: #5380FD;" id="tpfd">反对</button>
+						</div>
+						</div>
+						
 				<div id="tpjg">
 					<div style="margin-top: 10px;"><label>投票状态:</label>&emsp;<span id="tpzt">进行中</span></div>
 					<div style="margin-top: 10px;"><label>开始时间:</label>&emsp;<span id="kssj">2018-02-21 14:10:10</span></div>
@@ -68,8 +103,11 @@
 					<div style="margin-top: 10px;"><label>我的投票:</label>&emsp;<span id="me_tp">同意</span>
 					</div>
 					<div style="margin-top: 10px;"><label>留言状态:</label>&emsp;<span id="me_ly_zt">审核通过</span></div>
-					<div style="margin-top: 10px;"><label>我的留言:</label>&emsp;<span id="me_ly">留言留言留言</span><a href="#" style="float: right;margin-right: 3px;">修改</a></div>
+					<div style="margin-top: 10px;"><label>我的留言:</label>&emsp;<span id="me_ly">留言留言留言</span><a href="#" style="float: right;margin-right: 3px;" id="tp_ly_edit">修改</a></div>
 					<div style="clear: both;"></div>
+				</div>
+						
+					</div>
 				</div>
 			</div>
 			<div id="tab4" class="weui-tab__bd-item">
@@ -77,15 +115,38 @@
 				<img src="../images/avatar.jpg" style="width: 100px;height: 100px;float: left;">
 				<div style="float: left;margin-left: 5px;margin-top: 10px;">
 					<div>微信昵称:xxxxxxxxxxx</div>
-					<div>小区:合作小区</div>
+				<a href="#" style="float: left;margin-top: 10px;" id="zl_edit">编辑资料>>></a>
 				</div>
-				<a href="#" style="float: right;margin-right: 10px;margin-top: 10px;">编辑</a>
 				<div style="clear: both;"></div>
 				</div>
-				<div>
+				
+				<div style="display: none;">
 				<label>小区位置:</label>
 				<input type="text" class="weui-input" style="width: auto;border: 1px solid #ccc;" id='city-picker' readonly="readonly" />
 				</div>
+ 
+	<div class="weui-cells">
+  <a class="weui-cell weui-cell_access" href="javascript:;">
+    <div class="weui-cell__bd">
+      <p>我的浏览</p>
+    </div>
+    <div class="weui-cell__ft">10</div>
+  </a>
+  <a class="weui-cell weui-cell_access" href="javascript:;">
+    <div class="weui-cell__bd">
+      <p>我的投票</p>
+    </div>
+    <div class="weui-cell__ft">10</div>
+  </a>
+  <a class="weui-cell weui-cell_access" href="javascript:;">
+    <div class="weui-cell__bd">
+      <p>我的小区</p>
+    </div>
+    <div class="weui-cell__ft">2</div>
+  </a>
+</div>			
+				
+				
 			</div>
 		</div>
 	<div class="weui-tabbar">
@@ -110,18 +171,61 @@
 	</div>
 </div>
 		
-		<div id="about" class="weui-popup__container">
+<div id="about" class="weui-popup__container" style="z-index: 600;">
   <div class="weui-popup__overlay"></div>
   <div class="weui-popup__modal">
-	  <div id="content">
-		你的内容放在这里...
-	  </div>
-  	<button type="button" class='close-popup weui-btn weui-btn_primary'>关闭</button>
+          <header>
+          <div class="demos-second-title">消息标题一消息标题一</div>
+          <p class="demos-sub-title">发布人:业委会成员 时间:@2018/03/03</p>
+        </header>
+		  <article class="weui-article" style="overflow: auto;">
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
+		  </article>
+  <div style="clear: both;"></div>
+  <div style="text-align: center;width: 100%;position: absolute;bottom: 3px;">
+  	<button type="button" class='close-popup weui-btn weui-btn_primary' style="width: 50%">关闭</button>
+  </div>
   </div>
 </div>
 	<div class="weui-footer weui-footer_fixed-bottom">
 		<p class="weui-footer__text">Copyright ©2018 DengQiang</p>
 	</div>
+<div id="zl_html"></div>
 <script type="text/javascript" src="../jquery-weui/lib/jquery-2.1.4.js"></script>
 <!-- 如果使用了某些拓展插件还需要额外的JS -->
 <script type="text/javascript" src="../jquery-weui/lib/fastclick.js"></script>
@@ -130,28 +234,41 @@
 <script type="text/javascript" src="../jquery-weui/js/swipeout.js"></script> 
 <script type="text/javascript">
 <!--
-	$(function() {
-		FastClick.attach(document.body);
-		$("#tpty").click(function(){
-			$.prompt({
-				  title: "留言",
-				  text: "请文明发表意见并严格遵守国家相关法律规定!",
-				  input:"",
-				  empty: false, // 是否允许为空
-				  onOK: function (text) {
-				    //点击确认
-					  $.confirm(text);
-					  $.toast("操作成功");
-				  },
-				  onCancel: function () {
-				    //点击取消
-				  }
-				});
-			});
-		$("#wz1").click(function(){
-			$("#about").popup();
+$(function() {
+	FastClick.attach(document.body);
+	$("input,textarea").focus(function(){
+		$(".weui-tabbar").css("position","relative");
+	});
+	$("input,textarea").blur(function(){
+		$(".weui-tabbar").css("position","absolute");
+	});
+	$("#zl_edit").click(function(){
+		$.get("zl_edit.html?ver="+Math.random(),function(data){
+			$("#zl_html").html(data);
+			$("#zl_edit_dia").popup();
 		});
 	});
+	$("#tpty,#tp_ly_edit").click(function(){
+		$.prompt({
+			  title: "留言",
+			  text: "请文明发表意见并严格遵守国家相关法律规定,审核通过后显示!",
+			  input:"",
+			  empty: false, // 是否允许为空
+			  onOK: function (text) {
+			    //点击确认
+				  $.confirm(text);
+				  $.toast("操作成功");
+			  },
+			  onCancel: function () {
+			    //点击取消
+			  }
+			});
+		});
+	$("#wz1").click(function(){
+		$("#about").popup();
+		$("article").css("height",$("#about .weui-popup__modal").get(0).offsetHeight-160);
+	});
+});
 //-->
 </script>
 </body>

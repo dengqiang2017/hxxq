@@ -1,0 +1,77 @@
+<div id="zl_edit_dia" class="weui-popup__container" style="z-index: 600;">
+  <div class="weui-popup__overlay"></div>
+  <div class="weui-popup__modal">
+       <h3 class="demos-second-title">资料编辑</h3>
+	<div class="weui-cells weui-cells_form">
+		<div class="weui-cell">
+	    <div class="weui-cell__hd">
+	      <label class="weui-label">姓名</label>
+	    </div>
+	    <div class="weui-cell__bd">
+	      <input class="weui-input" type="text" placeholder="请输入姓名">
+	    </div>
+	  </div>
+		 <div class="weui-cell">
+	    <div class="weui-cell__hd">
+	      <label class="weui-label">微信号</label>
+	    </div>
+	    <div class="weui-cell__bd">
+	      <input class="weui-input" type="text" placeholder="请输入微信号">
+	    </div>
+	  </div>
+		 <div class="weui-cell weui-cell_vcode">
+	    <div class="weui-cell__hd">
+	      <label class="weui-label">手机号</label>
+	    </div>
+	    <div class="weui-cell__bd">
+	      <input class="weui-input" type="tel" placeholder="请输入手机号" pattern="[0-9]*">
+	    </div>
+	    <div class="weui-cell__ft">
+	      <button class="weui-vcode-btn">获取验证码</button>
+	    </div>
+	  </div>
+  <div class="weui-cell weui-cell_warn">
+    <div class="weui-cell__hd"><label for="" class="weui-label">身份证号</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" type="number" pattern="[0-9]*" value="weui input error" placeholder="请输入身份证号">
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+      <div class="weui-uploader">
+        <div class="weui-uploader__hd">
+          <p class="weui-uploader__title">身份证正面上传</p>
+          <div class="weui-uploader__info">0/2</div>
+        </div>
+        <div class="weui-uploader__bd">
+          <ul class="weui-uploader__files" id="uploaderFiles">
+            <li class="weui-uploader__file" style="background-image:url(../images/pic_160.png)"></li>
+            <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(../images/pic_160.png)">
+              <div class="weui-uploader__file-content">50%</div>
+            </li>
+          </ul>
+          <div class="weui-uploader__input-box">
+            <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+            <a id="uploaderInput" class="weui-uploader__input" type="file"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="weui-cell" style="width: 100%;text-align: center;" id="btndiv">
+  	<button type="button" class='close-popup weui-btn weui-btn_default' style="width: auto;display: inline-block;">关闭</button>
+  	<button type="button" class='close-popup weui-btn weui-btn_primary' style="width: auto;display: inline-block;">保存</button>
+  </div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+<!--
+$("#zl_edit_dia input").focus(function(){
+	$("#btndiv").css("position","relative");
+});
+$("#zl_edit_dia input").blur(function(){
+	$("#btndiv").css("position","absolute");
+});
+//-->
+</script>

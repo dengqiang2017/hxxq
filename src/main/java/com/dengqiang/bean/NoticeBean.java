@@ -18,7 +18,7 @@ public class NoticeBean implements Serializable{
 	private UserInfoBean founder;//发布人
 	private Date creationTime;//创建时间
 	private Date showTime;//显示时间,提前编辑,定时发布
-	private List<String> fileList;//附件名称列表
+	private List<FileBean> fileList;//附件名称列表
 	private List<ReviewContentBean> reviewContents;//评论内容
 	public long getId() {
 		return id;
@@ -68,10 +68,10 @@ public class NoticeBean implements Serializable{
 	public void setShowTime(Date showTime) {
 		this.showTime = showTime;
 	}
-	public List<String> getFileList() {
+	public List<FileBean> getFileList() {
 		return fileList;
 	}
-	public void setFileList(List<String> fileList) {
+	public void setFileList(List<FileBean> fileList) {
 		this.fileList = fileList;
 	}
 	public List<ReviewContentBean> getReviewContents() {

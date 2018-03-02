@@ -12,6 +12,7 @@ public class UserInfoHousingBean implements Serializable{
 	private UserInfoBean userInfo;//用户基本信息
 	private int userType=0;//类型,0-普通业主,1-业委会成员
 	private String userJob;//职位
+	private String address;//小区具体位置
 	public long getId() {
 		return id;
 	}
@@ -41,6 +42,12 @@ public class UserInfoHousingBean implements Serializable{
 	}
 	public void setUserInfo(UserInfoBean userInfo) {
 		this.userInfo = userInfo;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 }

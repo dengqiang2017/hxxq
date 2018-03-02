@@ -21,7 +21,7 @@ public class VoteBean implements Serializable{
 	private String voteDesc;//投票描述
 	private UserInfoBean founder;//发起人
 	private Date creationTime;//创建时间
-	private List<String> fileList;//附件名称列表
+	private List<FileBean> fileList;//附件名称列表
 	private List<ReviewContentBean> reviewContents;//评论内容
 	public long getId() {
 		return id;
@@ -83,10 +83,10 @@ public class VoteBean implements Serializable{
 	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
-	public List<String> getFileList() {
+	public List<FileBean> getFileList() {
 		return fileList;
 	}
-	public void setFileList(List<String> fileList) {
+	public void setFileList(List<FileBean> fileList) {
 		this.fileList = fileList;
 	}
 	public List<ReviewContentBean> getReviewContents() {

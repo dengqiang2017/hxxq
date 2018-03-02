@@ -13,7 +13,7 @@ public class HousingEstateBean implements Serializable{
 	private long id;
 	private String name;//小区名称
 	private String address;//地址
-	private int household;//家庭数
+	private int household;//户数,用于投票时候判断有效票数是否达到指定比例
 	private BigDecimal amountPaid;//支付金额
 	private Date availableDate;//可使用截止日期
 	private UserInfoBean operator;//操作者/合作者

@@ -11,8 +11,9 @@ import java.util.Date;
 public class ReviewContentBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private long id;
-	private VoteBean vote;
-	private NoticeBean notice;
+	private int reviewType=0;//0-公告信息评论,1-投票内容评论
+	private VoteBean vote;//投票信息
+	private NoticeBean notice;//公告信息
 	private String reviewContent;//评论留言内容
 	private Date reviewTime;//评论时间
 	private UserInfoBean userInfo;//评论用户
@@ -52,5 +53,10 @@ public class ReviewContentBean implements Serializable{
 	public void setUserInfo(UserInfoBean userInfo) {
 		this.userInfo = userInfo;
 	}
-	
+	public int getReviewType() {
+		return reviewType;
+	}
+	public void setReviewType(int reviewType) {
+		this.reviewType = reviewType;
+	}
 }
