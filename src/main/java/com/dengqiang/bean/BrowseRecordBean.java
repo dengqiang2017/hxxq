@@ -3,7 +3,7 @@ package com.dengqiang.bean;
 import java.io.Serializable;
 import java.util.Date;
 /**
- * 记录对象
+ * 浏览记录对象
  * @author 邓强
  */
 public class BrowseRecordBean implements Serializable{

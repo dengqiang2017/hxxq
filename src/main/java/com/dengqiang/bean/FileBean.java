@@ -2,7 +2,7 @@ package com.dengqiang.bean;
 
 import java.io.Serializable;
 /**
- * 附件对象
+ * 图片附件对象,记录图片类型
  * @author 邓强
  *
  */
