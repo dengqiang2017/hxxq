@@ -16,7 +16,7 @@
 	</typeAliases>
 
 	<mappers>
-	    <mapper resource="com/dengqiang/dao/xml/mysqlDao.xml"></mapper>
+	    <mapper resource="/com/dengqiang/dao/xml/operatorsDao.xml"></mapper>
 	</mappers>
 
 </configuration>
