@@ -1,6 +1,7 @@
 package com.dengqiang.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 /**
  * 投票历史
  * @author 邓强
@@ -13,8 +14,8 @@ public class VoteHistoryBean implements Serializable{
 	private boolean voteResult;//投票状态
 	private String comment;//留言内容
 	private int commentState=0;//留言状态0-审核中,1-审核通过,2-不通过
-	private String voters;//投票人
-	private String voteTime;//投票时间
+	private UserInfoBean voters;//投票人
+	private Date voteTime;//投票时间
 	public long getId() {
 		return id;
 	}
@@ -45,20 +46,20 @@ public class VoteHistoryBean implements Serializable{
 	public void setCommentState(int commentState) {
 		this.commentState = commentState;
 	}
-	public String getVoters() {
+	public UserInfoBean getVoters() {
 		return voters;
 	}
-	public void setVoters(String voters) {
+	public void setVoters(UserInfoBean voters) {
 		this.voters = voters;
 	}
-	public String getVoteTime() {
+	public Date getVoteTime() {
 		return voteTime;
 	}
-	public void setVoteTime(String voteTime) {
+	public void setVoteTime(Date voteTime) {
 		this.voteTime = voteTime;
 	}
-	
-	
-	
+	public void setVote(VoteBean vote) {
+		this.vote = vote;
+	}
 	
 }

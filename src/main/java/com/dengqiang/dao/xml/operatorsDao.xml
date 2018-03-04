@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- xml文件 -->
+<mapper namespace="com.qianying.dao.interfaces.IOperatorsDAO">
+	<cache/>
+	<select id="getAll" resultType="hashMap">
+	</select>
+	<insert id="initData" parameterType="String">
+	</insert>
+ 	<insert id="initTable" parameterType="String">
+<!--  	图片附件对象,记录图片类型 -->
+ 	CREATE TABLE if not exists `t_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(100) NOT NULL COMMENT '文件名',
+  `file_content` varchar(255) DEFAULT NULL COMMENT '文件内容',
+  `file_type` varchar(30) DEFAULT NULL COMMENT '文件类型',
+  `file_path` varchar(50) DEFAULT NULL COMMENT '文件路径',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;  
+<!-- 投票对象 -->
+ 	CREATE TABLE if not exists `t_vote` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_info_id` int(11) NOT NULL COMMENT '发起人',
+  `housing_estate_id` int(11) NOT NULL COMMENT '所属小区',
+  `voteTitle` varchar(100) NOT NULL COMMENT '投票标题',
+  `beginTime` date NOT NULL COMMENT '投票开始时间',
+  `endTime` date NOT NULL COMMENT '投票截止时间',
+  `creationTime` date NOT NULL COMMENT '创建时间',
+  `comment` int(1) NOT NULL COMMENT '是否允许评论留言',
+  `showName` int(1) NOT NULL COMMENT '实名发起',
+  `voteDesc` varchar(100) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;  
+<!-- 用户基本信息 -->
+ 	CREATE TABLE if not exists `t_user_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userName` varchar(30) NOT NULL COMMENT '用户名称/登录名称',
+  `password` varchar(32) DEFAULT NULL COMMENT '',
+  `weixinName` varchar(30) DEFAULT NULL COMMENT '微信昵称',
+  `weixin` varchar(30) DEFAULT NULL COMMENT '微信号',
+  `openid` varchar(30) DEFAULT NULL COMMENT '微信openid',
+  `identityCard` varchar(20) DEFAULT NULL COMMENT '身份证号',
+  `telNo` varchar(11) DEFAULT NULL COMMENT '电话号码',
+  `userType` int(1) NOT NULL DEFAULT '0' COMMENT '0-普通用户业主业委会成员,1-运营商合作者,2-管理员',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;  
+<!-- 用户小区相关信息 -->
+ 	CREATE TABLE if not exists `t_user_info_housing` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_info_id` int(11) NOT NULL COMMENT '用户信息',
+  `housing_estate_id` int(11) DEFAULT NULL, COMMENT '小区信息'
+  `userJob` varchar(30) DEFAULT NULL COMMENT '职位',
+  `address` varchar(100) DEFAULT NULL COMMENT '小区具体位置',
+  `userType` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<!--  用户信息和文件列表中间表 -->
+ 	CREATE TABLE if not exists `t_user_info_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_info_id` int(11) NOT NULL COMMENT '',
+  `file_id` int(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<!-- 公告文章 -->
+ 	CREATE TABLE if not exists `t_notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_info_id` int(11) NOT NULL COMMENT '发布人',
+  `noticeTitle` varchar(30) DEFAULT NULL COMMENT '标题',
+  `noticeDesc` varchar(100) DEFAULT NULL COMMENT '描述',
+  `comment` int(1) NOT NULL DEFAULT '0' COMMENT '是否允许评论留言',
+  `showName` int(1) NOT NULL DEFAULT '0' COMMENT '实名发布',
+  `creationTime` datetime NOT NULL COMMENT '创建时间',
+  `showTime` datetime NOT NULL COMMENT '显示时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<!-- 公告信息和附件列表中间表 -->
+CREATE TABLE if not exists `t_notice_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `notice_id` int(11) NOT NULL COMMENT '',
+  `file_id` int(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<!-- 评论内容 -->
+CREATE TABLE if not exists `t_review_content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `notice_id` int(11) NOT NULL COMMENT '投票信息',
+  `user_info_id` int(11) NOT NULL COMMENT '评论用户信息',
+  `reviewType` int(1) NOT NULL DEFAULT '0' COMMENT '0-公告信息评论,1-投票内容评论',
+  `reviewTime` date DEFAULT NULL COMMENT '评论时间',
+  `reviewContent` varchar(255) DEFAULT NULL COMMENT '评论留言内容',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<!-- 投票对象 -->
+CREATE TABLE if not exists `t_housing_estate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_info_id` int(11) NOT NULL COMMENT '操作者',
+  `housingName` varchar(30) DEFAULT NULL COMMENT '小区名称',
+  `address` varchar(30) DEFAULT NULL COMMENT '地址',
+  `household` int(11) DEFAULT NULL COMMENT '户数',
+  `amountPaid` decimal(11,2) DEFAULT NULL COMMENT '支付金额',
+  `availableDate` datetime NOT NULL COMMENT '截止日期',
+  `auditor_id` int(11) NOT NULL COMMENT '审核人',
+  `auditStatus` int(1) DEFAULT '0' COMMENT '审核状态,0-未审核,1-已审核,2-已失效',
+  `auditDate` datetime DEFAULT NULL COMMENT '审核时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<!-- 投票历史 -->
+CREATE TABLE if not exists `t_vote_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_info_id` int(11) NOT NULL COMMENT '投票人',
+  `vote_id` int(11) NOT NULL COMMENT '投票id',
+  `voteResult` int(1) NOT NULL COMMENT '投票状态',
+  `comment` varchar(255) DEFAULT NULL COMMENT '留言内容',
+  `commentState` int(1) DEFAULT NULL COMMENT '留言状态0-审核中,1-审核通过,2-不通过',
+  `voteTime` datetime NOT NULL COMMENT '投票时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ 	</insert>
+	<insert id="alterField">
+ 	</insert>
+ 	<select id="sqlExec" parameterMap="hashMap" resultType="hashMap">
+ 	${sql}
+ 	</select>
+</mapper>

@@ -11,12 +11,12 @@ import java.util.Date;
 public class HousingEstateBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private long id;
-	private String name;//小区名称
+	private UserInfoBean operator;//操作者/合作者
+	private String housingName;//小区名称
 	private String address;//地址
 	private int household;//户数,用于投票时候判断有效票数是否达到指定比例
 	private BigDecimal amountPaid;//支付金额
 	private Date availableDate;//可使用截止日期
-	private UserInfoBean operator;//操作者/合作者
 	private int auditStatus=0;//审核状态,0-未审核,1-已审核,2-已失效
 	private UserInfoBean auditor;//审核人
 	private Date auditDate;//审核时间
@@ -26,11 +26,11 @@ public class HousingEstateBean implements Serializable{
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getHousingName() {
+		return housingName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setHousingName(String housingName) {
+		this.housingName = housingName;
 	}
 	public String getAddress() {
 		return address;

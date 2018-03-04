@@ -14,7 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 public abstract class AESEncryptor {
 	private static final String VIPARA = "0102030409960708";
 	private static final String CODE = "UTF-8";
-	private static String codeKey = "qianyino2o201712";
+	private static String codeKey = "dengqhxxq2018034";
 	/**
 	 * 对明文进行加密
 	 * @param cleartext 需要加密的明文
@@ -59,6 +59,6 @@ public abstract class AESEncryptor {
 		System.out.println(AESEncryptor.encrypt("admin81919048"));
 		System.out.println("mysql");
 		System.out.println(AESEncryptor.encrypt("root"));
-		System.out.println(AESEncryptor.encrypt("root"));
+		System.out.println(AESEncryptor.encrypt("dqhxxq"));
 	}
 } 
