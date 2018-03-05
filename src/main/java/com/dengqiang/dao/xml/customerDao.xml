@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- xml文件 -->
+<mapper namespace="com.dengqiang.dao.interfaces.ICustomerDao">
+<!-- 	<cache/>  -->
+<insert id="save" parameterType="hashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select LAST_INSERT_ID() as id
+        </selectKey>
+</insert>
+<select id="getCustomerInfoByOpenid" parameterType="hashMap" resultType="hashMap">
+
+</select>
+<update id="updateLoginTime" parameterType="hashMap">
+
+</update>
+
+</mapper>

@@ -13,6 +13,7 @@ public class HousingEstateBean implements Serializable{
 	private long id;
 	private UserInfoBean operator;//操作者/合作者
 	private String housingName;//小区名称
+	private String com_id;//小区编码
 	private String address;//地址
 	private int household;//户数,用于投票时候判断有效票数是否达到指定比例
 	private BigDecimal amountPaid;//支付金额
@@ -79,6 +80,12 @@ public class HousingEstateBean implements Serializable{
 	}
 	public void setAuditDate(Date auditDate) {
 		this.auditDate = auditDate;
+	}
+	public String getCom_id() {
+		return com_id;
+	}
+	public void setCom_id(String com_id) {
+		this.com_id = com_id;
 	}
 	
 }

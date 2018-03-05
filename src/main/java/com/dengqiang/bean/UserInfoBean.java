@@ -9,12 +9,13 @@ import java.util.List;
 public class UserInfoBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private long id;
-	private String userName;//用户名称/登录名称
+	private String userName;//用户名称/登录名称,身份证上名字,普通业主为空
 	private String password;
 	private String weixinName;//微信昵称
 	private String weixin;//微信号
 	private String openid;//微信openid
 	private String identityCard;//身份证号用于发消息和发起投票时实名认证
+	private String sex;//性别
 	private Long telNo;//电话号码/登录名称
 	private int userType=0;//0-普通用户业主业委会成员,1-运营商合作者,2-管理员
 	private List<UserInfoHousingBean> userInfoHousings;//用户小区相关信息
@@ -86,5 +87,10 @@ public class UserInfoBean implements Serializable{
 	public void setFileList(List<FileBean> fileList) {
 		this.fileList = fileList;
 	}
-	
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 }

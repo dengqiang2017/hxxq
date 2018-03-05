@@ -1,6 +1,7 @@
 package com.dengqiang.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 /**
  * 用户小区相关信息
  * @author 邓强
@@ -13,6 +14,10 @@ public class UserInfoHousingBean implements Serializable{
 	private int userType=0;//类型,0-普通业主,1-业委会成员
 	private String userJob;//职位
 	private String address;//小区具体位置
+	//非普通业主,需要审核
+	private int auditStatus=0;//审核状态,0-未审核,1-已审核,2-已失效
+	private UserInfoBean auditor;//审核人
+	private Date auditDate;//审核时间
 	public long getId() {
 		return id;
 	}
@@ -49,5 +54,22 @@ public class UserInfoHousingBean implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+	public int getAuditStatus() {
+		return auditStatus;
+	}
+	public void setAuditStatus(int auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+	public UserInfoBean getAuditor() {
+		return auditor;
+	}
+	public void setAuditor(UserInfoBean auditor) {
+		this.auditor = auditor;
+	}
+	public Date getAuditDate() {
+		return auditDate;
+	}
+	public void setAuditDate(Date auditDate) {
+		this.auditDate = auditDate;
+	}
 }

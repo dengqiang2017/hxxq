@@ -44,7 +44,7 @@ public class OperatorsServiceImpl implements
 	@Transactional
 	public void initTable(String dataname)throws Exception {
 			operatorsDao.initTable(dataname);
-			operatorsDao.alterField();
+//			operatorsDao.alterField();
 	}
 	
 	@Override

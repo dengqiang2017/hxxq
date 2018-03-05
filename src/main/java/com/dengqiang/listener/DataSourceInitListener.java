@@ -1,8 +1,5 @@
 package com.dengqiang.listener;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -28,7 +25,6 @@ public class DataSourceInitListener implements ApplicationListener<ContextRefres
         if(fisInit){
         	fisInit=false;
 			 log.error("初始化数据库结构......");
-			 List<Map<String,Object>> list= operatorsService.getAll(); 
 			 try {
 				operatorsService.initTable("");
 			} catch (Exception e) {

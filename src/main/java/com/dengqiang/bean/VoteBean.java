@@ -12,7 +12,7 @@ public class VoteBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private long id;
-	private HousingEstateBean com_id;//所属小区代码
+	private HousingEstateBean housingEstate;//所属小区
 	private String voteTitle;//投票标题
 	private Date beginTime;//投票开始时间
 	private Date endTime;//投票截止时间
@@ -23,17 +23,21 @@ public class VoteBean implements Serializable{
 	private Date creationTime;//创建时间
 	private List<FileBean> fileList;//附件名称列表
 	private List<ReviewContentBean> reviewContents;//评论内容
+	//通过审核后才能显示
+	private int auditStatus=0;//审核状态,0-未审核,1-已审核,2-已失效
+	private UserInfoBean auditor;//审核人
+	private Date auditDate;//审核时间
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
-	public HousingEstateBean getCom_id() {
-		return com_id;
+	public HousingEstateBean getHousingEstate() {
+		return housingEstate;
 	}
-	public void setCom_id(HousingEstateBean com_id) {
-		this.com_id = com_id;
+	public void setHousingEstate(HousingEstateBean housingEstate) {
+		this.housingEstate = housingEstate;
 	}
 	public String getVoteTitle() {
 		return voteTitle;
@@ -95,5 +99,22 @@ public class VoteBean implements Serializable{
 	public void setReviewContents(List<ReviewContentBean> reviewContents) {
 		this.reviewContents = reviewContents;
 	}
-	
+	public int getAuditStatus() {
+		return auditStatus;
+	}
+	public void setAuditStatus(int auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+	public UserInfoBean getAuditor() {
+		return auditor;
+	}
+	public void setAuditor(UserInfoBean auditor) {
+		this.auditor = auditor;
+	}
+	public Date getAuditDate() {
+		return auditDate;
+	}
+	public void setAuditDate(Date auditDate) {
+		this.auditDate = auditDate;
+	}
 }

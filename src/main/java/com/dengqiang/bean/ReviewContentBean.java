@@ -17,6 +17,10 @@ public class ReviewContentBean implements Serializable{
 	private String reviewContent;//评论留言内容
 	private Date reviewTime;//评论时间
 	private UserInfoBean userInfo;//评论用户
+	//通过审核后才能显示
+	private int auditStatus=0;//审核状态,0-未审核,1-已审核,2-已失效
+	private UserInfoBean auditor;//审核人
+	private Date auditDate;//审核时间
 	public long getId() {
 		return id;
 	}
@@ -58,5 +62,23 @@ public class ReviewContentBean implements Serializable{
 	}
 	public void setReviewType(int reviewType) {
 		this.reviewType = reviewType;
+	}
+	public int getAuditStatus() {
+		return auditStatus;
+	}
+	public void setAuditStatus(int auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+	public UserInfoBean getAuditor() {
+		return auditor;
+	}
+	public void setAuditor(UserInfoBean auditor) {
+		this.auditor = auditor;
+	}
+	public Date getAuditDate() {
+		return auditDate;
+	}
+	public void setAuditDate(Date auditDate) {
+		this.auditDate = auditDate;
 	}
 }

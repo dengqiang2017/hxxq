@@ -18,8 +18,13 @@ public class NoticeBean implements Serializable{
 	private UserInfoBean founder;//发布人
 	private Date creationTime;//创建时间
 	private Date showTime;//显示时间,提前编辑,定时发布
+	private HousingEstateBean housingEstate;//所属小区
 	private List<FileBean> fileList;//附件名称列表
 	private List<ReviewContentBean> reviewContents;//评论内容
+	//通过审核后才能显示
+	private int auditStatus=0;//审核状态,0-未审核,1-已审核,2-已失效
+	private UserInfoBean auditor;//审核人
+	private Date auditDate;//审核时间
 	public long getId() {
 		return id;
 	}
@@ -80,5 +85,28 @@ public class NoticeBean implements Serializable{
 	public void setReviewContents(List<ReviewContentBean> reviewContents) {
 		this.reviewContents = reviewContents;
 	}
-	
+	public HousingEstateBean getHousingEstate() {
+		return housingEstate;
+	}
+	public void setHousingEstate(HousingEstateBean housingEstate) {
+		this.housingEstate = housingEstate;
+	}
+	public int getAuditStatus() {
+		return auditStatus;
+	}
+	public void setAuditStatus(int auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+	public UserInfoBean getAuditor() {
+		return auditor;
+	}
+	public void setAuditor(UserInfoBean auditor) {
+		this.auditor = auditor;
+	}
+	public Date getAuditDate() {
+		return auditDate;
+	}
+	public void setAuditDate(Date auditDate) {
+		this.auditDate = auditDate;
+	}
 }

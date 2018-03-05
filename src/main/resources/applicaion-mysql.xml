@@ -10,13 +10,9 @@
 	<!-- 	二级缓存开启 -->
     <settings>  
         <setting name="cacheEnabled" value="false"/>   
-    </settings>  
-	<typeAliases>
-<!-- 		<typeAlias type="com.qianying.bean.BusinessUserBean" alias="businessUserBean"/> -->
-	</typeAliases>
-
+    </settings>
 	<mappers>
-	    <mapper resource="/com/dengqiang/dao/xml/operatorsDao.xml"></mapper>
+	    <mapper resource="com/dengqiang/dao/xml/operatorsDao.xml"></mapper>
 	</mappers>
 
 </configuration>

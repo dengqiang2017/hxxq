@@ -228,7 +228,12 @@
 	    <artifactId>jtds</artifactId>
 	    <version>1.2.8</version>
 	</dependency>
-	
+	        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.31</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
@@ -239,7 +244,18 @@
             <artifactId>commons-dbcp</artifactId>
             <version>1.4</version>
         </dependency> 
-        
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>4.5.5</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/com.drewnoakes/metadata-extractor -->
+<dependency>
+    <groupId>com.drewnoakes</groupId>
+    <artifactId>metadata-extractor</artifactId>
+    <version>2.11.0</version>
+</dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.axis2/axis2-adb -->
 <dependency>
     <groupId>org.apache.axis2</groupId>
