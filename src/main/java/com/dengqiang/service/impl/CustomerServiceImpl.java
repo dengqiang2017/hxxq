@@ -18,12 +18,10 @@ public class CustomerServiceImpl implements ICustomerService {
 	private ICustomerDao customerDao;
 	
 	@Override
-	public Map<String, Object> getCustomerInfoByOpenid(String com_id,
-			String id, String type) {
+	public Map<String, Object> getCustomerInfoByOpenid(String openid, String type) {
 		// TODO Auto-generated method stub
 		Map<String, Object> map=new HashMap<>();
-		map.put("com_id", com_id);
-		map.put("id", id);
+		map.put("openid", openid);
 		map.put("type", type);
 		return customerDao.getCustomerInfoByOpenid(map);
 	}

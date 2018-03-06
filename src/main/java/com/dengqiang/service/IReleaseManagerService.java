@@ -6,15 +6,25 @@ public interface IReleaseManagerService {
 	/**
 	 * 保存公告信息
 	 * @param map
-	 * @return
+	 * @return 公告id
 	 * @throws Exception
 	 */
-	String saveNoticeInfo(Map<String, Object> map) throws Exception;
+	Integer saveNoticeInfo(Map<String, Object> map) throws Exception;
 	/**
 	 * 保存投票信息
 	 * @param map
+	 * @return 投票id
+	 * @throws Exception
+	 */
+	Integer saveVoteInfo(Map<String, Object> map) throws Exception;
+	/**
+	 * 审核发布的内容
+	 * @param map
+	 * @param id 数据ID
+	 * @param auditStatus 审核状态
+	 * @param type 审核数据类型 vote,notice,review
 	 * @return
 	 */
-	String saveVoteInfo(Map<String, Object> map);
+	String saveAuditorInfo(Map<String, Object> map) throws Exception;
 
 }

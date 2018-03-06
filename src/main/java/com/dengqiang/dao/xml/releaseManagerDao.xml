@@ -15,7 +15,8 @@
 	        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             select LAST_INSERT_ID() as id
         </selectKey>
-        
 	</insert>
-
+	<update id="saveAuditorInfo" parameterType="hashMap">
+	
+	</update>
 </mapper>

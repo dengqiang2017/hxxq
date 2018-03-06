@@ -16,7 +16,7 @@ public class UserInfoBean implements Serializable{
 	private String openid;//微信openid
 	private String identityCard;//身份证号用于发消息和发起投票时实名认证
 	private String sex;//性别
-	private Long telNo;//电话号码/登录名称
+	private String mobile;//电话号码/登录名称 
 	private int userType=0;//0-普通用户业主业委会成员,1-运营商合作者,2-管理员
 	private List<UserInfoHousingBean> userInfoHousings;//用户小区相关信息
 	private List<FileBean> fileList;//身份证图片等文件地址
@@ -63,11 +63,11 @@ public class UserInfoBean implements Serializable{
 			List<UserInfoHousingBean> userInfoHousings) {
 		this.userInfoHousings = userInfoHousings;
 	}
-	public Long getTelNo() {
-		return telNo;
+	public String getMobile() {
+		return mobile;
 	}
-	public void setTelNo(Long telNo) {
-		this.telNo = telNo;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 	public int getUserType() {
 		return userType;
