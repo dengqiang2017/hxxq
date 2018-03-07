@@ -14,20 +14,19 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-
-import com.dengqiang.util.LoggerUtils;
 
 /**
  * XMLParse class
  *
  * 提供提取消息格式中的密文及生成回复消息格式的接口.
  */
-class XMLParse {
-
+public class XMLParse {
+	private static Logger log = Logger.getLogger(XMLParse.class);
 	/**
 	 * 提取出xml数据包中的加密消息
 	 * @param xmltext 待提取的xml字符串
@@ -42,7 +41,7 @@ class XMLParse {
 		boolean b=xmltext.contains("<Encrypt>");
 		boolean e=xmltext.contains("</Encrypt>");
 		if(b&&!e){
-			LoggerUtils.error("解析错误:"+xmltext);
+			log.error("解析错误:"+xmltext);
 		}
 		StringReader sr = new StringReader(xmltext);
 		InputSource is = new InputSource(sr);

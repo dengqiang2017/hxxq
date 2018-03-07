@@ -26,7 +26,7 @@ public class WeiXinServiceUtil extends WeixinUtil {
 		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
 				+ getWeixinParam(com_id,"appid_service") + "&secret=" +getWeixinParam(com_id,"secret_service");
 		String result = getData(url);
-		LoggerUtils.info(result);
+		log.info(result);
 		if (StringUtils.isNotBlank(result)) {
 			JSONObject json = JSONObject.fromObject(result);
 				if (json.has("access_token")) {
@@ -34,7 +34,7 @@ public class WeiXinServiceUtil extends WeixinUtil {
 					saveFile(getWeixinParamFile(com_id,"access_token_service"), result);
 					access_token = result;
 				}else{
-					LoggerUtils.info(json);
+					log.info(json);
 				}
 		} else {
 			result = "连接微信访问出错!";
@@ -162,7 +162,7 @@ appsecret 0c102005dc45eed4c3ec5e173a553e3d
 		json.put("industry_id1", "1");
 		json.put("industry_id2", "15");
 		String msg=postData(url, json);
-		LoggerUtils.info(msg);
+		log.info(msg);
 	}
 	/**
 	 * 获取服务号消息模板列表
@@ -178,18 +178,8 @@ appsecret 0c102005dc45eed4c3ec5e173a553e3d
 				return json.getJSONArray("template_list");
 			}
 		}
-		LoggerUtils.info(msg);
+		log.info(msg);
 		return null;
-//		{	
-//			 "template_list": [{
-//			      "template_id": "iPk5sOIt5X_flOVKn5GrTFpncEYTojx6ddbt8WYoV5s",
-//			      "title": "领取奖金提醒",
-//			      "primary_industry": "IT科技",
-//			      "deputy_industry": "互联网|电子商务",
-//			      "content": "{ {result.DATA} }\n\n领奖金额:{ {withdrawMoney.DATA} }\n领奖  时间:{ {withdrawTime.DATA} }\n银行信息:{ {cardInfo.DATA} }\n到账时间:  { {arrivedTime.DATA} }\n{ {remark.DATA} }",
-//			      "example": "您已提交领奖申请\n\n领奖金额：xxxx元\n领奖时间：2013-10-10 12:22:22\n银行信息：xx银行(尾号xxxx)\n到账时间：预计xxxxxxx\n\n预计将于xxxx到达您的银行卡"
-//			   }]
-//			}
 	}
 	/**
 	 * 发送服务号模板消息

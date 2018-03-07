@@ -57,31 +57,23 @@ public class UploadController extends BaseController{
 	 @RequestMapping(value = "/uploadImage", method = RequestMethod.POST,  headers = "content-type=multipart/*")
 	 public void uploadImg(MultipartHttpServletRequest msReq,HttpServletRequest request, HttpServletResponse response) throws IOException {
 		 MultipartFile file = msReq.getFile(request.getParameter("fileName"));
-		 String type=request.getParameter("type");
-		 String imgName=request.getParameter("imgName");
-		 
-		 ///////
-		 String ext="."+FilenameUtils.getExtension(file.getOriginalFilename());
-		 String filename=new Date().getTime()+ext;
-		 if (StringUtils.isNotBlank(imgName)) {
-			filename=imgName+ext;
+		 String type=request.getParameter("type");//notice,vote
+		 Long id=getUserInfoId(request);
+		 String url="temp/"+id+"/"+type+"/"+file.getOriginalFilename();
+		 File destFile=new File(getRealPath(request)+url);	
+		 log.info(destFile.getPath());
+		 if (destFile.exists()&&destFile.isFile()) {
+			destFile.delete();
 		}
-		 if (StringUtils.isNotBlank(request.getParameter("fileNameNo"))) {//不改变文件名
-			 filename=file.getOriginalFilename();
-		}
-		 File filepath=new File(getRealPath(request)+"temp/"+getComId()+"/"+type+filename);	
-		 if (filepath.exists()&&filepath.isFile()) {
-			filepath.delete();
-		}
-		 mkdirsDirectory(filepath);
+		 mkdirsDirectory(destFile);
  		try {
- 			file.transferTo(filepath);
+ 			file.transferTo(destFile);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		 writeJson(response,"/temp/"+getComId()+"/"+type+filename);
+		 writeJson(response,url);
 	}
 	 /**
 	  * 直接上传图片到指定文件夹,单个文件标准上传
@@ -198,6 +190,7 @@ public class UploadController extends BaseController{
 			}else{
 				File srcFile=new File(getRealPath(request)+imgUrl);
 				if (srcFile.exists()&&srcFile.isFile()) {//存在并且是文件
+					log.info(srcFile.getPath());
 					srcFile.delete();
 				}
 			}

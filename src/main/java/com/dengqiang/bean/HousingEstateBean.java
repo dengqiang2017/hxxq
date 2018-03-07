@@ -21,6 +21,10 @@ public class HousingEstateBean implements Serializable{
 	private int auditStatus=0;//审核状态,0-未审核,1-已审核,2-已失效
 	private UserInfoBean auditor;//审核人
 	private Date auditDate;//审核时间
+	public HousingEstateBean() {}
+	public HousingEstateBean(int id) {
+		this.id=id;
+	}
 	public long getId() {
 		return id;
 	}

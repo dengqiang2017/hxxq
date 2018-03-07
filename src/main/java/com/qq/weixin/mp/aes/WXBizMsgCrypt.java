@@ -22,9 +22,9 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.log4j.Logger;
 
 import com.dengqiang.util.DateTimeUtils;
-import com.dengqiang.util.LoggerUtils;
 
 /**
  * 提供接收和推送给公众平台消息的加解密接口(UTF8编码的字符串).
@@ -42,6 +42,7 @@ import com.dengqiang.util.LoggerUtils;
  * </ol>
  */
 public class WXBizMsgCrypt {
+	private Logger log = Logger.getLogger(WXBizMsgCrypt.class);
 	static Charset CHARSET = Charset.forName("utf-8");
 	Base64 base64 = new Base64();
 	byte[] aesKey;
@@ -268,13 +269,13 @@ public class WXBizMsgCrypt {
 
 		// 密钥，公众账号的app secret
 		// 提取密文
-		LoggerUtils.info(postData);
+		log.info(postData);
 		Object[] encrypt=null;
 		try {
 			encrypt = XMLParse.extract(postData);
 		} catch (Exception e) {
-			LoggerUtils.error("参数:"+msgSignature+"|"+timeStamp+"|"+nonce);
-			LoggerUtils.error("时间:"+DateTimeUtils.dateTimeToStr());
+			log.error("参数:"+msgSignature+"|"+timeStamp+"|"+nonce);
+			log.error("时间:"+DateTimeUtils.dateTimeToStr());
 			return "";
 		}
 		// 验证安全签名

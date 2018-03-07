@@ -4,11 +4,10 @@ import java.util.Map;
 
 public interface ICustomerService {
 
-	Map<String, Object> getCustomerInfoByOpenid(String com_id, String id,
-			String type);
+	Map<String, Object> getCustomerInfoByOpenid(String com_id, String id)throws Exception;
 
-	String updateLoginTime(Map<String, Object> map);
+	String updateLoginTime(Map<String, Object> map)throws Exception;
 
-	String save(Map<String, Object> map);
+	String save(Map<String, Object> map)throws Exception;
 
 }

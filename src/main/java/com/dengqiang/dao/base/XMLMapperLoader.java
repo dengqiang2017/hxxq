@@ -27,8 +27,6 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.dengqiang.util.LoggerUtils;
- 
 /**
  * @version 2014年07月21日 11:00:00
  * @author dengqiang
@@ -71,9 +69,9 @@ public class XMLMapperLoader implements DisposableBean, InitializingBean, Applic
         public void run() {
             try {
                 if (scanner.isChanged()) {
-                    LoggerUtils.info("*Mapper.xml文件改变,重新加载.");
+                    log.info("*Mapper.xml文件改变,重新加载.");
                     scanner.reloadXML();
-                    LoggerUtils.info("加载完毕.");
+                    log.info("加载完毕.");
                 }
             } catch (Exception e) {
             	e.printStackTrace();

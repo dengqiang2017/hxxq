@@ -3,11 +3,12 @@ package com.dengqiang.service.impl;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dengqiang.dao.interfaces.IReleaseManagerDao;
 import com.dengqiang.service.IReleaseManagerService;
-
+@Service
 public class ReleaseManagerServiceImpl implements IReleaseManagerService {
 
 	@Autowired
@@ -15,16 +16,26 @@ public class ReleaseManagerServiceImpl implements IReleaseManagerService {
 	
 	@Override
 	@Transactional
-	public String saveNoticeInfo(Map<String, Object> map) throws Exception {
+	public Integer saveNoticeInfo(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
 		return releaseManagerDao.saveNoticeInfo(map);
 	}
 
 	@Override
 	@Transactional
-	public String saveVoteInfo(Map<String, Object> map) {
+	public Integer saveVoteInfo(Map<String, Object> map)  throws Exception{
 		// TODO Auto-generated method stub
 		return releaseManagerDao.saveVoteInfo(map);
 	}
 
+	@Override
+	@Transactional
+	public String saveAuditorInfo(Map<String, Object> map)  throws Exception{
+		// TODO Auto-generated method stub
+		Integer i=releaseManagerDao.saveAuditorInfo(map);
+		if (i!=null&&i>0) {
+			return "success";
+		}
+		return "fail";
+	}
 }

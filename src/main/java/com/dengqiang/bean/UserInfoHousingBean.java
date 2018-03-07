@@ -14,6 +14,7 @@ public class UserInfoHousingBean implements Serializable{
 	private int userType=0;//类型,0-普通业主,1-业委会成员
 	private String userJob;//职位
 	private String address;//小区具体位置
+	private boolean defaultHousing;//设为默认小区
 	//非普通业主,需要审核
 	private int auditStatus=0;//审核状态,0-未审核,1-已审核,2-已失效
 	private UserInfoBean auditor;//审核人
@@ -72,4 +73,11 @@ public class UserInfoHousingBean implements Serializable{
 	public void setAuditDate(Date auditDate) {
 		this.auditDate = auditDate;
 	}
+	public boolean isDefaultHousing() {
+		return defaultHousing;
+	}
+	public void setDefaultHousing(boolean defaultHousing) {
+		this.defaultHousing = defaultHousing;
+	}
+	
 }

@@ -52,3 +52,4 @@ footer a {
       width: 100%;
     margin-left: 0;
 }
+.weui-uploader__file>span{display: none;}

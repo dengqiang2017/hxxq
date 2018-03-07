@@ -1,7 +1,5 @@
 package com.dengqiang.integerceptor;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dengqiang.bean.HousingEstateBean;
+import com.dengqiang.bean.UserInfoBean;
 import com.dengqiang.controller.BaseController;
 /**
  * 请求拦截器
@@ -33,7 +33,6 @@ public class Integerceptor extends BaseController implements HandlerInterceptor 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 	}
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object obj) throws Exception {
@@ -41,10 +40,15 @@ public class Integerceptor extends BaseController implements HandlerInterceptor 
 		response.setCharacterEncoding("UTF-8");
 		log.info("preHandle===>>>" + request.getRequestURI());
 		getVer(request);
-		Map<String, Object> userMap=(Map<String, Object>) request.getSession().getAttribute(SESSION_USER_INFO);
+		UserInfoBean userInfo=(UserInfoBean) request.getSession().getAttribute(SESSION_USER_INFO);
 		boolean login=true;
-		if (userMap==null) {
+		if (userInfo==null) {
 			login=false;
+		}
+		if (isLocal()) {
+			request.getSession().setAttribute(SESSION_USER_INFO,new UserInfoBean(0));
+			request.getSession().setAttribute(HOUSING_ESTATE_INFO,new HousingEstateBean(0));
+			login=true;
 		}
     	return login;
 	}

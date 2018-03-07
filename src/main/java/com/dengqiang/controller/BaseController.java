@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
@@ -26,6 +27,7 @@ import javax.swing.ImageIcon;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -41,6 +43,7 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
  * @author dengqiang 2017-12-18 14:00:00
  */
 public abstract class BaseController {
+	public static Logger log = Logger.getLogger(BaseController.class);
 	public static final String SESSION_USER_INFO="SESSION_USER_INFO";//用户信息
 	public static final String OPERATORS_NAME = "OPERATORS_NAME";//运营商信息
 	public static final String HOUSING_ESTATE_INFO = "HOUSING_ESTATE_INFO";//小区信息
@@ -421,4 +424,32 @@ public abstract class BaseController {
 		}
 		return "";
 	}
+	/**
+	 * 获取当前系统是否是本地测试环境
+	 * @return true-是测试环境,false-不是测试环境
+	 */
+	public boolean isLocal() {
+		try {
+			InetAddress ia=InetAddress.getLocalHost();
+			String localip=ia.getHostAddress();
+			log.debug("本机的ip是 ："+localip);
+		} catch (Exception e) {
+			 log.error(e.getMessage());
+		}
+		return !isServer();
+	}
+	 /**
+     * 判断是不是服务器
+     * @return true-是服务器,false-不是服务器 正式部署一般都是Window server
+     */
+    public boolean isServer(){
+    	boolean b=false;
+    	//当前系统名称
+    	String OS_NAME = System.getProperty("os.name").toLowerCase(Locale.US);
+    	log.info(OS_NAME);
+    	if (StringUtils.isNotBlank(OS_NAME)&&OS_NAME.contains("server")) {
+			b=true;
+		}
+    	return b;
+    }
 }

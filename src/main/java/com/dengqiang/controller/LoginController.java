@@ -20,7 +20,6 @@ import com.dengqiang.bean.ResultInfo;
 import com.dengqiang.service.ICustomerService;
 import com.dengqiang.service.IOperatorsService;
 import com.dengqiang.util.DateTimeUtils;
-import com.dengqiang.util.LoggerUtils;
 import com.dengqiang.util.MD5Util;
 import com.dengqiang.util.WeiXinServiceUtil;
 import com.dengqiang.util.WeixinUtil;
@@ -31,7 +30,6 @@ import com.dengqiang.util.WeixinUtil;
 @Controller
 @RequestMapping("/login")
 public class LoginController extends BaseController {
-	
 	@Autowired
 	private IOperatorsService operatorsService;
 	@Autowired
@@ -102,10 +100,14 @@ public class LoginController extends BaseController {
 			//自动登录客户
 			json.put("login", false);
 			if(json.has("openid")&&"true".equals(autologin)){
-				Map<String,Object> login=customerAutoLogin(request, com_id, json,"服务号");
-				if(login!=null){
-					json.put("login", true);
-					json.put("info",login);
+				try {
+					Map<String,Object> login=customerAutoLogin(request, com_id, json,"服务号");
+					if(login!=null){
+						json.put("login", true);
+						json.put("info",login);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 			return json;
@@ -209,19 +211,20 @@ public class LoginController extends BaseController {
 		 * @param request
 		 * @param com_id
 		 * @param openid
+		 * @param type
 		 * @return 
 		 */
-		private Map<String, Object> customerAutoLogin(HttpServletRequest request,String com_id,JSONObject json,String type) {
-				String id="";
+		private Map<String, Object> customerAutoLogin(HttpServletRequest request,String com_id,JSONObject json,String type)throws Exception {
+				String openid="";
 				if("企业号".equals(type)){
-					id= json.getString("userid");
+					openid= json.getString("userid");
 				}else{
-					id= json.getString("openid");
+					openid= json.getString("openid");
 				}
-				Map<String,Object> map= customerService.getCustomerInfoByOpenid(com_id,id,type);
+				Map<String,Object> map= customerService.getCustomerInfoByOpenid(openid,type);
 				setComId(request, com_id);
 				if(map!=null){
-					map=getOpenidByUserId(type, com_id, id, map);
+					map=getOpenidByUserId(type, com_id, openid, map);
 					request.getSession().setAttribute(
 							SESSION_USER_INFO, map);
 					if("企业号".equals(type)){
@@ -232,15 +235,15 @@ public class LoginController extends BaseController {
 					//注册
 					map=new HashMap<>();
 					map.put("com_id", com_id);
-					map.put("password", "123456");
+					map.put("password", MD5Util.MD5("123456"));
 					if("企业号".equals(type)){
 						WeixinUtil wx=new WeixinUtil();
-						String ret=wx.getEmployeeInfo(id, com_id);
+						String ret=wx.getEmployeeInfo(openid, com_id);
 						if(StringUtils.isNotBlank(ret)){
 							JSONObject info=JSONObject.fromObject(ret);
 							map.put("weixinName", info.get("name"));
 							if (info.has("mobile")) {
-								map.put("telNo", info.get("mobile"));
+								map.put("mobile", info.get("mobile"));
 							}
 							if(info.has("gender")){
 								if ("1".equals(info.get("gender"))) {
@@ -250,10 +253,10 @@ public class LoginController extends BaseController {
 								}
 							}
 						}
-						map.put("weixinID",id);
+						map.put("weixinID",openid);
 					}else{
 						WeiXinServiceUtil ws=new WeiXinServiceUtil();
-						JSONObject info= ws.getUserInfoByOpenid(id, com_id);
+						JSONObject info= ws.getUserInfoByOpenid(openid, com_id);
 						if(info!=null){
 							map.put("weixinName", getJsonVal(info, "nickname"));
 							if(info.has("sex")){
@@ -270,12 +273,12 @@ public class LoginController extends BaseController {
 						}
 					}
 					if(!map.containsKey("openid")||MapUtils.getString(map, "openid").length()<20){
-						LoggerUtils.error("openid异常:"+map.get("openid"));
+						log.error("openid异常:"+map.get("openid"));
 						return null;
 					}else{
 						if (isNotMapKeyNull(map, "corp_name")) {
 							customerService.save(map);
-							map = customerService.getCustomerInfoByOpenid(com_id,id,type);
+							map = customerService.getCustomerInfoByOpenid(openid,type);
 							request.getSession().setAttribute(
 									SESSION_USER_INFO, map);
 						}
