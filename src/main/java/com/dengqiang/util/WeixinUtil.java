@@ -169,7 +169,7 @@ public class WeixinUtil extends BaseController{
 		String url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid="
 				+ getWeixinParam(com_id,"corpid") + "&corpsecret=" +getWeixinParam(com_id,"corpsecret");
 		String result = getData(url);
-		LoggerUtils.info(result);
+		log.info(result);
 		if (StringUtils.isNotBlank(result)) {
 			JSONObject json = JSONObject.fromObject(result);
 			try {
@@ -202,7 +202,7 @@ public class WeixinUtil extends BaseController{
 			return access_token_chat;
 		}
 		String result = getData(url);
-		LoggerUtils.info("getChatAccessToken->"+result);
+		log.info("getChatAccessToken->"+result);
 		if (StringUtils.isNotBlank(result)) {
 			JSONObject json = JSONObject.fromObject(result);
 			try {
@@ -311,7 +311,7 @@ public class WeixinUtil extends BaseController{
 			while ((lines = reader.readLine()) != null) {
 				result.append(lines);
 			}
-			LoggerUtils.info(result);
+			log.info(result);
 			reader.close();
 			// 断开连接
 			connection.disconnect();
@@ -354,7 +354,7 @@ public class WeixinUtil extends BaseController{
 			while ((lines = reader.readLine()) != null) {
 				result.append(lines);
 			}
-			LoggerUtils.info(result);
+			log.info(result);
 			reader.close();
 			// 断开连接
 			connection.disconnect();
@@ -418,7 +418,7 @@ public class WeixinUtil extends BaseController{
 //			while ((lines = reader.readLine()) != null) {
 //				result.append(lines);
 //			}
-//			LoggerUtils.info(result);
+//			log.info(result);
 //			reader.close();
 //			// 断开连接
 //			connection.disconnect();
@@ -474,7 +474,7 @@ public class WeixinUtil extends BaseController{
 			lines = new String(lines.getBytes());
 			result.append(lines);
 		}
-		LoggerUtils.info(result.toString());
+		log.info(result.toString());
 		conn.disconnect();
 		return result.toString();
 	}
@@ -519,7 +519,7 @@ public class WeixinUtil extends BaseController{
 			}
 			readin.close();
 			conn.disconnect();
-			LoggerUtils.info(resultb.toString());
+			log.info(resultb.toString());
 			result = resultb.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -685,7 +685,7 @@ public class WeixinUtil extends BaseController{
 					JSONObject result = JSONObject.fromObject(resultmsg);
 					msg = result.getString("errmsg");
 					if (!"ok".equals(msg)) {
-						LoggerUtils.info(result);
+						log.info(result);
 					}
 					result.put("time", DateTimeUtils.dateTimeToStr());
 					json.put("result", result);
@@ -764,7 +764,7 @@ public class WeixinUtil extends BaseController{
 					JSONObject result = JSONObject.fromObject(resultmsg);
 					msg = result.getString("errmsg");
 					if (!"ok".equals(msg)) {
-						LoggerUtils.info(result);
+						log.info(result);
 					}
 					json.put("result", result);
 				}
@@ -807,7 +807,7 @@ public class WeixinUtil extends BaseController{
 				JSONObject result = JSONObject.fromObject(resultmsg);
 				msg = result.getString("errmsg");
 				if (!"ok".equals(msg)) {
-					LoggerUtils.info(result);
+					log.info(result);
 				}
 				json.put("result", result);
 			}
@@ -881,7 +881,7 @@ public class WeixinUtil extends BaseController{
 				article.put("url", map.get("url")+"?com_id="+com_id);
 			}
 			article.put("sendRen", map.get("sendRen"));
-			LoggerUtils.info(map.get("url"));
+			log.info(map.get("url"));
 			if (map.get("picurl") != null && !"".equals(map.get("picurl"))) {
 				article.put("picurl", map.get("picurl"));
 			}else{
@@ -957,7 +957,7 @@ public class WeixinUtil extends BaseController{
 			try {
 				return result.getString("id");
 			} catch (Exception e) {
-				LoggerUtils.info(resultmsg);
+				log.info(resultmsg);
 			}
 		}
 		return null;
@@ -1180,7 +1180,7 @@ public class WeixinUtil extends BaseController{
 		String url = "https://qyapi.weixin.qq.com/cgi-bin/user/" + type
 				+ "?access_token=" + getAccessToken(com_id);
 		String resultmsg = postData(url, json);
-		LoggerUtils.info(resultmsg);
+		log.info(resultmsg);
 		if (StringUtils.isNotBlank(resultmsg)) {
 			JSONObject result = JSONObject.fromObject(resultmsg);
 			if (result.getString("errmsg").contains("existed")) {
@@ -1199,7 +1199,7 @@ public class WeixinUtil extends BaseController{
 				resultmsg = postData(url, json);
 				if (StringUtils.isNotBlank(resultmsg)) {
 					result = getErrcodeToZh(resultmsg);
-					LoggerUtils.info(result);
+					log.info(result);
 					if ("0".equals(result.getString("errcode"))) {
 						return "";
 					}
@@ -1252,7 +1252,7 @@ public class WeixinUtil extends BaseController{
 					return resultmsg;
 				}
 			} catch (Exception e) {
-				LoggerUtils.error(e.getMessage());
+				log.error(e.getMessage());
 			}
 		}
 		return null;
@@ -1315,7 +1315,7 @@ public class WeixinUtil extends BaseController{
 				+ getAccessToken(com_id);
 		JSONObject json = new JSONObject();
 		json.put("userid", clerk_id);
-		LoggerUtils.info(json);
+		log.info(json);
 		return postData(url, json);
 	}
 
@@ -1356,22 +1356,22 @@ public class WeixinUtil extends BaseController{
 			// ////////////////////
 			// POST请求
 			// ///////////////////////////
-			LoggerUtils.info("executing request" + httpget.getRequestLine());
+			log.info("executing request" + httpget.getRequestLine());
 
 			CloseableHttpResponse response = httpclient.execute(httpget);
 			try {
 				HttpEntity entity = response.getEntity();
 
-				LoggerUtils.info("----------------------------------------");
-				LoggerUtils.info(response.getStatusLine());
+				log.info("----------------------------------------");
+				log.info(response.getStatusLine());
 				if (entity != null) {
-					LoggerUtils.info("Response content length: "
+					log.info("Response content length: "
 							+ entity.getContentLength());
 					BufferedReader bufferedReader = new BufferedReader(
 							new InputStreamReader(entity.getContent()));
 					String text;
 					while ((text = bufferedReader.readLine()) != null) {
-						LoggerUtils.info(text);
+						log.info(text);
 					}
 				}
 				EntityUtils.consume(entity);
@@ -1472,7 +1472,7 @@ public class WeixinUtil extends BaseController{
 		json.put("userid", weixinID);
 		String result = postData(url, json);
 		if (StringUtils.isNotBlank(result) && result.contains("ok")) {
-			LoggerUtils.info(result);
+			log.info(result);
 			JSONObject json_result = JSONObject.fromObject(result);
 			return json_result.getString("openid");
 		}
@@ -1554,7 +1554,7 @@ public class WeixinUtil extends BaseController{
 		json.put("owner", owner);
 		json.put("userlist", userlist);
 		String resultmsg = postData(url, json);
-		LoggerUtils.info("chatCreate-->>>"+resultmsg);
+		log.info("chatCreate-->>>"+resultmsg);
 		if (StringUtils.isNotBlank(resultmsg)) {
 			JSONObject result =getErrcodeToZh(resultmsg);// JSONObject.fromObject(resultmsg);
 			if (result.has("invaliduser")) {
@@ -1692,7 +1692,7 @@ public class WeixinUtil extends BaseController{
 			json.put("text", text);
 		}
 		json.put("receiver", receiver);
-		LoggerUtils.info(json);
+		log.info(json);
 		String resultmsg = postData(url, json);
 		if (StringUtils.isNotBlank(resultmsg)) {
 			JSONObject result = JSONObject.fromObject(resultmsg);
@@ -1787,7 +1787,7 @@ public class WeixinUtil extends BaseController{
             // 根据ResponseCode判断连接是否成功  
             int responseCode = httpURLConnection.getResponseCode();  
             if (responseCode != 200) {  
-            	LoggerUtils.error(" Error===" + responseCode);  
+            	log.error(" Error===" + responseCode);  
             }
             // 定义BufferedReader输入流来读取URL的ResponseData  
             bufferedReader = new BufferedReader(new InputStreamReader(  
@@ -1797,7 +1797,7 @@ public class WeixinUtil extends BaseController{
                 responseResult.append(line);  
             }  
         } catch (Exception e) {  
-        	LoggerUtils.error("send post request error!" + e);  
+        	log.error("send post request error!" + e);  
         } finally {  
             httpURLConnection.disconnect();  
             try {  
@@ -2006,7 +2006,7 @@ public class WeixinUtil extends BaseController{
 				}
             	return b.toString();
 			}else{
-				LoggerUtils.error(json);
+				log.error(json);
 			}
             return "无效";
         } catch (IOException e) {

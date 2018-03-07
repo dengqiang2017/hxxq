@@ -3,6 +3,7 @@ package com.dengqiang.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,7 @@ import com.dengqiang.service.ICustomerService;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
-
+	public static Logger log = Logger.getLogger(CustomerServiceImpl.class);
 	
 	@Autowired
 	private ICustomerDao customerDao;

@@ -20,6 +20,10 @@ public class UserInfoBean implements Serializable{
 	private int userType=0;//0-普通用户业主业委会成员,1-运营商合作者,2-管理员
 	private List<UserInfoHousingBean> userInfoHousings;//用户小区相关信息
 	private List<FileBean> fileList;//身份证图片等文件地址
+	public UserInfoBean() {}
+	public UserInfoBean(int id) {
+		this.id=id;
+	}
 	public long getId() {
 		return id;
 	}

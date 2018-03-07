@@ -27,7 +27,6 @@ import com.dengqiang.service.IReleaseManagerService;
 @Controller
 @RequestMapping("/releaseManager")
 public class ReleaseManagerController extends BaseController {
-
 	@Autowired
 	private IReleaseManagerService releaseManagerService;
 	
@@ -54,6 +53,8 @@ public class ReleaseManagerController extends BaseController {
 				msg="权限不足,请联系管理员!";
 			}else if(housingEstate==null){
 				msg="没有获取到所属小区信息!";
+			}else if(isMapKeyNull(map, "agree")||"false".equals(MapUtils.getString(map, "agree").toLowerCase())){
+				msg="请阅读并确认《发布信息条款》";
 			}else{
 				if (isMapKeyNull(map, "showTime")) {
 					map.put("showTime", getNow());
@@ -73,11 +74,11 @@ public class ReleaseManagerController extends BaseController {
 					if (isNotMapKeyNull(map, "id")) {
 						id=MapUtils.getInteger(map, "id");
 					}
-					File srcFile=new File(getRealPath(request)+"temp/notice/"+userInfo.getId()+"/");
+					File srcFile=new File(getRealPath(request)+"temp/"+userInfo.getId()+"/notice/");
 					if (srcFile.exists()&&srcFile.isDirectory()) {
 						File[] fs=srcFile.listFiles();
 						for (File src : fs) {
-							File destFile=new File(getRealPath(request)+"notice/"+userInfo.getId()+"/"+id+"/"+src.getName());
+							File destFile=new File(getRealPath(request)+userInfo.getId()+"/notice/"+id+"/"+src.getName());
 							mkdirsDirectory(destFile);
 							FileUtils.moveFile(src, destFile);
 						}
@@ -121,6 +122,8 @@ public class ReleaseManagerController extends BaseController {
 				msg="请为当前投票添加描述!";
 			}else if(housingEstate==null){
 				msg="没有获取到所属小区信息!";
+			}else if(isMapKeyNull(map, "agree")||"false".equals(MapUtils.getString(map, "agree").toLowerCase())){
+				msg="请阅读并确认《发布信息条款》";
 			}else{
 				if (isMapKeyNull(map, "beginTime")) {
 					map.put("beginTime", getNow());
@@ -140,11 +143,11 @@ public class ReleaseManagerController extends BaseController {
 					if (isNotMapKeyNull(map, "id")) {
 						id=MapUtils.getInteger(map, "id");
 					}
-					File srcFile=new File(getRealPath(request)+"temp/vote/"+userInfo.getId()+"/");
+					File srcFile=new File(getRealPath(request)+"temp/"+userInfo.getId()+"/vote/");
 					if (srcFile.exists()&&srcFile.isDirectory()) {
 						File[] fs=srcFile.listFiles();
 						for (File src : fs) {
-							File destFile=new File(getRealPath(request)+"vote/"+userInfo.getId()+"/"+id+"/"+src.getName());
+							File destFile=new File(getRealPath(request)+userInfo.getId()+"/vote/"+id+"/"+src.getName());
 							mkdirsDirectory(destFile);
 							FileUtils.moveFile(src, destFile);
 						}
@@ -199,6 +202,7 @@ public class ReleaseManagerController extends BaseController {
 	/**
 	 * 进入公告,投票发起页面时,现将该用户临时文件夹清空
 	 * @param request
+	 * @param type notice,vote
 	 * @return
 	 */
 	@RequestMapping(value = "removeTempFile", method = RequestMethod.POST)
@@ -211,8 +215,9 @@ public class ReleaseManagerController extends BaseController {
 			if (isMapKeyNull(map, "type")) {
 				msg="类型不能为空";
 			}else{
-				File file=new File(getRealPath(request)+"temp/"+map.get("type")+"/"+userinfo.getId());
+				File file=new File(getRealPath(request)+"temp/"+userinfo.getId()+"/"+map.get("type"));
 				if (file.exists()&&file.isDirectory()) {
+					log.info(file.getPath());
 					FileUtils.deleteDirectory(file);
 				}
 				success = true;

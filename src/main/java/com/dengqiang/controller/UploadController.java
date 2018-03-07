@@ -59,14 +59,15 @@ public class UploadController extends BaseController{
 		 MultipartFile file = msReq.getFile(request.getParameter("fileName"));
 		 String type=request.getParameter("type");//notice,vote
 		 Long id=getUserInfoId(request);
-		 String url="temp/"+type+"/"+id+"/"+file.getOriginalFilename();
-		 File filepath=new File(getRealPath(request)+url);	
-		 if (filepath.exists()&&filepath.isFile()) {
-			filepath.delete();
+		 String url="temp/"+id+"/"+type+"/"+file.getOriginalFilename();
+		 File destFile=new File(getRealPath(request)+url);	
+		 log.info(destFile.getPath());
+		 if (destFile.exists()&&destFile.isFile()) {
+			destFile.delete();
 		}
-		 mkdirsDirectory(filepath);
+		 mkdirsDirectory(destFile);
  		try {
- 			file.transferTo(filepath);
+ 			file.transferTo(destFile);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -189,6 +190,7 @@ public class UploadController extends BaseController{
 			}else{
 				File srcFile=new File(getRealPath(request)+imgUrl);
 				if (srcFile.exists()&&srcFile.isFile()) {//存在并且是文件
+					log.info(srcFile.getPath());
 					srcFile.delete();
 				}
 			}

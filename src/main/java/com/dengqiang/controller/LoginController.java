@@ -20,7 +20,6 @@ import com.dengqiang.bean.ResultInfo;
 import com.dengqiang.service.ICustomerService;
 import com.dengqiang.service.IOperatorsService;
 import com.dengqiang.util.DateTimeUtils;
-import com.dengqiang.util.LoggerUtils;
 import com.dengqiang.util.MD5Util;
 import com.dengqiang.util.WeiXinServiceUtil;
 import com.dengqiang.util.WeixinUtil;
@@ -31,7 +30,6 @@ import com.dengqiang.util.WeixinUtil;
 @Controller
 @RequestMapping("/login")
 public class LoginController extends BaseController {
-	
 	@Autowired
 	private IOperatorsService operatorsService;
 	@Autowired
@@ -275,7 +273,7 @@ public class LoginController extends BaseController {
 						}
 					}
 					if(!map.containsKey("openid")||MapUtils.getString(map, "openid").length()<20){
-						LoggerUtils.error("openid异常:"+map.get("openid"));
+						log.error("openid异常:"+map.get("openid"));
 						return null;
 					}else{
 						if (isNotMapKeyNull(map, "corp_name")) {

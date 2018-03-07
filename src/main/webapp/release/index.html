@@ -13,167 +13,149 @@
 <body>
 <div class="weui-tab">
 		<div class="weui-tab__bd">
-			<div id="tab3" class="weui-tab__bd-item weui-tab__bd-item--active">
+			<div id="notice" class="weui-tab__bd-item weui-tab__bd-item--active">
 				<div class="weui-cells weui-cells_form" style="min-height: 740px;overflow:scroll;">
-					<div class="weui-cell">
+				<form id="noticeForm">
+				<div class="weui-cell">
 						<div class="weui-cell__hd">
 							<label class="weui-label">公告标题</label>
 						</div>
 						<div class="weui-cell__bd">
 							<input class="weui-input" type="text" name="noticeTitle" placeholder="请输入公告标题" maxlength="50">
 						</div>
-					</div>
-					<div class="weui-cell">
+					</div><div class="weui-cell">
 						<div class="weui-cell__hd">
 							<label for="" class="weui-label">显示日期</label>
 						</div>
 						<div class="weui-cell__bd">
-							<input class="weui-input" type="datetime-local">
+							<input class="weui-input" type="datetime-local" name="showTime">
 						</div>
-					</div>
-					<div class="weui-cell weui-cell_switch">
+					</div><div class="weui-cell weui-cell_switch">
 					    <div class="weui-cell__bd">允许留言</div>
 					    <div class="weui-cell__ft">
-					      <input class="weui-switch" type="checkbox" checked="checked">
+					      <input class="weui-switch" type="checkbox" checked="checked" id="comment">
 					    </div>
-					  </div>
-<!-- 				      <span>信息状态:审核通过</span> -->
-<!-- 				      <span>信息发布人:xxx</span> -->
-					<div class="weui-cell">
+					  </div><!-- 				      <span>信息状态:审核通过</span> --><!-- 				      <span>信息发布人:xxx</span> --><div class="weui-cell">
 						<div class="weui-cell__bd">
-							<textarea class="weui-textarea" placeholder="请输入公告描述或内容" rows="10" maxlength="20000"></textarea>
+							<textarea class="weui-textarea" name="noticeDesc" placeholder="请输入公告描述或内容" rows="10" maxlength="20000"></textarea>
 							<div class="weui-textarea-counter">
 								<span>0</span>/20000
 							</div>
 						</div>
-					</div>
-					<div class="weui-cell">
+					</div><div class="weui-cell">
 						<div class="weui-cell__bd">
 							<div class="weui-uploader">
 								<div class="weui-uploader__hd">
 									<p class="weui-uploader__title">附件上传</p>
-									<div class="weui-uploader__info">0/2</div>
+									<div class="weui-uploader__info" id="img_num">0/2</div>
 								</div>
 								<div class="weui-uploader__bd">
 									<ul class="weui-uploader__files" id="uploaderFiles">
-										<li class="weui-uploader__file"
-											style="background-image:url(../images/pic_160.png)"></li>
-										<li class="weui-uploader__file weui-uploader__file_status"
-											style="background-image:url(../images/pic_160.png)">
+										<li class="weui-uploader__file" style="background-image:url(../images/pic_160.png)"><span></span></li>
+										<li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(../images/pic_160.png)">
 											<div class="weui-uploader__file-content">50%</div>
 										</li>
 									</ul>
 									<div class="weui-uploader__input-box">
-										<input id="uploaderInput" class="weui-uploader__input"
-											type="file" accept="image/*" multiple="">
+										<input id="uploaderInput" class="weui-uploader__input">
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-			 <label for="weuiAgree2" class="weui-agree">
+					</div><label for="weuiAgree2" class="weui-agree">
 			      <input id="weuiAgree2" type="checkbox" class="weui-agree__checkbox">
 			      <span class="weui-agree__text">
 			        阅读并同意<a href="javascript:void(0);">《相关条款》</a>
 			      </span>
 			    </label>
 			    <div class="weui-btn-area">
-			      <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">确定</a>
+			      <button type="button" class="weui-btn weui-btn_primary" id="saveNotice" disabled="disabled" style="background-color: #ccc;">确定</button>
 			    </div>
+			    </form>
 				</div>
 			</div>
-			<div id="tab1" class="weui-tab__bd-item" style="margin:0 3px;">
+			<div id="vote" class="weui-tab__bd-item" style="margin:0 3px;">
 				<div class="weui-cells weui-cells_form" style="min-height: 780px;overflow:scroll;">
-					<div class="weui-cell">
+				<form id="voteForm">
+				<div class="weui-cell">
 						<div class="weui-cell__hd">
 							<label class="weui-label">投票标题</label>
 						</div>
 						<div class="weui-cell__bd">
-							<input class="weui-input" name="" type="text" placeholder="请输入标题" maxlength="50">
+							<input class="weui-input" name="voteTitle" type="text" placeholder="请输入标题" maxlength="50">
 						</div>
-					</div>
-					<div class="weui-cell">
+					</div><div class="weui-cell">
 						<div class="weui-cell__hd">
 							<label class="weui-label">开始时间</label>
 						</div>
 						<div class="weui-cell__bd">
-							<input class="weui-input" type="datetime-local">
+							<input class="weui-input" type="datetime-local" name="beginTime">
 						</div>
-					</div>
-					<div class="weui-cell">
+					</div><div class="weui-cell">
 						<div class="weui-cell__hd">
 							<label class="weui-label">截止时间</label>
 						</div>
 						<div class="weui-cell__bd">
-							<input class="weui-input" type="datetime-local">
+							<input class="weui-input" type="datetime-local" name="endTime">
 						</div>
-					</div>
-					<div class="weui-cell weui-cell_switch">
+					</div><div class="weui-cell weui-cell_switch">
 					    <div class="weui-cell__bd">允许留言</div>
 					    <div class="weui-cell__ft">
-					      <input class="weui-switch" type="checkbox" checked="checked">
+					      <input class="weui-switch" type="checkbox" checked="checked" id="comment">
 					    </div>
-					  </div>
-					<div class="weui-cell weui-cell_switch" style="display: none;">
+					  </div><div class="weui-cell weui-cell_switch" style="display: none;">
 					    <div class="weui-cell__bd">实名发起</div>
 					    <div class="weui-cell__ft">
-					      <input class="weui-switch" type="checkbox" checked="checked">
+					      <input class="weui-switch" type="checkbox" checked="checked" id="showName">
 					    </div>
-					  </div>
-<!-- 				      <span>投票状态:审核通过</span> -->
-<!-- 				      <span>投票发起人:xxx</span> -->
-					<div class="weui-cell">
+					  </div><!-- 				      <span>投票状态:审核通过</span> --><!-- 				      <span>投票发起人:xxx</span> --><div class="weui-cell">
 						<div class="weui-cell__hd">
 							<label class="weui-label">投票描述</label>
 						</div>
 						<div class="weui-cell__bd">
-							<textarea class="weui-textarea" placeholder="请输入投票描述" rows="10" maxlength="500"></textarea>
-      						<div class="weui-textarea-counter"><span>0</span>/500</div>
+							<textarea class="weui-textarea" placeholder="请输入投票描述" rows="10" maxlength="500" name="voteDesc"></textarea>
+      						<div class="weui-textarea-counter"><span id="zishu">0</span>/500</div>
 						</div>
-					</div>
-					<div class="weui-cell">
+					</div><div class="weui-cell">
 						<div class="weui-cell__bd">
 							<div class="weui-uploader">
 								<div class="weui-uploader__hd">
 									<p class="weui-uploader__title">附件上传</p>
-									<div class="weui-uploader__info">0/2</div>
+									<div class="weui-uploader__info" id="vote_img_num">0/2</div>
 								</div>
 								<div class="weui-uploader__bd">
-									<ul class="weui-uploader__files" id="uploaderFiles">
-										<li class="weui-uploader__file"
-											style="background-image:url(../images/pic_160.png)"></li>
-										<li class="weui-uploader__file weui-uploader__file_status"
-											style="background-image:url(../images/pic_160.png)">
+									<ul class="weui-uploader__files" id="vote_uploaderFiles">
+										<li class="weui-uploader__file" style="background-image:url(../images/pic_160.png)"></li>
+										<li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(../images/pic_160.png)">
 											<div class="weui-uploader__file-content">50%</div>
 										</li>
 									</ul>
 									<div class="weui-uploader__input-box">
-										<input id="uploaderInput" class="weui-uploader__input"
-											type="file" accept="image/*" multiple="">
+<!-- 									 type="file" accept="image/*" -->
+										<input id="voteImgUpload" class="weui-uploader__input">
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				<label for="weuiAgree" class="weui-agree">
+					</div><label for="weuiAgree" class="weui-agree">
 			      <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
 			      <span class="weui-agree__text">
 			        阅读并同意<a href="javascript:void(0);">《相关条款》</a>
 			      </span>
 			    </label><div class="weui-btn-area">
-			      <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">确定</a>
-			    </div></div>
-				
-			    
+			      <button class="weui-btn weui-btn_primary" type="button" id="saveVote" style="background-color: #ccc" disabled="disabled">确定</button>
+			    </div>
+			    </form>
+				</div>
 			</div>
-			<div id="tab4" class="weui-tab__bd-item">
+			<div id="user" class="weui-tab__bd-item">
 				<div style="margin-left: 5px;margin-top: 5px;">
 				<img src="../images/avatar.jpg" style="width: 100px;height: 100px;float: left;">
 				<div style="float: left;margin-left: 5px;margin-top: 10px;">
-					<div>微信昵称:xxxxxxxxxxx</div>
+					<div>微信昵称:<span id="weinxinName"></span></div>
 <!-- 					<div>小区名称:合作小区</div> -->
 <!-- 					<div>职务:业委会主任</div> -->
-					<a href="#" style="float: left;margin-top: 10px;" id="zl_edit">编辑资料>>></a>
+					<a href="#" style="float: left;margin-top: 10px;" id="zl_edit">编辑资料&gt;&gt;&gt;</a>
 				</div>
 				<div style="clear: both;"></div>
 				</div>
@@ -232,19 +214,19 @@
 			</div>
 		</div>
 	<div class="weui-tabbar">
-			<a href='#tab3' class="weui-tabbar__item weui-bar__item--on">
+			<a href='#notice' class="weui-tabbar__item weui-bar__item--on">
 				<div class="weui-tabbar__icon">
 					<img src="../images/icon_nav_article.png" alt="">
 				</div>
 				<p class="weui-tabbar__label">发布信息</p>
 			</a>
-			 <a href='#tab1' class="weui-tabbar__item">
+			 <a href='#vote' class="weui-tabbar__item">
 				<div class="weui-tabbar__icon">
 					<img src="../images/icon_nav_msg.png" alt="">
 				</div>
 				<p class="weui-tabbar__label" id="tpbtn">发起投票</p>
 			</a>
-			<a href="#tab4" class="weui-tabbar__item">
+			<a href="#user" class="weui-tabbar__item">
 				<div class="weui-tabbar__icon">
 					<img src="../images/icon_nav_cell.png" alt="">
 				</div>
@@ -263,34 +245,8 @@
 <script type="text/javascript" src="../jquery-weui/js/jquery-weui.min.js"></script>
 <script type="text/javascript" src="../jquery-weui/js/swiper.min.js"></script>  
 <script type="text/javascript" src="../jquery-weui/js/swipeout.js"></script>
-<script type="text/javascript">
-<!--
-$(function() {
-	FastClick.attach(document.body);
-	$(".weui-input,textarea").focus(function(){
-		$(".weui-tabbar").css("position","relative");
-	});
-	$(".weui-input,textarea").blur(function(){
-		$(".weui-tabbar").css("position","absolute");
-	});
-	$("#zl_edit").click(function(){
-		$.get("zl_edit.html",function(data){
-			$("#zl_html").html(data);
-			$("#zl_edit_dia").popup();
-		});
-	});
-	$(".weui-cell_swiped").swipeout();
-	$("#city-picker").picker({
-		  title: "请选择小区位置",
-		  cols: [
-		    {
-		      textAlign: "center",
-		      values: ["金牛区","锦江区","青羊区","武侯区","成华区","温江区"]
-		    }
-		  ]
-		});
-});
-//-->
-</script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="../js/fileupload.js"></script>
+<script type="text/javascript" src="js/release.js"></script>
 </body>
 </html>
