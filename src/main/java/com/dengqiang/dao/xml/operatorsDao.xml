@@ -76,6 +76,8 @@
   `noticeDesc` varchar(100) DEFAULT NULL COMMENT '描述',
   `comment` int(1) NOT NULL DEFAULT '0' COMMENT '是否允许评论留言',
   `showName` int(1) NOT NULL DEFAULT '0' COMMENT '实名发布',
+  `isTop` int(1) NOT NULL DEFAULT '0' COMMENT '置顶',
+  `isShow` int(1) NOT NULL DEFAULT '1' COMMENT '是否显示',
   `creationTime` datetime NOT NULL COMMENT '创建时间',
   `showTime` datetime NOT NULL COMMENT '显示时间',
   `auditor_id` int(11) DEFAULT NULL COMMENT '审核人',
@@ -123,6 +125,23 @@ CREATE TABLE if not exists `t_vote_history` (
   `comment` varchar(255) DEFAULT NULL COMMENT '留言内容',
   `commentState` int(1) DEFAULT NULL COMMENT '留言状态0-审核中,1-审核通过,2-不通过',
   `voteTime` datetime NOT NULL COMMENT '投票时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<!-- 消息对象 -->
+CREATE TABLE if not exists `t_msg` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `msgTitle` varchar(30) DEFAULT NULL COMMENT '消息标题',
+  `MsgContent` varchar(255) DEFAULT NULL COMMENT '消息内容',
+  `show` int(1) NOT NULL DEFAULT '0' COMMENT '是否显示',
+  `creationTime` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<!-- 消息中间表 -->
+CREATE TABLE if not exists `t_msg_userinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `msg_id` int(11) NOT NULL COMMENT '消息id',
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `isRead` int(1) NOT NULL DEFAULT '0' COMMENT '0-未读,1-已读',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
  	</insert>

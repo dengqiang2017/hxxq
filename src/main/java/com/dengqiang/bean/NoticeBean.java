@@ -15,6 +15,8 @@ public class NoticeBean implements Serializable{
 	private String noticeDesc;//描述
 	private boolean comment=true;//是否允许评论留言
 	private boolean showName=true;//实名发布
+	private boolean top=true;//置顶
+	private boolean show=true;//显示
 	private UserInfoBean founder;//发布人
 	private Date creationTime;//创建时间
 	private Date showTime;//显示时间,提前编辑,定时发布
@@ -109,4 +111,17 @@ public class NoticeBean implements Serializable{
 	public void setAuditDate(Date auditDate) {
 		this.auditDate = auditDate;
 	}
+	public boolean isTop() {
+		return top;
+	}
+	public void setTop(boolean top) {
+		this.top = top;
+	}
+	public boolean isShow() {
+		return show;
+	}
+	public void setShow(boolean show) {
+		this.show = show;
+	}
+	
 }
