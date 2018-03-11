@@ -7,9 +7,15 @@
 <link rel="stylesheet" href="../jquery-weui/lib/weui.min.css">
 <link rel="stylesheet" href="../jquery-weui/css/jquery-weui.min.css">
 <link rel="stylesheet" href="../css/public.css">
+<style type="text/css">
+body>header{background-color: #006766;color: #ffffff;top:0;z-index: 501;position: fixed;width: 100%;}
+.head-title{text-align: center;height: 35px;padding-top: 10px;}
+</style>
 </head>
 <body>
-
+<header>
+<div class="head-title">信息列表</div>
+</header>
 <div class="weui-tab">
 		<div class="weui-tab__bd">
 			<div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
@@ -28,7 +34,7 @@
   </form>
   <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
 </div>
-					<div class="weui-panel__hd">信息列表</div>
+<!-- 					<div class="weui-panel__hd">信息列表</div> -->
 					<div class="weui-panel__bd">
 						<a href="javascript:void(0);" id="wz1"
 							class="weui-media-box weui-media-box_appmsg">
@@ -60,8 +66,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="tab2" class="weui-tab__bd-item"
-				style="margin:0 5px;">
+			<div id="tab2" class="weui-tab__bd-item">
 				<div class="weui-panel weui-panel_access">
 <div class="weui-search-bar" id="searchBar">
   <form class="weui-search-bar__form">
@@ -78,7 +83,7 @@
   <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
 </div>
 <!-- 				<div class="weui-panel__hd">投票</div> -->
-					<div class="weui-panel__bd">
+					<div class="weui-panel__bd" style="margin:0 5px;">
 						<div id="tp">
 						<h2 style="margin-top: ;" id="tp_title">投票标题投票标题投票标题投票标题</h2>
 						<div style="text-align: center;">
@@ -241,6 +246,15 @@ $(function() {
 	});
 	$("input,textarea").blur(function(){
 		$(".weui-tabbar").css("position","absolute");
+	});
+	$(".weui-tabbar__item:eq(0)").click(function(){
+		$(".head-title").html("信息列表");
+	});
+	$(".weui-tabbar__item:eq(1)").click(function(){
+		$(".head-title").html("投票列表");
+	});
+	$(".weui-tabbar__item:eq(2)").click(function(){
+		$(".head-title").html("个人中心");
 	});
 	$("#zl_edit").click(function(){
 		$.get("zl_edit.html?ver="+Math.random(),function(data){

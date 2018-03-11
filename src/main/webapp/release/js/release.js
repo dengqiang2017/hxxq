@@ -13,26 +13,35 @@ $(function() {
 		});
 	});
 	$(".weui-cell_swiped").swipeout();
-	$("#city-picker").picker({
-		  title: "请选择小区位置",
-		  cols: [
-		    {
-		      textAlign: "center",
-		      values: ["金牛区","锦江区","青羊区","武侯区","成华区","温江区"]
-		    }
-		  ]
-		});
+	// $("#city-picker").picker({
+	// 	  title: "请选择小区位置",
+	// 	  cols: [
+	// 	    {
+	// 	      textAlign: "center",
+	// 	      values: ["金牛区","锦江区","青羊区","武侯区","成华区","温江区"]
+	// 	    }
+	// 	  ]
+	// 	});
 	//////////////////////////////////////
 	//进入公告,投票发布页面前先清空临时文件夹
 	init("notice");
 	function init(type){
 		$.post("../releaseManager/removeTempFile.do",{"type":type});
 	}
+	
+	$(".weui-tabbar__item").click(function(){
+		$(".weui-tab__bd-item").removeClass("weui-tab__bd-item--active");
+	});
 	$(".weui-tabbar__item:eq(0)").click(function(){
 		init("notice");
+		$(".head-title").html("公告发布");
 	});
 	$(".weui-tabbar__item:eq(1)").click(function(){
 		init("vote");
+		$(".head-title").html("发起投票");
+	});
+	$(".weui-tabbar__item:eq(2)").click(function(){
+		$(".head-title").html("个人中心");
 	});
 	//////////////公告信息保存////////////////
 	$("#weuiAgree2").click(function(){

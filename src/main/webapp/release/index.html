@@ -6,15 +6,23 @@
 <title>和谐小区-业委会管理端</title>
 <link rel="stylesheet" href="../jquery-weui/lib/weui.min.css">
 <link rel="stylesheet" href="../jquery-weui/css/jquery-weui.min.css">
-<link rel="stylesheet" href="../css/public.css">
+<link rel="stylesheet" href="../css/public.css?ver=001">
 <style type="text/css">
+body { padding-bottom: 70px; }
+body>header{background-color: #006766;color: #ffffff;top:0;z-index: 501;position: fixed;width: 100%;}
+.head-title{text-align: center;height: 35px;padding-top: 10px;}
+footer{bottom:0;z-index: 501;position: fixed;width: 100%;height: 53px;}
 </style>
 </head>
 <body>
+<header>
+<div class="head-title">公告发布</div>
+</header>
+<div style="margin-top: 45px;">
 <div class="weui-tab">
 		<div class="weui-tab__bd">
 			<div id="notice" class="weui-tab__bd-item weui-tab__bd-item--active">
-				<div class="weui-cells weui-cells_form" style="min-height: 740px;overflow:scroll;">
+				<div class="weui-cells weui-cells_form" style="min-height: 740px;overflow:scroll;margin-top: 1px;">
 				<form id="noticeForm">
 				<div class="weui-cell">
 						<div class="weui-cell__hd">
@@ -57,7 +65,7 @@
 										</li>
 									</ul>
 									<div class="weui-uploader__input-box">
-										<input id="uploaderInput" class="weui-uploader__input">
+										<input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*">
 									</div>
 								</div>
 							</div>
@@ -74,8 +82,8 @@
 			    </form>
 				</div>
 			</div>
-			<div id="vote" class="weui-tab__bd-item" style="margin:0 3px;">
-				<div class="weui-cells weui-cells_form" style="min-height: 780px;overflow:scroll;">
+			<div id="vote" class="weui-tab__bd-item">
+				<div class="weui-cells weui-cells_form" style="min-height: 785px;overflow:scroll;margin-top: 1px;">
 				<form id="voteForm">
 				<div class="weui-cell">
 						<div class="weui-cell__hd">
@@ -131,8 +139,8 @@
 										</li>
 									</ul>
 									<div class="weui-uploader__input-box">
-<!-- 									 type="file" accept="image/*" -->
-										<input id="voteImgUpload" class="weui-uploader__input">
+<!-- 									  -->
+										<input id="voteImgUpload" class="weui-uploader__input" type="file" accept="image/*">
 									</div>
 								</div>
 							</div>
@@ -192,7 +200,7 @@
   </a>
 </div>	
 				
-				<div style="display: none;"><label>小区位置:</label><input type="text" class="weui-input" style="width: auto;" value="金牛区" id='city-picker' readonly="readonly" /></div>
+				<div style="display: none;"><label>小区位置:</label><input type="text" class="weui-input" style="width: auto;" value="金牛区" id="city-picker" readonly="readonly"></div>
 				<div class="weui-cells" style="display: none;">
 		          <div class="weui-cell weui-cell_swiped" style="cursor: pointer;">
 		            <div class="weui-cell__bd">
@@ -209,18 +217,24 @@
 		            </div>
 		          </div>
 				</div>
-				
-				
 			</div>
 		</div>
-	<div class="weui-tabbar">
-			<a href='#notice' class="weui-tabbar__item weui-bar__item--on">
+		</div>
+		<div class="weui-footer weui-footer_fixed-bottom">
+	<p class="weui-footer__text">Copyright ©2018 DengQiang</p>
+</div>
+<div class="clearfix"></div>
+		</div>
+
+<footer>
+<div class="weui-tabbar">
+			<a href="#notice" class="weui-tabbar__item weui-bar__item--on">
 				<div class="weui-tabbar__icon">
 					<img src="../images/icon_nav_article.png" alt="">
 				</div>
 				<p class="weui-tabbar__label">发布信息</p>
 			</a>
-			 <a href='#vote' class="weui-tabbar__item">
+			 <a href="#vote" class="weui-tabbar__item">
 				<div class="weui-tabbar__icon">
 					<img src="../images/icon_nav_msg.png" alt="">
 				</div>
@@ -232,11 +246,9 @@
 				</div>
 				<p class="weui-tabbar__label">我</p>
 			</a>
-		</div>
-	<div class="weui-footer weui-footer_fixed-bottom">
-		<p class="weui-footer__text">Copyright ©2018 DengQiang</p>
-	</div>
 </div>
+</footer>	
+
 
 <div id="zl_html"></div>
 <script type="text/javascript" src="../jquery-weui/lib/jquery-2.1.4.js"></script>
@@ -247,6 +259,6 @@
 <script type="text/javascript" src="../jquery-weui/js/swipeout.js"></script>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript" src="../js/fileupload.js"></script>
-<script type="text/javascript" src="js/release.js"></script>
+<script type="text/javascript" src="js/release.js?ver=001"></script>
 </body>
 </html>

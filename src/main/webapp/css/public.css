@@ -3,13 +3,13 @@ body,html {
 	-webkit-tap-highlight-color: transparent;
 }
 
-footer {
+.footer {
 	text-align: center;
 	font-size: 14px;
 	padding: 20px;
 }
 
-footer a {
+.footer a {
 	color: #999;
 	text-decoration: none;
 }
