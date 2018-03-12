@@ -45,7 +45,10 @@ public class ReleaseManagerController extends BaseController {
 			String founder=userInfo.getUserName();
 			int userType=userInfo.getUserType();
 			HousingEstateBean housingEstate=getHousingEstate(request);
-			if (isMapKeyNull(map, "noticeTitle")) {
+			boolean b=checkUserInfo(userInfo);
+			if (!b) {
+				msg="未实名认证,只能浏览不能发布信息!";
+			}else if (isMapKeyNull(map, "noticeTitle")) {
 				msg="标题不能为空!";
 			}else if(StringUtils.isBlank(founder)){
 				msg="信息不完善不能发布信息!";
@@ -96,6 +99,39 @@ public class ReleaseManagerController extends BaseController {
 		return new ResultInfo(success, msg);
 	}
 	/**
+	 * 检查用户是否实名认证 未认证的只能浏览,不能发布
+	 * @param userInfo
+	 * @return true-已认证,false-未认证
+	 */
+	private boolean checkUserInfo(UserInfoBean userInfo) {
+		if (StringUtils.isBlank(userInfo.getIdentityCard())) {
+			return false;
+		}else if (userInfo.getIdentityCard().length()!=18) {
+			return false;
+		}else if(StringUtils.isBlank(userInfo.getFullName())){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	/**
+	 * 检查用户是否实名认证 未认证的只能浏览,不能发布
+	 * @param request
+	 * @return true-已认证,false-未认证
+	 */
+	@RequestMapping(value = "checkUserInfo", method = RequestMethod.GET)
+	public @ResponseBody ResultInfo checkUserInfo(HttpServletRequest request) {
+		boolean success = false;
+		String msg = null;
+		try {
+			success = checkUserInfo(getUserInfo(request));
+		} catch (Exception e) {
+			msg = "系统执行错误!";
+			e.printStackTrace();
+		}
+		return new ResultInfo(success, msg);
+	}
+	/**
 	 * 保存投票信息
 	 * @param request
 	 * @return 执行结果信息
@@ -110,7 +146,10 @@ public class ReleaseManagerController extends BaseController {
 			String founder=userInfo.getUserName();
 			int userType=userInfo.getUserType();
 			HousingEstateBean housingEstate=getHousingEstate(request);
-			if (isMapKeyNull(map, "voteTitle")) {
+			boolean b=checkUserInfo(userInfo);
+			if (!b) {
+				msg="未实名认证,只能浏览不能发布信息!";
+			}else if (isMapKeyNull(map, "voteTitle")) {
 				msg="标题不能为空!";
 			}else if(StringUtils.isBlank(founder)){
 				msg="信息不完善不能发布信息!";

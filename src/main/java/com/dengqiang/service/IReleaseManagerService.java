@@ -19,7 +19,7 @@ public interface IReleaseManagerService {
 	Integer saveVoteInfo(Map<String, Object> map) throws Exception;
 	/**
 	 * 审核发布的内容
-	 * @param map
+	 * @param map id 数据ID auditStatus 审核状态 type 审核数据类型 vote,notice,review
 	 * @param id 数据ID
 	 * @param auditStatus 审核状态
 	 * @param type 审核数据类型 vote,notice,review

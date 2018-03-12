@@ -63,11 +63,25 @@ public class VoteBean implements Serializable{
 	public void setComment(boolean comment) {
 		this.comment = comment;
 	}
+	public void setComment(int comment) {
+		if (comment==1) {
+			this.comment = true;
+		}else{
+			this.comment = false;
+		}
+	}
 	public boolean isShowName() {
 		return showName;
 	}
 	public void setShowName(boolean showName) {
 		this.showName = showName;
+	}
+	public void setShowName(int showName) {
+		if (showName==0) {
+			this.showName = false;
+		}else{
+			this.showName = true;
+		}
 	}
 	public String getVoteDesc() {
 		return voteDesc;

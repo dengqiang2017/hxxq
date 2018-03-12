@@ -51,6 +51,13 @@ public class NoticeBean implements Serializable{
 	public void setComment(boolean comment) {
 		this.comment = comment;
 	}
+	public void setComment(int comment) {
+		if (comment==1) {
+			this.comment = true;
+		}else{
+			this.comment = false;
+		}
+	}
 	public boolean isShowName() {
 		return showName;
 	}
@@ -117,11 +124,25 @@ public class NoticeBean implements Serializable{
 	public void setTop(boolean top) {
 		this.top = top;
 	}
+	public void setTop(int top) {
+		if (top==0) {
+			this.top = false;
+		}else{
+			this.top = true;
+		}
+	}
 	public boolean isShow() {
 		return show;
 	}
 	public void setShow(boolean show) {
 		this.show = show;
+	}
+	public void setShow(int show) {
+		if (show==0) {
+			this.show = false;
+		}else{
+			this.show = true;
+		}
 	}
 	
 }

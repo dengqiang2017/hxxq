@@ -46,11 +46,25 @@ public class MsgBean implements Serializable{
 	public void setShow(boolean show) {
 		this.show = show;
 	}
+	public void setShow(int show) {
+		if (show==0) {
+			this.show = false;
+		}else{
+			this.show = true;
+		}
+	}
 	public boolean isRead() {
 		return read;
 	}
 	public void setRead(boolean read) {
 		this.read = read;
+	}
+	public void setRead(int read) {
+		if (read==0) {
+			this.read = false;
+		}else{
+			this.read = true;
+		}
 	}
 	public List<UserInfoBean> getUserInfo() {
 		return userInfo;
