@@ -13,7 +13,7 @@ public interface IReleaseManagerDao {
 	 * @return 公告id
 	 * @throws Exception
 	 */
-	Integer saveNoticeInfo(Map<String, Object> map) throws Exception;
+	Integer saveNoticeInfo(Map<String, Object> map);
 	/**
 	 * 修改公告信息
 	 * @param map

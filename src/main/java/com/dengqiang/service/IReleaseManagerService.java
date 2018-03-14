@@ -1,6 +1,9 @@
 package com.dengqiang.service;
 
+import java.util.List;
 import java.util.Map;
+
+import com.dengqiang.bean.FileBean;
 
 public interface IReleaseManagerService {
 	/**
@@ -26,5 +29,4 @@ public interface IReleaseManagerService {
 	 * @return
 	 */
 	String saveAuditorInfo(Map<String, Object> map) throws Exception;
-
 }

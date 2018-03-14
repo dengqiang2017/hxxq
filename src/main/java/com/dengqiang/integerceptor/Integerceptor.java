@@ -38,18 +38,24 @@ public class Integerceptor extends BaseController implements HandlerInterceptor 
 			HttpServletResponse response, Object obj) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		log.info("preHandle===>>>" + request.getRequestURI());
-		getVer(request);
+		log.info("preHandle===>>>" + request.getRequestURI());//request.getHeaderNames()
+//		getVer(request);
 		UserInfoBean userInfo=(UserInfoBean) request.getSession().getAttribute(SESSION_USER_INFO);
 		boolean login=true;
 		if (userInfo==null) {
 			login=false;
+			if (request.getRequestURI().contains("/login/")) {
+				login=true;
+			}
 		}
-		if (isLocal()) {
-			request.getSession().setAttribute(SESSION_USER_INFO,new UserInfoBean(0));
+//		if (isLocal()) {
+			userInfo=new UserInfoBean(0);
+			userInfo.setUserName("邓强");
+			userInfo.setUserType(1);
+			request.getSession().setAttribute(SESSION_USER_INFO,userInfo);
 			request.getSession().setAttribute(HOUSING_ESTATE_INFO,new HousingEstateBean(0));
 			login=true;
-		}
+//		}
     	return login;
 	}
 }

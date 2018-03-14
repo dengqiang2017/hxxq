@@ -40,11 +40,15 @@
 <!-- 如果使用了某些拓展插件还需要额外的JS -->
 <script src="jquery-weui/js/swiper.min.js"></script>
 <script src="jquery-weui/js/city-picker.min.js"></script>
+<script src="../js/public.js"></script>
 <script type="text/javascript">
 <!--
-$.get("login/getUserLoginInfo.do",function(data){
-	console.log(data);
-});
+if(is_weixin()){
+}else{
+	$.get("login/autoLogin.do",function(data){
+		console.log(data);
+	});
+}
 //-->
 </script>
   </body>

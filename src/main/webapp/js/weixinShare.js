@@ -1,15 +1,3 @@
-/**
- * 判断是否是微信浏览器  
- * @returns true为微信浏览器,false为其它浏览器
- */
-function is_weixin(){
-	var ua = navigator.userAgent.toLowerCase();
-	if(ua.match(/MicroMessenger/i)=="micromessenger") {
-		return true;
- 	} else {
-		return false;
-	}
-}
 var weixinShare={
 		/**
 		 * 
@@ -122,4 +110,4 @@ var weixinShare={
 				});
 			});
 		}
-}
+};

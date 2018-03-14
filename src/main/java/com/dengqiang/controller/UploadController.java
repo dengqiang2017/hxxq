@@ -58,8 +58,10 @@ public class UploadController extends BaseController{
 	 public void uploadImg(MultipartHttpServletRequest msReq,HttpServletRequest request, HttpServletResponse response) throws IOException {
 		 MultipartFile file = msReq.getFile(request.getParameter("fileName"));
 		 String type=request.getParameter("type");//notice,vote
+		 log.info(type);
 		 Long id=getUserInfoId(request);
 		 String url="temp/"+id+"/"+type+"/"+file.getOriginalFilename();
+		 log.info(url);
 		 File destFile=new File(getRealPath(request)+url);	
 		 log.info(destFile.getPath());
 		 if (destFile.exists()&&destFile.isFile()) {
@@ -67,7 +69,11 @@ public class UploadController extends BaseController{
 		}
 		 mkdirsDirectory(destFile);
  		try {
+ 			 log.info(destFile);
  			file.transferTo(destFile);
+ 			imgResize(destFile, destFile, 1200, 0.9f);
+ 			File destFile2=new File(destFile.getPath()+"_sl");
+ 			imgResize(destFile, destFile2, 800, 0.5f);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

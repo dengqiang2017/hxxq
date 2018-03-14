@@ -1,10 +1,34 @@
 $(function() {
 	FastClick.attach(document.body);
+	//检查是否实名认证
+//	checkUserInfo();
+	var now = new Date();
+	var nowStr = now.Format("yyyy-MM-ddThh:mm");
+	$("input[name='showTime']").val(nowStr);
+	$("input[name='showTime']").attr("min",nowStr);
+	$(".weui-cells_form").scrollTop(0);
+	function checkUserInfo(){
+		$.get("../releaseManager/checkUserInfo.do",function(data){
+			if (!data.success) {
+				$.alert("未实名认证,只能浏览不能发布信息!",function(){
+					$("#zl_edit").click();
+				});
+				$(".weui-agree__checkbox").attr("disabled","disabled");
+			}
+		});
+	}
+	$("#noticeDesc").bind("input",function(){
+		$("#noticeDesc_zs").html($(this).val().length);
+	});
+	$("#voteDesc").bind("input",function(){
+		$("#voteDesc_zs").html($(this).val().length);
+	});
+	
 	$(".weui-input,textarea").focus(function(){
-		$(".weui-tabbar").css("position","relative");
+		$(".weui-tabbar").hide();
 	});
 	$(".weui-input,textarea").blur(function(){
-		$(".weui-tabbar").css("position","absolute");
+		$(".weui-tabbar").show();
 	});
 	$("#zl_edit").click(function(){
 		$.get("zl_edit.html",function(data){
@@ -13,15 +37,6 @@ $(function() {
 		});
 	});
 	$(".weui-cell_swiped").swipeout();
-	// $("#city-picker").picker({
-	// 	  title: "请选择小区位置",
-	// 	  cols: [
-	// 	    {
-	// 	      textAlign: "center",
-	// 	      values: ["金牛区","锦江区","青羊区","武侯区","成华区","温江区"]
-	// 	    }
-	// 	  ]
-	// 	});
 	//////////////////////////////////////
 	//进入公告,投票发布页面前先清空临时文件夹
 	init("notice");
@@ -31,6 +46,8 @@ $(function() {
 	
 	$(".weui-tabbar__item").click(function(){
 		$(".weui-tab__bd-item").removeClass("weui-tab__bd-item--active");
+		var i=$(".weui-tabbar__item").index(this);
+		$(".weui-tab__bd-item").eq(i).addClass("weui-tab__bd-item--active");
 	});
 	$(".weui-tabbar__item:eq(0)").click(function(){
 		init("notice");
@@ -43,13 +60,42 @@ $(function() {
 	$(".weui-tabbar__item:eq(2)").click(function(){
 		$(".head-title").html("个人中心");
 	});
+	$("#actions,.glyphicon-th-large").click(function(){
+		$.actions({
+			actions: [{
+				text: "刷新",
+				onClick: function() {
+					window.location.href="index.html?ver="+Math.random();
+				}
+			},{
+				text: "意见建议",
+				onClick: function() {
+//					$("#myModal").modal("toggle");
+					$.prompt({
+						  title: "留言",
+						  text: "意见建议",
+						  input:"",
+						  empty: false, // 是否允许为空
+						  onOK: function (text) {
+						    //点击确认
+							  $.confirm(text);
+							  $.toast("操作成功");
+						  },
+						  onCancel: function () {
+						    //点击取消
+						  }
+						});
+				}
+			}]
+		});
+	});
 	//////////////公告信息保存////////////////
 	$("#weuiAgree2").click(function(){
 		if($(this).prop("checked")){
 			$("#saveNotice").removeAttr("disabled");
 			$("#saveNotice").css("background-color","");
 		}else{
-			$("#saveNotice").attr("disabled");
+			$("#saveNotice").attr("disabled","disabled");
 			$("#saveNotice").css("background-color","#ccc");
 		}
 	});
@@ -58,29 +104,31 @@ $(function() {
 		if(!b){
 			return;
 		}
-		var serializeJson = $("#noticeForm").serialize();
-		var params=serializeJson.split("&");
 		var json={};
-		for (var i = 0; i < params.length; i++) {
-			var keys=params[i].split("=");
-			json[keys[0]]=keys[1];
-		}
-		json.comment=$("#notice #comment").prop("checked");
+		json.noticeTitle=$("#noticeForm input[name='noticeTitle']").val();
+		json.noticeDesc=$("#noticeDesc").val();
+		json.showTime=$("input[name='showTime']").val();
+		json.id=$("#notice_id").html();
+		json.isComment=$("#notice #comment").prop("checked");
+		json.isShow=$("#notice #isShow").prop("checked");
+		json.isTop=$("#notice #isTop").prop("checked");
 		json.agree=$("#notice #weuiAgree2").prop("checked");
 		json.imgList=[];
 		var imgs=$("#uploaderFiles>li>span").html();
 		for (var i = 0; i < imgs.length; i++) {
 			json.imgList.push(imgs[i]);
 		}
-		console.log(JSON.stringify(json));
 		if(!json.noticeTitle){
 			$.alert("请输入标题!","系统提示");
 		}else if(!json.agree){
 			$.alert("请阅读并确认《信息发布条款》！","系统提示");
 		}else{
+			$.showLoading();
 			$.post("../releaseManager/saveNoticeInfo.do",json,function(data){
+				 $.hideLoading();
 				if(data.success){
 					 $.toast("操作成功");
+					 $("#notice_id").html(data.msg);
 				}else{
 					$.alert(data.msg,"系统提示");
 				}
@@ -92,7 +140,7 @@ $(function() {
 			$("#saveVote").removeAttr("disabled");
 			$("#saveVote").css("background-color","");
 		}else{
-			$("#saveVote").attr("disabled");
+			$("#saveVote").attr("disabled","disabled");
 			$("#saveVote").css("background-color","#ccc");
 		}
 	});
@@ -101,21 +149,19 @@ $(function() {
 		if(!b){
 			return;
 		}
-		var serializeJson = $("#voteForm").serialize();
-		var params=serializeJson.split("&");
 		var json={};
-		for (var i = 0; i < params.length; i++) {
-			var keys=params[i].split("=");
-			json[keys[0]]=keys[1];
-		}
-		json.comment=$("#vote #comment").prop("checked");
-		json.agree=$("#vote #weuiAgree2").prop("checked");
+		json.voteTitle=$("#voteForm input[name='voteTitle']").val();
+		json.beginTime=$("#voteForm input[name='beginTime']").val();
+		json.endTime=$("#voteForm input[name='endTime']").val();
+		json.voteDesc=$("#voteDesc").val();
+		json.id=$("#vote_id").html();
+		json.isComment=$("#vote #isComment").prop("checked");
+		json.agree=$("#weuiAgree").prop("checked");
 		json.imgList=[];
 		var imgs=$("#vote_uploaderFiles>li>span").html();
 		for (var i = 0; i < imgs.length; i++) {
 			json.imgList.push(imgs[i]);
 		}
-		console.log(JSON.stringify(json));
 		if(!json.voteTitle){
 			$.alert("请输入标题!","系统提示");
 		}else if(!json.endTime){
@@ -125,24 +171,28 @@ $(function() {
 		}else if(!json.agree){
 			$.alert("请阅读并确认《信息发布条款》！","系统提示");
 		}else{
+			$.showLoading();
 			$.post("../releaseManager/saveVoteInfo.do",json,function(data){
+				$.hideLoading();
 				if(data.success){
 					 $.toast("操作成功");
+					 $("#vote_id").html(data.msg);
 				}else{
 					$.alert(data.msg,"系统提示");
 				}
 			});
 		}
 	});
-	weixinfileup.init();
+	if(is_weixin()){
+		weixinfileup.init();
+	}
 	$(".weui-uploader__info").html("");
-//	$(".weui-uploader__files").html("");
+	$(".weui-uploader__files").html("");
 	$("#uploaderInput").click(function(){
 		var imgPath="/temp/notice/"+Math.random()+".jpg";
 		weixinfileup.imguploadToWeixin(this, imgPath, function(){
 			$("#uploaderFiles").append('<li class="weui-uploader__file" style="background-image:url('+imgPath+')"><span>'+imgPath+'</span></li>');
 		});
-		$("#img_num").html($("#uploaderFiles li").length);
 	});
 	$("#voteImgUpload").click(function(){
 		var imgPath="/temp/vote/"+Math.random()+".jpg";
@@ -154,3 +204,37 @@ $(function() {
 	
 	//////////////////
 });
+function imageUpload(t,fileName,type){
+//	$.showLoading();
+	var li=$('<li class="weui-uploader__file"><span></span><div class="weui-uploader__file-content"></div></li>');
+	if(type=="vote"){
+		$("#vote_uploaderFiles").append(li);
+		var len=$("#vote_uploaderFiles li").length;
+		$("#vote_img_num").html((len-1)+"/"+len);
+	}else{
+		$("#uploaderFiles").append(li);
+		var len=$("#uploaderFiles li").length;
+		$("#img_num").html((len-1)+"/"+len);
+	}
+	ajaxUploadFile({
+		"uploadUrl":"../upload/uploadImage.do?fileName="+fileName+"&type="+type,
+		"msgId":"",
+		"fileId":fileName,
+		"msg":"img",
+		"fid":"",
+		"uploadFileSize":5
+	},t,function(imgUrl){
+		$.hideLoading();
+		li.css("background-image","url(../"+imgUrl+"_sl)");
+		li.find("span").html(imgUrl);
+		if(type=="vote"){
+			$("#vote_uploaderFiles").append(li);
+			var len=$("#vote_uploaderFiles li").length;
+			$("#vote_img_num").html(len+"/"+len);
+		}else{
+			$("#uploaderFiles").append(li);
+			var len=$("#uploaderFiles li").length;
+			$("#img_num").html(len+"/"+len);
+		}
+	});
+}

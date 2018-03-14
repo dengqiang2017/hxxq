@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dengqiang.bean.UserInfoBean;
+import com.dengqiang.controller.BaseController;
 import com.dengqiang.dao.interfaces.ICustomerDao;
 import com.dengqiang.service.ICustomerService;
 
 @Service
-public class CustomerServiceImpl implements ICustomerService {
+public class CustomerServiceImpl extends BaseController implements ICustomerService {
 	public static Logger log = Logger.getLogger(CustomerServiceImpl.class);
 	
 	@Autowired
@@ -41,4 +43,16 @@ public class CustomerServiceImpl implements ICustomerService {
 		return customerDao.save(map);
 	}
 
+	@Override
+	public UserInfoBean getUserInfoByMac(String mac) throws Exception {
+		 UserInfoBean userInfo= customerDao.getUserInfoByMac(mac);
+		 if (userInfo!=null) {
+			 Map<String, Object> map=new HashMap<>();
+			 map.put("id", userInfo.getId());
+			 map.put("loginTime", getNow());
+			 customerDao.updateLoginTime(map);
+			 return userInfo;
+		}
+		 return null;
+	}
 }

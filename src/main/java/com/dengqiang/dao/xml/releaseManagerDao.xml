@@ -23,8 +23,8 @@
 	   <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
           select LAST_INSERT_ID() as id
         </selectKey>
-        insert into t_vote(user_info_id,housing_estate_id,voteTitle,beginTime,endTime,creationTime,isComment,showName)
-        values(#{founder},#{housingEstate},#{voteTitle},#{beginTime},#{endTime},#{creationTime},#{isComment},#{showName});
+        insert into t_vote(user_info_id,housing_estate_id,voteTitle,voteDesc,beginTime,endTime,creationTime,isComment,showName)
+        values(#{founder},#{housingEstate},#{voteTitle},#{voteDesc},#{beginTime},#{endTime},#{creationTime},#{isComment},#{showName});
 	</insert>
 	<update id="updateVoteInfo" parameterType="hashMap">
 	update t_vote set auditor_id=null,auditStatus=0,auditDate=null,

@@ -16,6 +16,7 @@ public class ReviewContentBean implements Serializable{
 	private NoticeBean notice;//公告信息
 	private String reviewContent;//评论留言内容
 	private Date reviewTime;//评论时间
+	private String bz;//备注
 	private UserInfoBean userInfo;//评论用户
 	//通过审核后才能显示
 	private int auditStatus=0;//审核状态,0-未审核,1-已审核,2-已失效
@@ -80,5 +81,11 @@ public class ReviewContentBean implements Serializable{
 	}
 	public void setAuditDate(Date auditDate) {
 		this.auditDate = auditDate;
+	}
+	public String getBz() {
+		return bz;
+	}
+	public void setBz(String bz) {
+		this.bz = bz;
 	}
 }

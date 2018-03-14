@@ -20,6 +20,7 @@ public class NoticeBean implements Serializable{
 	private UserInfoBean founder;//发布人
 	private Date creationTime;//创建时间
 	private Date showTime;//显示时间,提前编辑,定时发布
+	private String bz;//备注
 	private HousingEstateBean housingEstate;//所属小区
 	private List<FileBean> fileList;//附件名称列表
 	private List<ReviewContentBean> reviewContents;//评论内容
@@ -144,5 +145,10 @@ public class NoticeBean implements Serializable{
 			this.show = true;
 		}
 	}
-	
+	public String getBz() {
+		return bz;
+	}
+	public void setBz(String bz) {
+		this.bz = bz;
+	}
 }

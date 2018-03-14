@@ -21,6 +21,7 @@ public class VoteBean implements Serializable{
 	private String voteDesc;//投票描述
 	private UserInfoBean founder;//发起人
 	private Date creationTime;//创建时间
+	private String bz;//备注
 	private List<FileBean> fileList;//附件名称列表
 	private List<ReviewContentBean> reviewContents;//评论内容
 	//通过审核后才能显示
@@ -131,4 +132,12 @@ public class VoteBean implements Serializable{
 	public void setAuditDate(Date auditDate) {
 		this.auditDate = auditDate;
 	}
+	public String getBz() {
+		return bz;
+	}
+	public void setBz(String bz) {
+		this.bz = bz;
+	}
+	
 }
+

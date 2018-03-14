@@ -5,16 +5,32 @@
 <!-- xml文件 -->
 <mapper namespace="com.dengqiang.dao.interfaces.ICustomerDao">
 <!-- 	<cache/>  -->
+
+<resultMap type="com.dengqiang.bean.UserInfoBean" id="userInfo">
+  <id property="id" column="id"/>
+  <result property="userName" column="userName"/>
+  <result property="fullName" column="fullName"/>
+  <result property="weixinName" column="weixinName"/>
+  <result property="weixin" column="weixin"/>
+  <result property="identityCard" column="identityCard"/>
+  <result property="sex" column="sex"/>
+  <result property="mobile" column="mobile"/>
+  <result property="userType" column="userType"/>
+</resultMap>
 <insert id="save" parameterType="hashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-            select LAST_INSERT_ID() as id
-        </selectKey>
+  <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      select LAST_INSERT_ID() as id
+  </selectKey>
+  insert into t_user_info (userName,fullName,password,weixinName,weixin,openid,identityCard,sex,moblie,mac,userType)
+  values(#{userName},#{fullName},#{password},#{weixinName},#{weixin},#{openid},#{identityCard},#{sex},#{moblie},#{mac},#{userType})
 </insert>
 <select id="getCustomerInfoByOpenid" parameterType="hashMap" resultType="hashMap">
-
+select * from t_user_info where openid=#{openid}
 </select>
 <update id="updateLoginTime" parameterType="hashMap">
-
+update t_user_info set loginTime=#{loginTime} where id=#{id}
 </update>
-
+<select id="getUserInfoByMac" parameterType="String" resultMap="userInfo">
+select * from t_user_info where mac=#{mac}
+</select>
 </mapper>

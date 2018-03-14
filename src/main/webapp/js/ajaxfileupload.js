@@ -1,17 +1,15 @@
 var fileSuccess=false;
 jQuery.extend({
-    createUploadIframe: function(id, uri)
-	{
+    createUploadIframe: function(id, uri){
 			//create frame
             var frameId = 'jUploadFrame' + id;
-            
+            var io = document.createElement('iframe');
+            io.id = frameId;
+            io.name = frameId;
             if(window.ActiveXObject) {
             	   if(!$.browser||$.browser.version=="9.0" || $.browser.version=="10.0"){
-            	    	var io = document.createElement('iframe');
-            	    	io.id = frameId;
-            	    	io.name = frameId;
             	    }else if(jQuery.browser.version=="6.0" || jQuery.browser.version=="7.0" || jQuery.browser.version=="8.0"){
-            	    	var io = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');
+//            	    	io = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');
             	    	if(typeof uri== 'boolean'){
             	    	    io.src = 'javascript:false';
             	    	}
@@ -19,12 +17,11 @@ jQuery.extend({
             	    	    io.src = uri;
             	    	}
             	    }
-            	}
-            else {
-                var io = document.createElement('iframe');
-                io.id = frameId;
-                io.name = frameId;
-            }
+            	} else {
+//                var io = document.createElement('iframe');
+//                io.id = frameId;
+//                io.name = frameId;
+              }
             io.style.position = 'absolute';
             io.style.top = '-1000px';
             io.style.left = '-1000px';
@@ -59,10 +56,11 @@ jQuery.extend({
     },
 
     ajaxFileUpload: function(s) {
-        // TODO introduce global settings, allowing the client to modify them for all requests, not only timeout		
-    	pop_up_box.showLoadImg();
+        // TODO introduce global settings, allowing the client to modify them for all requests, not only timeout	
+//    		pop_up_box.showLoadImg();
+		$.showLoading();
         s = jQuery.extend({}, jQuery.ajaxSettings, s);
-        var id = new Date().getTime()        
+        var id = new Date().getTime();
 		var form = jQuery.createUploadForm(id, s.fileElementId,s.data);
 		var io = jQuery.createUploadIframe(id, s.secureuri);
 		var frameId = 'jUploadFrame' + id;
@@ -140,9 +138,7 @@ jQuery.extend({
                 // Process result
                 if ( s.complete )
                     s.complete(xml, status);
-
-                jQuery(io).unbind()
-
+                jQuery(io).unbind();
                 setTimeout(function()
 									{	try 
 										{
@@ -153,16 +149,12 @@ jQuery.extend({
 										{
 											jQuery.handleError(s, xml, null, e);
 										}									
-
-									}, 100)
-
-                xml = null
-
+									}, 100);
+                xml = null;
             }
-        }
+        };
         // Timeout checker
-        if ( s.timeout > 0 ) 
-		{
+        if ( s.timeout > 0 ){
             setTimeout(function(){
                 // Check to see if the request is still happening
                 if( !requestDone ) uploadCallback( "timeout" );
@@ -252,8 +244,8 @@ jQuery.extend({
 function ajaxUploadFile(params,target,callback){
 	var isIE = /msie/i.test(navigator.userAgent) && !window.opera;   
 	   if(params.msg!=""&&!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(target.value)){
-			 $("#"+params.msgId).html("<font color=red>图片类型必须是.GIF,.JPEG,.JPG,.PNG）结尾的一种</font>");
-			 pop_up_box.showMsg("<font color=red>图片类型必须是.GIF,.JPEG,.JPG,.PNG）结尾的一种</font>");
+//			 $("#"+params.msgId).html("<font color=red>图片类型必须是.GIF,.JPEG,.JPG,.PNG）结尾的一种</font>");
+			$.alert("图片类型必须是.GIF,.JPEG,.JPG,.PNG）结尾的一种");
          return false;
        }else if (/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(target.value)) {
     	   if (!params.uploadFileSize||params.uploadFileSize<=0) {
@@ -286,15 +278,16 @@ function ajaxUploadFile(params,target,callback){
 	}
 	  if(size>params.uploadFileSize){
 		  if (params.uploadFileSize<1) {
-			  pop_up_box.showMsg("文件不能大于"+params.uploadFileSize*1000+"KB");
+    		$.alert("文件不能大于"+params.uploadFileSize*1000+"KB");
 		}else{
-			pop_up_box.showMsg("文件不能大于"+params.uploadFileSize+"M");
+			$.alert("文件不能大于"+params.uploadFileSize*1000+"M");
 		}
 	  $("input[name='"+params.fileId+"']").val("");
 		 return false;
 	   } 
 	//设置上传提示---begin----
-	pop_up_box.showLoadImg();
+	$.showLoading();
+	showProgress();
 //设置上传提示---end----
 	$.ajaxFileUpload({
 		   url:params.uploadUrl,
@@ -339,27 +332,24 @@ function ajaxUploadFile(params,target,callback){
 		   }
 	});
 }
-function closeLoadImg(){pop_up_box.loadWaitClose();}
+function closeLoadImg(){
+	$.hideLoading();
+}
 var startTime;
 var interval=1;
 function showProgress(){
 	var myDate = new Date();
 	startTime = myDate.getTime();
-	$("#progress,#zhezhao").show(); 
+//	$("#progress,#zhezhao").show(); 
 	getProgressBar();
 }
 var bar=true;
 function closeProgress(){
+	$.showLoading();
 	window.clearTimeout(interval);
 	window.clearTimeout(interval);
 	interval=0;
 	bar=false;
-	$("#progress,#zhezhao").remove();
-	setTimeout(function(){
-		if (!fileSuccess) {
-			pop_up_box.dataHandlingWait();
-		}
-	}, 500);
 }
 function getProgressBar() {
 	if(!bar){
@@ -368,9 +358,9 @@ function getProgressBar() {
 	var timestamp = (new Date()).valueOf();
 	var bytesReadToShow = 0;
 	var contentLengthToShow = 0;
-	var bytesReadGtMB = 0;
-	var contentLengthGtMB = 0;
-	$.getJSON(pop_up_box.prePop()+"upload/getBar.do", {"t":timestamp}, function (json) {
+//	var bytesReadGtMB = 0;
+//	var contentLengthGtMB = 0;
+	$.getJSON("../upload/getBar.do", {"t":timestamp}, function (json) {
 		if (!json) {
 			return;
 		}
@@ -391,37 +381,38 @@ function getProgressBar() {
 		bytesReadToShow = bytesReadToShow.substring(0, bytesReadToShow.lastIndexOf(".") + 3);
 		contentLengthToShow = contentLengthToShow.substring(0, contentLengthToShow.lastIndexOf(".") + 3);
 		if (bytesRead == contentLength) {
-			$("#close").show();
-			$("#progressImg").css("width", "300px");
-			$("#progress .progress-bar").css("width", "100%");
-			$("#progress #shuzi").html("100%");
-			if (contentLengthGtMB == 0) {
-				$("div#info").html("\u4e0a\u4f20\u5b8c\u6210\uff01\u603b\u5171\u5927\u5c0f" + contentLengthToShow + "KB.\u5b8c\u6210100%");
-				
-			} else {
-				$("div#info").html("\u4e0a\u4f20\u5b8c\u6210\uff01\u603b\u5171\u5927\u5c0f" + contentLengthToShow + "MB.\u5b8c\u6210100%");
-			}
+//			$("#close").show();
+//			$("#progressImg").css("width", "300px");
+//			$("#progress .progress-bar").css("width", "100%");
+//			$("#progress #shuzi").html("100%");
+//			if (contentLengthGtMB == 0) {
+//				$("div#info").html("\u4e0a\u4f20\u5b8c\u6210\uff01\u603b\u5171\u5927\u5c0f" + contentLengthToShow + "KB.\u5b8c\u6210100%");
+//				
+//			} else {
+//				$("div#info").html("\u4e0a\u4f20\u5b8c\u6210\uff01\u603b\u5171\u5927\u5c0f" + contentLengthToShow + "MB.\u5b8c\u6210100%");
+//			}
 			closeProgress();
 		} else {
-			var pastTimeBySec = (new Date().getTime() - startTime) / 1000;
-			var sp = (bytesRead / pastTimeBySec).toString();
-			var speed = sp.substring(0, sp.lastIndexOf(".") + 3);
+//			var pastTimeBySec = (new Date().getTime() - startTime) / 1000;
+//			var sp = (bytesRead / pastTimeBySec).toString();
+//			var speed = sp.substring(0, sp.lastIndexOf(".") + 3);
 			var percent = Math.floor((bytesRead / contentLength) * 100) + "%";
-			$("#progressImg").css("width", percent);$("#json").append(percent+",");
 			
-			$("#progress .progress-bar").css("width", percent);
-			$("#progress #shuzi").html(percent);
-			if (bytesReadGtMB == 0 && contentLengthGtMB == 0) {
-				$("div#info").html("\u4e0a\u4f20\u901f\u5ea6:" + speed + "KB/s,\u5df2\u7ecf\u8bfb\u53d6" + bytesReadToShow + "KB <br>\u603b\u5171\u5927\u5c0f:" + contentLengthToShow + "KB.\u5b8c\u6210" + percent);
-			} else {
-				if (bytesReadGtMB == 0 && contentLengthGtMB == 1) {
-					$("div#info").html("\u4e0a\u4f20\u901f\u5ea6:" + speed + "KB/s,\u5df2\u7ecf\u8bfb\u53d6" + bytesReadToShow + "KB <br>\u603b\u5171\u5927\u5c0f:" + contentLengthToShow + "MB.\u5b8c\u6210" + percent);
-				} else {
-					if (bytesReadGtMB == 1 && contentLengthGtMB == 1) {
-						$("div#info").html("\u4e0a\u4f20\u901f\u5ea6:" + speed + "KB/s,\u5df2\u7ecf\u8bfb\u53d6" + bytesReadToShow + "MB <br>\u603b\u5171\u5927\u5c0f:" + contentLengthToShow + "MB.\u5b8c\u6210" + percent);
-					}
-				}
-			}
+			$(".weui-uploader__file-content").html(percent);
+//			$("#progressImg").css("width", percent);$("#json").append(percent+",");
+//			$("#progress .progress-bar").css("width", percent);
+//			$("#progress #shuzi").html(percent);
+//			if (bytesReadGtMB == 0 && contentLengthGtMB == 0) {
+//				$("div#info").html("\u4e0a\u4f20\u901f\u5ea6:" + speed + "KB/s,\u5df2\u7ecf\u8bfb\u53d6" + bytesReadToShow + "KB <br>\u603b\u5171\u5927\u5c0f:" + contentLengthToShow + "KB.\u5b8c\u6210" + percent);
+//			} else {
+//				if (bytesReadGtMB == 0 && contentLengthGtMB == 1) {
+//					$("div#info").html("\u4e0a\u4f20\u901f\u5ea6:" + speed + "KB/s,\u5df2\u7ecf\u8bfb\u53d6" + bytesReadToShow + "KB <br>\u603b\u5171\u5927\u5c0f:" + contentLengthToShow + "MB.\u5b8c\u6210" + percent);
+//				} else {
+//					if (bytesReadGtMB == 1 && contentLengthGtMB == 1) {
+//						$("div#info").html("\u4e0a\u4f20\u901f\u5ea6:" + speed + "KB/s,\u5df2\u7ecf\u8bfb\u53d6" + bytesReadToShow + "MB <br>\u603b\u5171\u5927\u5c0f:" + contentLengthToShow + "MB.\u5b8c\u6210" + percent);
+//					}
+//				}
+//			}
 		}
 	});
 	interval = window.setTimeout("getProgressBar()", 500);
@@ -436,7 +427,7 @@ function deleteImg(imgurl,t){
 	$.get("../upload/removeTemp.do",{"imgUrl":imgurl},function(data){
 		if (data.success) {
 			$(t).parent().remove();
-			pop_up_box.showMsg("删除成功");
+			$.alert("删除成功");
 		}
 	});
 }
@@ -447,8 +438,8 @@ function logoUpload(t){
 		"fileId":"imgFile",
 		"msg":"",
 		"fid":"",
-		"uploadFileSize":0.3
+		"uploadFileSize":5
 	},t,function(imgUrl){
-		pop_up_box.loadWaitClose();
+		$.hideLoading();
 	});
 }

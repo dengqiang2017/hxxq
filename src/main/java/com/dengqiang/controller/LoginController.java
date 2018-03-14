@@ -14,9 +14,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dengqiang.bean.ResultInfo;
+import com.dengqiang.bean.UserInfoBean;
 import com.dengqiang.service.ICustomerService;
 import com.dengqiang.service.IOperatorsService;
 import com.dengqiang.util.DateTimeUtils;
@@ -54,6 +56,34 @@ public class LoginController extends BaseController {
 		}
 		throw new RuntimeException("口令错误");
 	}
+	/**
+	 * 通过mac/IP地址自动登录
+	 * @param request
+	 * @return 用户类型
+	 */
+	@RequestMapping(value = "autoLogin", method = RequestMethod.GET)
+	public @ResponseBody ResultInfo autoLogin(HttpServletRequest request) {
+		boolean success = false;
+		String msg = null;
+		try {
+			String ip=getIpAddr(request);
+			String mac=getMACAddress(ip);
+			if (StringUtils.isBlank(mac)) {
+				mac=ip;
+			}
+			UserInfoBean userInfo= customerService.getUserInfoByMac(mac);
+			if (userInfo!=null) {
+				request.getSession().setAttribute(SESSION_USER_INFO, userInfo);
+				success = true;
+				msg=userInfo.getUserType()+"";
+			}
+		} catch (Exception e) {
+			msg = "系统执行错误!";
+			e.printStackTrace();
+		}
+		return new ResultInfo(success, msg);
+	}
+	
 	
 	//TODO 微信服务号网页版操作----开始----
 		/**

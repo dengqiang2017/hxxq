@@ -1,6 +1,7 @@
 package com.dengqiang.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 /**
  * 用户基本信息
@@ -19,6 +20,8 @@ public class UserInfoBean implements Serializable{
 	private String sex;//性别
 	private String mobile;//电话号码/登录名称 
 	private int userType=0;//0-普通用户业主业委会成员,1-运营商合作者,2-管理员
+	private String moblieMac;//用户最近使用的mac/ip地址,用于自动登录
+	private Date loginTime;//用户最近登录时间
 	private List<UserInfoHousingBean> userInfoHousings;//用户小区相关信息
 	private List<FileBean> fileList;//身份证图片等文件地址
 	public UserInfoBean() {}
@@ -103,5 +106,17 @@ public class UserInfoBean implements Serializable{
 	}
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+	public String getMoblieMac() {
+		return moblieMac;
+	}
+	public void setMoblieMac(String moblieMac) {
+		this.moblieMac = moblieMac;
+	}
+	public Date getLoginTime() {
+		return loginTime;
+	}
+	public void setLoginTime(Date loginTime) {
+		this.loginTime = loginTime;
 	}
 }

@@ -45,10 +45,12 @@ public class ReleaseManagerController extends BaseController {
 			String founder=userInfo.getUserName();
 			int userType=userInfo.getUserType();
 			HousingEstateBean housingEstate=getHousingEstate(request);
-			boolean b=checkUserInfo(userInfo);
-			if (!b) {
-				msg="未实名认证,只能浏览不能发布信息!";
-			}else if (isMapKeyNull(map, "noticeTitle")) {
+			//TODO 根据用户id从数据库获取用户最新信息
+//			boolean b=checkUserInfo(userInfo);
+//			if (!b) {//TODO 测试期间允许非实名发布
+//				msg="未实名认证,只能浏览不能发布信息!";
+//			}else
+			if (isMapKeyNull(map, "noticeTitle")) {
 				msg="标题不能为空!";
 			}else if(StringUtils.isBlank(founder)){
 				msg="信息不完善不能发布信息!";
@@ -62,11 +64,17 @@ public class ReleaseManagerController extends BaseController {
 				if (isMapKeyNull(map, "showTime")) {
 					map.put("showTime", getNow());
 				}
-				if (isMapKeyNull(map, "comment")) {//是否允许评论留言默认是
-					map.put("comment", true);
+				if (isMapKeyNull(map, "isComment")) {//是否允许评论留言默认是
+					map.put("isComment", true);
 				}
-				if (isMapKeyNull(map, "showName")) {//实名发布,默认是
-					map.put("showName", true);
+				if (isMapKeyNull(map, "isTop")) {//是否置顶
+					map.put("isTop", false);
+				}
+				if (isMapKeyNull(map, "isShow")) {//是否显示
+					map.put("isShow", true);
+				}
+				if (isMapKeyNull(map, "showName")) {//实名发布
+					map.put("showName", false);
 				}
 				map.put("creationTime", getNow());
 				map.put("founder", userInfo.getId());
@@ -80,11 +88,23 @@ public class ReleaseManagerController extends BaseController {
 					File srcFile=new File(getRealPath(request)+"temp/"+userInfo.getId()+"/notice/");
 					if (srcFile.exists()&&srcFile.isDirectory()) {
 						File[] fs=srcFile.listFiles();
+//						List<FileBean> beans=new ArrayList<>();
 						for (File src : fs) {
-							File destFile=new File(getRealPath(request)+userInfo.getId()+"/notice/"+id+"/"+src.getName());
+							String img=userInfo.getId()+"/notice/"+id+"/"+src.getName();
+							File destFile=new File(getRealPath(request)+img);
 							mkdirsDirectory(destFile);
 							FileUtils.moveFile(src, destFile);
+//							FileBean fileBean=new FileBean();
+//							fileBean.setFileName(src.getName());
+//							if (img.endsWith("_sl")) {
+//								fileBean.setFileType("notice缩略图");
+//							}else{
+//								fileBean.setFileType("notice");
+//							}
+//							fileBean.setFilePath(img);
+//							beans.add(fileBean);
 						}
+//						releaseManagerService.saveFile(beans);
 					}
 					success = true;
 				}else{
@@ -146,10 +166,12 @@ public class ReleaseManagerController extends BaseController {
 			String founder=userInfo.getUserName();
 			int userType=userInfo.getUserType();
 			HousingEstateBean housingEstate=getHousingEstate(request);
-			boolean b=checkUserInfo(userInfo);
-			if (!b) {
-				msg="未实名认证,只能浏览不能发布信息!";
-			}else if (isMapKeyNull(map, "voteTitle")) {
+			//TODO 根据用户id从数据库获取用户最新信息
+//			boolean b=checkUserInfo(userInfo);
+//			if (!b) {//TODO 测试期间允许非实名发布
+//				msg="未实名认证,只能浏览不能发布信息!";
+//			}else 
+			if (isMapKeyNull(map, "voteTitle")) {
 				msg="标题不能为空!";
 			}else if(StringUtils.isBlank(founder)){
 				msg="信息不完善不能发布信息!";
@@ -167,8 +189,8 @@ public class ReleaseManagerController extends BaseController {
 				if (isMapKeyNull(map, "beginTime")) {
 					map.put("beginTime", getNow());
 				}
-				if (isMapKeyNull(map, "comment")) {//是否允许评论留言默认是
-					map.put("comment", true);
+				if (isMapKeyNull(map, "isComment")) {//是否允许评论留言默认是
+					map.put("isComment", true);
 				}
 				if (isMapKeyNull(map, "showName")) {//实名发布,默认是
 					map.put("showName", true);
@@ -186,7 +208,8 @@ public class ReleaseManagerController extends BaseController {
 					if (srcFile.exists()&&srcFile.isDirectory()) {
 						File[] fs=srcFile.listFiles();
 						for (File src : fs) {
-							File destFile=new File(getRealPath(request)+userInfo.getId()+"/vote/"+id+"/"+src.getName());
+							String img=userInfo.getId()+"/vote/"+id+"/"+src.getName();
+							File destFile=new File(getRealPath(request)+img);
 							mkdirsDirectory(destFile);
 							FileUtils.moveFile(src, destFile);
 						}
@@ -257,7 +280,11 @@ public class ReleaseManagerController extends BaseController {
 				File file=new File(getRealPath(request)+"temp/"+userinfo.getId()+"/"+map.get("type"));
 				if (file.exists()&&file.isDirectory()) {
 					log.info(file.getPath());
-					FileUtils.deleteDirectory(file);
+					try {
+						FileUtils.deleteDirectory(file);
+					} catch (Exception e) {
+						log.error(e.getMessage());
+					}
 				}
 				success = true;
 			}
