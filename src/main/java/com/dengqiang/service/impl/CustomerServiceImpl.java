@@ -55,4 +55,9 @@ public class CustomerServiceImpl extends BaseController implements ICustomerServ
 		}
 		 return null;
 	}
+	@Override
+	public Integer saveAutoLogin(UserInfoBean userInfo) {
+		 
+		return customerDao.saveAutoLogin(userInfo);
+	}
 }

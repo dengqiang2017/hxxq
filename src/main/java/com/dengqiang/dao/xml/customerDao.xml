@@ -24,6 +24,12 @@
   insert into t_user_info (userName,fullName,password,weixinName,weixin,openid,identityCard,sex,moblie,mac,userType)
   values(#{userName},#{fullName},#{password},#{weixinName},#{weixin},#{openid},#{identityCard},#{sex},#{moblie},#{mac},#{userType})
 </insert>
+<insert id="saveAutoLogin" parameterType="com.dengqiang.bean.UserInfoBean" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+  <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      select LAST_INSERT_ID() as id
+  </selectKey>
+  insert into t_user_info (mac,userType,loginTime)values(#{mac},#{userType},#{loginTime})
+</insert>
 <select id="getCustomerInfoByOpenid" parameterType="hashMap" resultType="hashMap">
 select * from t_user_info where openid=#{openid}
 </select>

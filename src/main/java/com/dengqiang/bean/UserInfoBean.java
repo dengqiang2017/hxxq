@@ -19,8 +19,8 @@ public class UserInfoBean implements Serializable{
 	private String identityCard;//身份证号用于发消息和发起投票时实名认证
 	private String sex;//性别
 	private String mobile;//电话号码/登录名称 
-	private int userType=0;//0-普通用户业主业委会成员,1-运营商合作者,2-管理员
-	private String moblieMac;//用户最近使用的mac/ip地址,用于自动登录
+	private int userType=0;//0-普通用户业主,1-业委会成员,2-运营商合作者,3-管理员
+	private String mac;//用户最近使用的mac/ip地址,用于自动登录
 	private Date loginTime;//用户最近登录时间
 	private List<UserInfoHousingBean> userInfoHousings;//用户小区相关信息
 	private List<FileBean> fileList;//身份证图片等文件地址
@@ -107,11 +107,11 @@ public class UserInfoBean implements Serializable{
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
-	public String getMoblieMac() {
-		return moblieMac;
+	public String getMac() {
+		return mac;
 	}
-	public void setMoblieMac(String moblieMac) {
-		this.moblieMac = moblieMac;
+	public void setMac(String mac) {
+		this.mac = mac;
 	}
 	public Date getLoginTime() {
 		return loginTime;

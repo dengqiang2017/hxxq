@@ -19,5 +19,11 @@ public interface ICustomerDao {
 	 * @return 用户信息
 	 */
 	UserInfoBean getUserInfoByMac(@Param("mac")String mac);
+	/**
+	 * 保存自动登录时不存在的用户
+	 * @param userInfo
+	 * @return 返回用户id
+	 */
+	Integer saveAutoLogin(UserInfoBean userInfo);
 
 }

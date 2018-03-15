@@ -1,6 +1,7 @@
 package com.dengqiang.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,17 +67,28 @@ public class LoginController extends BaseController {
 		boolean success = false;
 		String msg = null;
 		try {
-			String ip=getIpAddr(request);
-			String mac=getMACAddress(ip);
-			if (StringUtils.isBlank(mac)) {
-				mac=ip;
+			String moblieMac=request.getParameter("moblieMac");
+			UserInfoBean userInfo= customerService.getUserInfoByMac(moblieMac);
+			if (userInfo==null) {
+				userInfo=new UserInfoBean();
+				String Referer =request.getHeader("Referer");
+				int userType=0;
+				if (Referer.contains("release")) {
+					userType=1;
+				}
+				userInfo.setUserType(userType);
+				userInfo.setMac(moblieMac);
+				userInfo.setLoginTime(new Date());
+				Integer id= customerService.saveAutoLogin(userInfo);
+				if (id!=null&&id>0) {
+					userInfo.setId(id);
+				}else{
+					throw new RuntimeException("自动登录数据存储错误");
+				}
 			}
-			UserInfoBean userInfo= customerService.getUserInfoByMac(mac);
-			if (userInfo!=null) {
-				request.getSession().setAttribute(SESSION_USER_INFO, userInfo);
-				success = true;
-				msg=userInfo.getUserType()+"";
-			}
+			request.getSession().setAttribute(SESSION_USER_INFO, userInfo);
+			success = true;
+			msg=userInfo.getUserType()+"";
 		} catch (Exception e) {
 			msg = "系统执行错误!";
 			e.printStackTrace();

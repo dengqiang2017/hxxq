@@ -36,7 +36,7 @@
 <!-- 用户基本信息 -->
  	CREATE TABLE if not exists `t_user_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userName` varchar(30) NOT NULL COMMENT '用户名称/登录名称',
+  `userName` varchar(30) DEFAULT NULL COMMENT '用户名称/登录名称',
   `fullName` varchar(30) DEFAULT NULL COMMENT '姓名',
   `password` varchar(32) DEFAULT NULL COMMENT '密码',
   `weixinName` varchar(30) DEFAULT NULL COMMENT '微信昵称',
@@ -47,7 +47,7 @@
   `mobile` varchar(11) DEFAULT NULL COMMENT '电话号码',
   `mac` varchar(20) DEFAULT NULL COMMENT '用户最近使用的mac/ip地址,用于自动登录',
   `loginTime` datetime DEFAULT NULL COMMENT '用户最近登录时间',
-  `userType` int(1) NOT NULL DEFAULT '0' COMMENT '0-普通用户业主业委会成员,1-运营商合作者,2-管理员',
+  `userType` int(1) NOT NULL DEFAULT '0' COMMENT '0-普通用户业主,1-业委会成员,2-运营商合作者,3-管理员',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;  
 <!-- 用户小区相关信息 -->

@@ -47,7 +47,6 @@ $(function(){
 					}
 				};
 				uexWindow.setReportKey(0,1);
-				
 			}
 		}
 	};

@@ -7,7 +7,7 @@
     <title>和谐小区</title>
     <link rel="stylesheet" href="jquery-weui/lib/weui.min.css">
 	<link rel="stylesheet" href="jquery-weui/css/jquery-weui.min.css">
-	<link rel="stylesheet" href="../css/public.css">
+	<link rel="stylesheet" href="css/public.css">
   </head>
   <body>
   <header>
@@ -40,15 +40,25 @@
 <!-- 如果使用了某些拓展插件还需要额外的JS -->
 <script src="jquery-weui/js/swiper.min.js"></script>
 <script src="jquery-weui/js/city-picker.min.js"></script>
-<script src="../js/public.js"></script>
+<script src="js/public.js"></script>
 <script type="text/javascript">
 <!--
 if(is_weixin()){
-}else{
-	$.get("login/autoLogin.do",function(data){
-		console.log(data);
-	});
 }
+function autoLogin(){
+	window.uexOnload = function(type){
+		////自动登录注册////
+		var moblieMac=uexDevice.getInfo("10");//用户手机唯一识别码
+		$.get("login/autoLogin.do",{"moblieMac":moblieMac},function(data){
+			if(data.msg=="1"){
+				window.location.href="release";
+			}else if(data.msg=="0"){
+				window.location.href="show";
+			}
+		});
+	};
+}
+autoLogin();
 //-->
 </script>
   </body>
