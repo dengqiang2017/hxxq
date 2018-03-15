@@ -51,14 +51,14 @@ $(function() {
 	});
 	$(".weui-tabbar__item:eq(0)").click(function(){
 		init("notice");
-		$(".head-title").html("公告发布");
+		$(".head-title>span:eq(0)").html("公告发布");
 	});
 	$(".weui-tabbar__item:eq(1)").click(function(){
 		init("vote");
-		$(".head-title").html("发起投票");
+		$(".head-title>span:eq(0)").html("发起投票");
 	});
 	$(".weui-tabbar__item:eq(2)").click(function(){
-		$(".head-title").html("个人中心");
+		$(".head-title>span:eq(0)").html("个人中心");
 	});
 	$("#actions,.glyphicon-th-large").click(function(){
 		$.actions({
