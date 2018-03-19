@@ -5,7 +5,10 @@ $(function() {
 	var now = new Date();
 	var nowStr = now.Format("yyyy-MM-ddThh:mm");
 	$("input[name='showTime']").val(nowStr);
+	$("input[name='beginTime']").val(nowStr);
 	$("input[name='showTime']").attr("min",nowStr);
+	$("input[name='beginTime']").attr("min",nowStr);
+	$("input[name='endTime']").attr("min",nowStr);
 	$(".weui-cells_form").scrollTop(0);
 	function checkUserInfo(){
 		$.get("../releaseManager/checkUserInfo.do",function(data){
@@ -88,6 +91,18 @@ $(function() {
 				}
 			}]
 		});
+	});
+	$(".weui-btn_default:eq(0)").click(function(){
+		$("#weuiAgree2").prop("checked",false);
+		$("#uploaderFiles,#notice_id").html("");
+		$("#saveNotice").attr("disabled","disabled");
+		$("#saveNotice").css("background-color","#ccc");
+	});
+	$(".weui-btn_default:eq(1)").click(function(){
+		$("#weuiAgree").prop("checked",false);
+		$("#vote_uploaderFiles,#vote_id").html("");
+		$("#saveVote").attr("disabled","disabled");
+		$("#saveVote").css("background-color","#ccc");
 	});
 	//////////////公告信息保存////////////////
 	$("#weuiAgree2").click(function(){

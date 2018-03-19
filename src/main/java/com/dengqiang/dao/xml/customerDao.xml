@@ -39,4 +39,7 @@ update t_user_info set loginTime=#{loginTime} where id=#{id}
 <select id="getUserInfoByMac" parameterType="String" resultMap="userInfo">
 select * from t_user_info where mac=#{mac}
 </select>
+<select id="getUserInfoById" parameterType="com.dengqiang.bean.UserInfoBean" resultType="userInfo">
+select * from t_user_info where id=#{id}
+</select>
 </mapper>

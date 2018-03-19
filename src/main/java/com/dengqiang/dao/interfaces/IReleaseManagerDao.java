@@ -42,6 +42,4 @@ public interface IReleaseManagerDao {
 	 * @return 执行结果数
 	 */
 	Integer saveAuditorInfo(Map<String, Object> map) throws Exception;
-	
-
 }

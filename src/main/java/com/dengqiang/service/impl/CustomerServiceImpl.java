@@ -60,4 +60,9 @@ public class CustomerServiceImpl extends BaseController implements ICustomerServ
 		 
 		return customerDao.saveAutoLogin(userInfo);
 	}
+	@Override
+	public UserInfoBean getUserInfoById(UserInfoBean userInfo) {
+		// TODO Auto-generated method stub
+		return customerDao.getUserInfoById(userInfo);
+	}
 }

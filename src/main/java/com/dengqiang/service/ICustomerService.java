@@ -23,5 +23,11 @@ public interface ICustomerService {
 	 * @return 返回用户id
 	 */
 	Integer saveAutoLogin(UserInfoBean userInfo);
+	/**
+	 * 根据id获取用户最新信息
+	 * @param userInfo
+	 * @return
+	 */
+	UserInfoBean getUserInfoById(UserInfoBean userInfo);
 
 }

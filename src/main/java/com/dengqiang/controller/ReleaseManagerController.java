@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dengqiang.bean.HousingEstateBean;
 import com.dengqiang.bean.ResultInfo;
 import com.dengqiang.bean.UserInfoBean;
+import com.dengqiang.service.ICustomerService;
 import com.dengqiang.service.IReleaseManagerService;
 /**
  * 信息发布
@@ -29,6 +30,15 @@ import com.dengqiang.service.IReleaseManagerService;
 public class ReleaseManagerController extends BaseController {
 	@Autowired
 	private IReleaseManagerService releaseManagerService;
+	@Autowired
+	private ICustomerService customerService;
+	
+	@Override
+	public UserInfoBean getUserInfo(HttpServletRequest request) {
+		UserInfoBean userInfo=super.getUserInfo(request);
+		userInfo = customerService.getUserInfoById(userInfo);
+		return userInfo;
+	}
 	
 	/**
 	 * 保存发布公告信息

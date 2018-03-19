@@ -39,4 +39,15 @@
 	<if test="type=='review'">t_review_content</if>
 	 set auditor_id=#{auditor},auditStatus=#{auditStatus},auditDate=#{auditDate} where id=#{id}
 	</update>
+<resultMap type="com.dengqiang.bean.UserInfoBean" id="userInfo">
+  <id property="id" column="id"/>
+  <result property="userName" column="userName"/>
+  <result property="fullName" column="fullName"/>
+  <result property="weixinName" column="weixinName"/>
+  <result property="weixin" column="weixin"/>
+  <result property="identityCard" column="identityCard"/>
+  <result property="sex" column="sex"/>
+  <result property="mobile" column="mobile"/>
+  <result property="userType" column="userType"/>
+</resultMap>
 </mapper>

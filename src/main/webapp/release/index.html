@@ -19,6 +19,11 @@ float: right;margin-right: 5px;
 #actions>span{width: 20px;color: white;}
 .weui-cells{font-size: 16px;}
 .weui-uploader__file{margin-top: 10px;}
+.weui-btn{
+width: 45% !important;
+    display: inline-block !important ;
+}
+.weui-btn-area{text-align: center;margin-top: 0;}
 </style>
 </head>
 <body>
@@ -30,7 +35,7 @@ float: right;margin-right: 5px;
 <div class="weui-tab">
 		<div class="weui-tab__bd">
 			<div id="notice" class="weui-tab__bd-item weui-tab__bd-item--active">
-				<div class="weui-cells weui-cells_form" style="min-height: 845px;overflow:scroll;margin-top: 1px;">
+				<div class="weui-cells weui-cells_form" style="min-height: 860px;overflow:scroll;margin-top: 1px;">
 				<form id="noticeForm">
 				<div class="weui-cell">
 						<div class="weui-cell__hd">
@@ -100,12 +105,13 @@ float: right;margin-right: 5px;
 			    </label>
 			    <div class="weui-btn-area">
 			      <button type="button" class="weui-btn weui-btn_primary" id="saveNotice" disabled="disabled" style="background-color: #ccc;">确定</button>
+			      <button type="reset" class="weui-btn weui-btn_default">清空</button>
 			    </div>
 			    </form>
 				</div>
 			</div>
 			<div id="vote" class="weui-tab__bd-item">
-				<div class="weui-cells weui-cells_form" style="min-height: 800px;overflow:scroll;margin-top: 1px;">
+				<div class="weui-cells weui-cells_form" style="min-height: 810px;overflow:scroll;margin-top: 1px;">
 				<form id="voteForm">
 				<div class="weui-cell">
 						<div class="weui-cell__hd">
@@ -175,6 +181,7 @@ float: right;margin-right: 5px;
 			    </label>
 			    <div class="weui-btn-area">
 			      <button class="weui-btn weui-btn_primary" type="button" id="saveVote" style="background-color: #ccc" disabled="disabled">确定</button>
+			      <button class="weui-btn weui-btn_default" type="reset">清空</button>
 			    </div>
 			    </form>
 				</div>
@@ -271,9 +278,9 @@ float: right;margin-right: 5px;
 <script type="text/javascript" src="../jquery-weui/js/swipeout.js"></script>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript" src="../bootstrap3/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../js/public.js?ver=001"></script>
+<script type="text/javascript" src="../js/public.js?ver=002"></script>
 <script type="text/javascript" src="../js/fileupload.js?ver=001"></script>
 <script type="text/javascript" src="../js/ajaxfileupload.js?ver=001"></script>
-<script type="text/javascript" src="js/release.js?ver=004"></script>
+<script type="text/javascript" src="js/release.js?ver=005"></script>
 </body>
 </html>
