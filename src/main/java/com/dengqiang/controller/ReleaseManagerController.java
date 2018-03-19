@@ -287,13 +287,15 @@ public class ReleaseManagerController extends BaseController {
 			if (isMapKeyNull(map, "type")) {
 				msg="类型不能为空";
 			}else{
-				File file=new File(getRealPath(request)+"temp/"+userinfo.getId()+"/"+map.get("type"));
-				if (file.exists()&&file.isDirectory()) {
-					log.info(file.getPath());
-					try {
-						FileUtils.deleteDirectory(file);
-					} catch (Exception e) {
-						log.error(e.getMessage());
+				if (userinfo!=null) {
+					File file=new File(getRealPath(request)+"temp/"+userinfo.getId()+"/"+map.get("type"));
+					if (file.exists()&&file.isDirectory()) {
+						log.info(file.getPath());
+						try {
+							FileUtils.deleteDirectory(file);
+						} catch (Exception e) {
+							log.error(e.getMessage());
+						}
 					}
 				}
 				success = true;

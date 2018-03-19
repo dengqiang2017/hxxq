@@ -6,15 +6,23 @@
 <title>和谐小区</title>
 <link rel="stylesheet" href="../jquery-weui/lib/weui.min.css">
 <link rel="stylesheet" href="../jquery-weui/css/jquery-weui.min.css">
+<link rel="stylesheet" href="../bootstrap3/css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/public.css">
 <style type="text/css">
-body>header{background-color: #006766;color: #ffffff;top:0;z-index: 501;position: fixed;width: 100%;}
-.head-title{text-align: center;height: 35px;padding-top: 10px;}
+body>header{top:0;z-index: 501;position: fixed;width: 100%;}
+.head-title{background-color: #006766;color: #ffffff;text-align: center;height: 40px;padding-top: 10px;float: left;width: 100%;font-weight: bold;font-size: 16px;}
+#actions{
+float: right;margin-right: 5px;
+}
+#actions>span{width: 20px;color: white;}
+.weui-popup__modal>header{margin-top: 5px;}
+.weui-article{overflow: auto;padding-bottom: 5px;padding-top: 5px;}
 </style>
 </head>
 <body>
 <header>
-<div class="head-title">信息列表</div>
+<div class="head-title"><span>公告列表</span><a href="#" id="actions">
+<span class="glyphicon glyphicon-th-large"></span></a></div>
 </header>
 <div class="weui-tab">
 		<div class="weui-tab__bd">
@@ -183,7 +191,7 @@ body>header{background-color: #006766;color: #ffffff;top:0;z-index: 501;position
           <div class="demos-second-title">消息标题一消息标题一</div>
           <p class="demos-sub-title">发布人:业委会成员 时间:@2018/03/03</p>
         </header>
-		  <article class="weui-article" style="overflow: auto;">
+		  <article class="weui-article">
 				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
 				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
 				由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。
@@ -223,7 +231,7 @@ body>header{background-color: #006766;color: #ffffff;top:0;z-index: 501;position
 		  </article>
   <div style="clear: both;"></div>
   <div style="text-align: center;width: 100%;position: absolute;bottom: 3px;">
-  	<button type="button" class='close-popup weui-btn weui-btn_primary' style="width: 50%">关闭</button>
+  	<button type="button" class='close-popup weui-btn weui-btn_mini weui-btn_primary' style="width: 50%">关闭</button>
   </div>
   </div>
 </div>
@@ -237,52 +245,11 @@ body>header{background-color: #006766;color: #ffffff;top:0;z-index: 501;position
 <script type="text/javascript" src="../jquery-weui/js/jquery-weui.min.js"></script>
 <script type="text/javascript" src="../jquery-weui/js/swiper.min.js"></script>  
 <script type="text/javascript" src="../jquery-weui/js/swipeout.js"></script> 
+<script type="text/javascript" src="../js/public.js"></script> 
+<script type="text/javascript" src="js/show.js"></script> 
 <script type="text/javascript">
 <!--
-$(function() {
-	FastClick.attach(document.body);
-	$("input,textarea").focus(function(){
-		$(".weui-tabbar").css("position","relative");
-	});
-	$("input,textarea").blur(function(){
-		$(".weui-tabbar").css("position","absolute");
-	});
-	$(".weui-tabbar__item:eq(0)").click(function(){
-		$(".head-title").html("信息列表");
-	});
-	$(".weui-tabbar__item:eq(1)").click(function(){
-		$(".head-title").html("投票列表");
-	});
-	$(".weui-tabbar__item:eq(2)").click(function(){
-		$(".head-title").html("个人中心");
-	});
-	$("#zl_edit").click(function(){
-		$.get("zl_edit.html?ver="+Math.random(),function(data){
-			$("#zl_html").html(data);
-			$("#zl_edit_dia").popup();
-		});
-	});
-	$("#tpty,#tp_ly_edit").click(function(){
-		$.prompt({
-			  title: "留言",
-			  text: "请文明发表意见并严格遵守国家相关法律规定,审核通过后显示!",
-			  input:"",
-			  empty: false, // 是否允许为空
-			  onOK: function (text) {
-			    //点击确认
-				  $.confirm(text);
-				  $.toast("操作成功");
-			  },
-			  onCancel: function () {
-			    //点击取消
-			  }
-			});
-		});
-	$("#wz1").click(function(){
-		$("#about").popup();
-		$("article").css("height",$("#about .weui-popup__modal").get(0).offsetHeight-160);
-	});
-});
+
 //-->
 </script>
 </body>

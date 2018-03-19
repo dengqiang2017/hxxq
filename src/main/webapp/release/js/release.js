@@ -42,7 +42,6 @@ $(function() {
 	$(".weui-cell_swiped").swipeout();
 	//////////////////////////////////////
 	//进入公告,投票发布页面前先清空临时文件夹
-	init("notice");
 	function init(type){
 		$.post("../releaseManager/removeTempFile.do",{"type":type});
 	}
@@ -63,6 +62,12 @@ $(function() {
 	$(".weui-tabbar__item:eq(2)").click(function(){
 		$(".head-title>span:eq(0)").html("个人中心");
 	});
+	var type=getQueryString("type");
+	if (type=="vote") {
+		$(".weui-tabbar__item:eq(1)").click();
+	}else{
+		init("notice");
+	}
 	$("#actions,.glyphicon-th-large").click(function(){
 		$.actions({
 			actions: [{
@@ -70,7 +75,8 @@ $(function() {
 				onClick: function() {
 					window.location.href="index.html?ver="+Math.random();
 				}
-			},{
+			},
+			{
 				text: "意见建议",
 				onClick: function() {
 //					$("#myModal").modal("toggle");
