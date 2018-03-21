@@ -10,7 +10,8 @@
 	<!-- 	二级缓存开启 -->
     <settings>  
         <setting name="cacheEnabled" value="false"/>   
-    </settings>
+<!--         <setting name="logImpl" value="LOG4J" /> -->
+    </settings>  
 	<mappers>
 	    <mapper resource="com/dengqiang/dao/xml/operatorsDao.xml"></mapper>
 	    <mapper resource="com/dengqiang/dao/xml/releaseManagerDao.xml"></mapper>

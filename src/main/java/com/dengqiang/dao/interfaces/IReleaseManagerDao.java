@@ -1,11 +1,18 @@
 package com.dengqiang.dao.interfaces;
 
+import java.util.List;
 import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
+import com.dengqiang.bean.NoticeBean;
+import com.dengqiang.bean.VoteBean;
 /**
  * 信息发布数据持久dao
  * @author 邓强
  *
  */
+@Repository
 public interface IReleaseManagerDao {
 	/**
 	 * 增加公告信息
@@ -42,4 +49,28 @@ public interface IReleaseManagerDao {
 	 * @return 执行结果数
 	 */
 	Integer saveAuditorInfo(Map<String, Object> map) throws Exception;
+	/**
+	 * 
+	 * @param map
+	 * @return
+	 */
+	Integer getNoticeCount(Map<String, Object> map);
+	/**
+	 * 
+	 * @param map
+	 * @return
+	 */
+	List<NoticeBean> getNoticeList(Map<String, Object> map);
+	/**
+	 * 
+	 * @param map
+	 * @return
+	 */
+	Integer getVoteCount(Map<String, Object> map);
+	/**
+	 * 
+	 * @param map
+	 * @return
+	 */
+	List<VoteBean> getVoteList(Map<String, Object> map);
 }

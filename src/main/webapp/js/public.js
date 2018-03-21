@@ -64,3 +64,16 @@ function is_weixin(){
 		return false;
 	}
 }
+function autoLogin(){
+	window.uexOnload = function(type){
+		////自动登录注册////
+		var moblieMac=uexDevice.getInfo("10");//用户手机唯一识别码
+		$.get("login/autoLogin.do",{"moblieMac":moblieMac},function(data){
+			if(data.msg=="1"){
+				window.location.href="release";
+			}else if(data.msg=="0"){
+				window.location.href="show";
+			}
+		});
+	};
+}

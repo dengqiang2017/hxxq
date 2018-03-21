@@ -3,11 +3,14 @@ package com.dengqiang.bean;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
  * 公告文章
  * @author 邓强
  *
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class NoticeBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private long id;

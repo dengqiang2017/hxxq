@@ -63,7 +63,7 @@ public abstract class BaseController {
 			if (StringUtils.isNotBlank(request.getParameter(key))) {
 				param.put(key, request.getParameter(key).trim());
 			}else{
-				param.put(key, request.getParameter(key));
+				param.remove(key);
 			}
 		}
 		return param;

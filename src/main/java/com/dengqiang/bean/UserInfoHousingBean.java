@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class UserInfoHousingBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private long id;
+	private Long id;
 	private HousingEstateBean housingEstate;//小区信息
 	private UserInfoBean userInfo;//用户基本信息
 	private int userType=0;//类型,0-普通业主,1-业委会成员
@@ -19,10 +19,10 @@ public class UserInfoHousingBean implements Serializable{
 	private int auditStatus=0;//审核状态,0-未审核,1-已审核,2-已失效
 	private UserInfoBean auditor;//审核人
 	private Date auditDate;//审核时间
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public HousingEstateBean getHousingEstate() {

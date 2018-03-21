@@ -2,21 +2,24 @@ package com.dengqiang.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
  * 浏览记录对象
  * @author 邓强
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class BrowseRecordBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private long id;
+	private Long id;
 	private NoticeBean notice;//公告信息
 	private UserInfoBean userInfo;//浏览用户
 	private Date browsingTime;//浏览时间
 	private Long timeLen;//浏览时长
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public NoticeBean getNotice() {

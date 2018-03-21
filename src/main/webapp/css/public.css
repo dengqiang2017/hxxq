@@ -32,7 +32,7 @@ body,html {
 .demos-sub-title {
   text-align: center;
   color: #888;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .demos-header {
@@ -50,5 +50,6 @@ body,html {
   margin: 0 15%;
   width: 100%;
   margin-left: 0;
+  font-size: 20px;
 }
 .weui-uploader__file>span{display: none;}

@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dengqiang.bean.HousingEstateBean;
+import com.dengqiang.bean.NoticeBean;
+import com.dengqiang.bean.PageList;
 import com.dengqiang.bean.ResultInfo;
 import com.dengqiang.bean.UserInfoBean;
+import com.dengqiang.bean.UserInfoHousingBean;
+import com.dengqiang.bean.VoteBean;
 import com.dengqiang.service.ICustomerService;
 import com.dengqiang.service.IReleaseManagerService;
 /**
@@ -40,6 +43,12 @@ public class ReleaseManagerController extends BaseController {
 		return userInfo;
 	}
 	
+	public UserInfoHousingBean getUserInfoHousing(HttpServletRequest request) {
+		UserInfoBean userInfo=super.getUserInfo(request);
+		UserInfoHousingBean housingEstate = customerService.getUserInfoHousingById(userInfo);
+		return housingEstate;
+	}
+	
 	/**
 	 * 保存发布公告信息
 	 * @param request
@@ -54,7 +63,7 @@ public class ReleaseManagerController extends BaseController {
 			UserInfoBean userInfo=getUserInfo(request);
 			String founder=userInfo.getUserName();
 			int userType=userInfo.getUserType();
-			HousingEstateBean housingEstate=getHousingEstate(request);
+			UserInfoHousingBean housingEstate=getUserInfoHousing(request);
 			//TODO 根据用户id从数据库获取用户最新信息
 //			boolean b=checkUserInfo(userInfo);
 //			if (!b) {//TODO 测试期间允许非实名发布
@@ -88,7 +97,7 @@ public class ReleaseManagerController extends BaseController {
 				}
 				map.put("creationTime", getNow());
 				map.put("founder", userInfo.getId());
-				map.put("housingEstate", housingEstate.getId());
+				map.put("housingEstate", housingEstate.getHousingEstate().getId());
 				Integer id=releaseManagerService.saveNoticeInfo(map);
 				//开始保存附件
 				if (id>0) {
@@ -100,7 +109,7 @@ public class ReleaseManagerController extends BaseController {
 						File[] fs=srcFile.listFiles();
 //						List<FileBean> beans=new ArrayList<>();
 						for (File src : fs) {
-							String img=userInfo.getId()+"/notice/"+id+"/"+src.getName();
+							String img="notice/"+userInfo.getId()+"/"+id+"/"+src.getName();
 							File destFile=new File(getRealPath(request)+img);
 							mkdirsDirectory(destFile);
 							FileUtils.moveFile(src, destFile);
@@ -175,7 +184,7 @@ public class ReleaseManagerController extends BaseController {
 			UserInfoBean userInfo=getUserInfo(request);
 			String founder=userInfo.getUserName();
 			int userType=userInfo.getUserType();
-			HousingEstateBean housingEstate=getHousingEstate(request);
+			UserInfoHousingBean housingEstate=getUserInfoHousing(request);
 			//TODO 根据用户id从数据库获取用户最新信息
 //			boolean b=checkUserInfo(userInfo);
 //			if (!b) {//TODO 测试期间允许非实名发布
@@ -207,7 +216,7 @@ public class ReleaseManagerController extends BaseController {
 				}
 				map.put("creationTime", getNow());
 				map.put("founder", userInfo.getId());
-				map.put("housingEstate", housingEstate.getId());
+				map.put("housingEstate", housingEstate.getHousingEstate().getId());
 				Integer id=releaseManagerService.saveVoteInfo(map);
 				//开始保存附件
 				if (id>0) {
@@ -218,7 +227,7 @@ public class ReleaseManagerController extends BaseController {
 					if (srcFile.exists()&&srcFile.isDirectory()) {
 						File[] fs=srcFile.listFiles();
 						for (File src : fs) {
-							String img=userInfo.getId()+"/vote/"+id+"/"+src.getName();
+							String img="vote/"+userInfo.getId()+"/"+id+"/"+src.getName();
 							File destFile=new File(getRealPath(request)+img);
 							mkdirsDirectory(destFile);
 							FileUtils.moveFile(src, destFile);
@@ -317,4 +326,44 @@ public class ReleaseManagerController extends BaseController {
 		//通过递归获取文件夹中的文件创建时间
 		//与当前时间进行比较,大于30分钟的移除掉
 	}
+	
+	///////////////////////
+	/**
+	 * 获取公告分页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("getNoticePage")
+	@ResponseBody
+	public PageList<NoticeBean> getNoticePage(HttpServletRequest request) {
+		Map<String, Object> map=getKeyAndValue(request);
+		if (isMapKeyNull(map, "rows")) {
+			map.put("rows", 10);
+		}
+		if (isMapKeyNull(map, "page")) {
+			map.put("page", 0);
+		}
+		if (isMapKeyNull(map, "housingEstate")) {
+			throw new RuntimeException("没有获取到小区信息!");
+		}
+		return releaseManagerService.getNoticePage(map);
+	}
+	
+	@RequestMapping("getVotePage")
+	@ResponseBody
+	public PageList<VoteBean> getVotePage(HttpServletRequest request) {
+		Map<String, Object> map=getKeyAndValue(request);
+		if (isMapKeyNull(map, "rows")) {
+			map.put("rows", 10);
+		}
+		if (isMapKeyNull(map, "page")) {
+			map.put("page", 0);
+		}
+		if (isMapKeyNull(map, "housingEstate")) {
+			throw new RuntimeException("没有获取到小区信息!");
+		}
+		map.put("userInfoId", getUserInfoId(request));
+		return releaseManagerService.getVotePage(map);
+	}
+	
 }

@@ -3,14 +3,17 @@ package com.dengqiang.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 /**
  * 评论内容
  * @author 邓强
  *
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ReviewContentBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private long id;
+	private Long id;
 	private int reviewType=0;//0-公告信息评论,1-投票内容评论
 	private VoteBean vote;//投票信息
 	private NoticeBean notice;//公告信息
@@ -22,10 +25,10 @@ public class ReviewContentBean implements Serializable{
 	private int auditStatus=0;//审核状态,0-未审核,1-已审核,2-已失效
 	private UserInfoBean auditor;//审核人
 	private Date auditDate;//审核时间
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public VoteBean getVote() {

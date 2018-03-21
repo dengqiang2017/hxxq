@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- xml文件 -->
-<mapper namespace="com.dengqiang.dao.interfaces.IOperatorsDAO">
+<mapper namespace="com.dengqiang.dao.interfaces.IOperatorsDao">
 <!-- 	<cache/>  -->
  	<insert id="initTable" parameterType="String">
 <!--  	图片附件对象,记录图片类型 -->
@@ -56,7 +56,7 @@
   `user_info_id` int(11) NOT NULL COMMENT '用户信息',
   `housing_estate_id` int(11) DEFAULT NULL COMMENT '小区信息',
   `userJob` varchar(30) DEFAULT NULL COMMENT '职位',
-  `address` varchar(100) DEFAULT NULL COMMENT '小区具体位置',
+<!--   `address` varchar(100) DEFAULT NULL COMMENT '小区具体位置', -->
   `userType` int(1) NOT NULL DEFAULT '0' COMMENT '0-普通业主,1-业委会成员',
   `defaultHousing` int(1) NOT NULL DEFAULT '0' COMMENT '默认小区',
   `auditor_id` int(11) DEFAULT NULL COMMENT '审核人',

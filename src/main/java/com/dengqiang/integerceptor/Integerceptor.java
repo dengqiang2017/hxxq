@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dengqiang.bean.HousingEstateBean;
 import com.dengqiang.bean.UserInfoBean;
 import com.dengqiang.controller.BaseController;
 /**
@@ -48,14 +47,6 @@ public class Integerceptor extends BaseController implements HandlerInterceptor 
 				login=true;
 			}
 		}
-//		if (isLocal()) {
-			userInfo=new UserInfoBean(0);
-			userInfo.setUserName("邓强");
-			userInfo.setUserType(1);
-			request.getSession().setAttribute(SESSION_USER_INFO,userInfo);
-			request.getSession().setAttribute(HOUSING_ESTATE_INFO,new HousingEstateBean(0));
-			login=true;
-//		}
     	return login;
 	}
 }

@@ -1,6 +1,7 @@
 package com.dengqiang.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dengqiang.bean.HousingEstateBean;
 import com.dengqiang.bean.UserInfoBean;
+import com.dengqiang.bean.UserInfoHousingBean;
 import com.dengqiang.controller.BaseController;
 import com.dengqiang.dao.interfaces.ICustomerDao;
 import com.dengqiang.service.ICustomerService;
@@ -22,7 +25,6 @@ public class CustomerServiceImpl extends BaseController implements ICustomerServ
 	
 	@Override
 	public Map<String, Object> getCustomerInfoByOpenid(String openid, String type) {
-		// TODO Auto-generated method stub
 		Map<String, Object> map=new HashMap<>();
 		map.put("openid", openid);
 		map.put("type", type);
@@ -32,14 +34,12 @@ public class CustomerServiceImpl extends BaseController implements ICustomerServ
 	@Override
 	@Transactional
 	public String updateLoginTime(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return customerDao.updateLoginTime(map);
+		return customerDao.updateLoginTime(map)+"";
 	}
 
 	@Override
 	@Transactional
 	public String save(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return customerDao.save(map);
 	}
 
@@ -62,7 +62,17 @@ public class CustomerServiceImpl extends BaseController implements ICustomerServ
 	}
 	@Override
 	public UserInfoBean getUserInfoById(UserInfoBean userInfo) {
-		// TODO Auto-generated method stub
 		return customerDao.getUserInfoById(userInfo);
+	}
+	
+	@Override
+	public List<HousingEstateBean> getUserHousing(UserInfoBean userInfo) {
+		
+		return customerDao.getUserHousing(userInfo);
+	}
+	
+	@Override
+	public UserInfoHousingBean getUserInfoHousingById(UserInfoBean userInfo) {
+		return customerDao.getUserInfoHousingById(userInfo);
 	}
 }

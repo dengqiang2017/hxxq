@@ -1,8 +1,11 @@
 package com.dengqiang.service;
 
+import java.util.List;
 import java.util.Map;
 
+import com.dengqiang.bean.HousingEstateBean;
 import com.dengqiang.bean.UserInfoBean;
+import com.dengqiang.bean.UserInfoHousingBean;
 
 public interface ICustomerService {
 
@@ -29,5 +32,16 @@ public interface ICustomerService {
 	 * @return
 	 */
 	UserInfoBean getUserInfoById(UserInfoBean userInfo);
-
+	/**
+	 * 用户小区相关信息
+	 * @param userInfo
+	 * @return
+	 */
+	List<HousingEstateBean> getUserHousing(UserInfoBean userInfo);
+	/**
+	 * 获取小区信息
+	 * @param userInfo
+	 * @return
+	 */
+	UserInfoHousingBean getUserInfoHousingById(UserInfoBean userInfo);
 }

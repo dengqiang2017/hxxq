@@ -1,16 +1,20 @@
 package com.dengqiang.dao.interfaces;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import com.dengqiang.bean.HousingEstateBean;
 import com.dengqiang.bean.UserInfoBean;
-
+import com.dengqiang.bean.UserInfoHousingBean;
+@Repository
 public interface ICustomerDao {
 
 	Map<String, Object> getCustomerInfoByOpenid(Map<String, Object> map);
 
-	String updateLoginTime(Map<String, Object> map);
+	Integer updateLoginTime(Map<String, Object> map);
 
 	String save(Map<String, Object> map);
 	/**
@@ -31,5 +35,17 @@ public interface ICustomerDao {
 	 * @return
 	 */
 	UserInfoBean getUserInfoById(UserInfoBean userInfo);
+	/**
+	 * 用户小区相关信息
+	 * @param userInfo
+	 * @return
+	 */
+	List<HousingEstateBean> getUserHousing(UserInfoBean userInfo);
+	/**
+	 * 
+	 * @param userInfo
+	 * @return
+	 */
+	UserInfoHousingBean getUserInfoHousingById(UserInfoBean userInfo);
 
 }

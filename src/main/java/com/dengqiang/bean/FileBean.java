@@ -1,11 +1,14 @@
 package com.dengqiang.bean;
 
 import java.io.Serializable;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
  * 图片附件对象,记录图片类型
  * @author 邓强
  *
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class FileBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private long id;

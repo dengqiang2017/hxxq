@@ -3,11 +3,14 @@ package com.dengqiang.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
  * 小区信息
  * @author 邓强
  *
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class HousingEstateBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private long id;

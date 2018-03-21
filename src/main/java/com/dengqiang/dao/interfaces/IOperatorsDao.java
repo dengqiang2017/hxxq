@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import com.dengqiang.dao.base.BaseDao;
-
-public interface IOperatorsDAO extends BaseDao {
+@Repository
+public interface IOperatorsDao extends BaseDao {
 	
 	/**
 	 * 初始化数据表

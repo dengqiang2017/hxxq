@@ -3435,15 +3435,15 @@ if (typeof define === 'function' && define.amd) {
 		            	onClick: function() {
 		            		var input = $("#weui-prompt-input").val();
 		            		if (!config.empty && (input === "" || input === null)) {
-		            			modal.find('.weui-prompt-input').focus()[0].select();
+		            			modal.find('.weui-prompt-input').focus().select();
 		            			return false;
 		            		}
 		            		$.closeModal();
 		            		config.onOK && config.onOK.call(modal, input);
 		            	}
 		            }]
-	  }, function () {
-		  this.find('.weui-prompt-input').focus()[0].select();
+	  }, function () {console.log(this.find('.weui-prompt-input'));
+		  this.find('.weui-prompt-input').focus().select();
 	  });
 	  
 	  return modal;

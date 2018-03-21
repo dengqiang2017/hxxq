@@ -69,7 +69,7 @@ public class XMLMapperLoader implements DisposableBean, InitializingBean, Applic
         public void run() {
             try {
                 if (scanner.isChanged()) {
-                    log.info("*Mapper.xml文件改变,重新加载.");
+//                    log.info("*Mapper.xml文件改变,重新加载.");
                     scanner.reloadXML();
                     log.info("加载完毕.");
                 }
@@ -100,7 +100,7 @@ public class XMLMapperLoader implements DisposableBean, InitializingBean, Applic
             if(resourcePatternResolver==null){
             	return null;
             }
-            log.debug("resourcePatternResolver-->"+resourcePatternResolver);
+//            log.debug("resourcePatternResolver-->"+resourcePatternResolver);
             Resource[] resources = resourcePatternResolver.getResources(packageSearchPath);
             return resources;
         }

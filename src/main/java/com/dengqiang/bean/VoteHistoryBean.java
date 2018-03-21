@@ -2,24 +2,27 @@ package com.dengqiang.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
  * 投票历史
  * @author 邓强
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class VoteHistoryBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private long id;
+	private Long id;
 	private VoteBean vote;//投票id
 	private boolean voteResult;//投票状态
 	private String comment;//留言内容
 	private int commentState=0;//留言状态0-审核中,1-审核通过,2-不通过
-	private UserInfoBean voters;//投票人
+	private UserInfoBean userInfo;//投票人
 	private Date voteTime;//投票时间
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public VoteBean getVote() {
@@ -46,11 +49,11 @@ public class VoteHistoryBean implements Serializable{
 	public void setCommentState(int commentState) {
 		this.commentState = commentState;
 	}
-	public UserInfoBean getVoters() {
-		return voters;
+	public UserInfoBean getUserInfo() {
+		return userInfo;
 	}
-	public void setVoters(UserInfoBean voters) {
-		this.voters = voters;
+	public void setUserInfo(UserInfoBean userInfo) {
+		this.userInfo = userInfo;
 	}
 	public Date getVoteTime() {
 		return voteTime;

@@ -17,6 +17,19 @@
   <result property="mobile" column="mobile"/>
   <result property="userType" column="userType"/>
 </resultMap>
+<resultMap type="com.dengqiang.bean.UserInfoHousingBean" id="housingEstate">
+<id property="id" column="id"/>
+<result property="userInfo.id" column="user_info_id"/>
+<result property="housingEstate.id" column="housing_estate_id"/>
+<result property="housingEstate.housingName" column="housingName"/>
+<result property="housingEstate.household" column="household"/>
+<result property="housingEstate.housingName" column="housingName"/>
+<result property="housingEstate.address" column="address"/>
+<result property="housingEstate.availableDate" column="availableDate"/>
+<result property="userJob" column="userJob"/>
+<result property="userType" column="userType"/>
+<result property="defaultHousing" column="defaultHousing"/>
+</resultMap>
 <insert id="save" parameterType="hashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
   <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       select LAST_INSERT_ID() as id
@@ -41,5 +54,20 @@ select * from t_user_info where mac=#{mac}
 </select>
 <select id="getUserInfoById" parameterType="com.dengqiang.bean.UserInfoBean" resultMap="userInfo">
 select * from t_user_info where id=#{id}
+</select>
+<select id="getUserHousing" parameterType="com.dengqiang.bean.UserInfoBean" resultMap="housingEstate">
+select t1.user_info_id,t1.housing_estate_id,t1.userJob,t1.userType,t1.defaultHousing,
+t2.housingName,t2.address,t2.household,t2.availableDate
+from t_user_info_housing t1 
+LEFT JOIN t_housing_estate t2 on t1.housing_estate_id=t2.id
+where t1.user_info_id=#{id}
+</select>
+
+<select id="getUserInfoHousingById" parameterType="com.dengqiang.bean.UserInfoBean" resultMap="housingEstate">
+select t1.user_info_id,t1.housing_estate_id,t1.userJob,t1.userType,t1.defaultHousing,
+t2.housingName,t2.address,t2.household,t2.availableDate
+from t_user_info_housing t1 
+LEFT JOIN t_housing_estate t2 on t1.housing_estate_id=t2.id
+where t1.user_info_id=#{id} and defaultHousing=1
 </select>
 </mapper>

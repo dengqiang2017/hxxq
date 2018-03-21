@@ -3,11 +3,14 @@ package com.dengqiang.bean;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
  * 投票对象
  * @author 邓强
  *
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class VoteBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -22,6 +25,7 @@ public class VoteBean implements Serializable{
 	private UserInfoBean founder;//发起人
 	private Date creationTime;//创建时间
 	private String bz;//备注
+	private VoteHistoryBean voteHistory;//投票历史
 	private List<FileBean> fileList;//附件名称列表
 	private List<ReviewContentBean> reviewContents;//评论内容
 	//通过审核后才能显示
@@ -138,6 +142,11 @@ public class VoteBean implements Serializable{
 	public void setBz(String bz) {
 		this.bz = bz;
 	}
-	
+	public VoteHistoryBean getVoteHistory() {
+		return voteHistory;
+	}
+	public void setVoteHistory(VoteHistoryBean voteHistory) {
+		this.voteHistory = voteHistory;
+	}
 }
 

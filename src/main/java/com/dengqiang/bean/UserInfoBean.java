@@ -3,13 +3,16 @@ package com.dengqiang.bean;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
  * 用户基本信息
  * @author 邓强
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class UserInfoBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private long id;
+	private Long id;
 	private String userName;//用户名称/登录名称,身份证上名字,普通业主为空
 	private String fullName;//身份证上名字,普通业主为空
 	private String password;
@@ -25,10 +28,10 @@ public class UserInfoBean implements Serializable{
 	private List<UserInfoHousingBean> userInfoHousings;//用户小区相关信息
 	private List<FileBean> fileList;//身份证图片等文件地址
 	public UserInfoBean() {}
-	public UserInfoBean(int id) {
+	public UserInfoBean(long id) {
 		this.id=id;
 	}
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(long id) {

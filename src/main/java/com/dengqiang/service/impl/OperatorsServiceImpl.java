@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dengqiang.dao.interfaces.IOperatorsDAO;
+import com.dengqiang.dao.interfaces.IOperatorsDao;
 import com.dengqiang.service.IOperatorsService;
 
 @Service
@@ -15,7 +15,7 @@ public class OperatorsServiceImpl implements
 		IOperatorsService {
 
 	@Autowired
-	private IOperatorsDAO operatorsDao;
+	private IOperatorsDao operatorsDao;
 	@Override
 	@Transactional
 	public void save(Map<String, Object> map) {}

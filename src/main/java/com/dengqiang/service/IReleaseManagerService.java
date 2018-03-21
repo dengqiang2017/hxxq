@@ -2,6 +2,10 @@ package com.dengqiang.service;
 
 import java.util.Map;
 
+import com.dengqiang.bean.NoticeBean;
+import com.dengqiang.bean.PageList;
+import com.dengqiang.bean.VoteBean;
+
 public interface IReleaseManagerService {
 	/**
 	 * 保存公告信息
@@ -26,4 +30,16 @@ public interface IReleaseManagerService {
 	 * @return
 	 */
 	String saveAuditorInfo(Map<String, Object> map) throws Exception;
+	/**
+	 * 获取公告分页数据
+	 * @param map
+	 * @return
+	 */
+	PageList<NoticeBean> getNoticePage(Map<String, Object> map);
+	/**
+	 * 获取投票公告
+	 * @param map
+	 * @return
+	 */
+	PageList<VoteBean> getVotePage(Map<String, Object> map);
 }

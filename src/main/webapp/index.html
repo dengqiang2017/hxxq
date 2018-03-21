@@ -16,18 +16,26 @@
   <div class="weui-grids">
   <div class="weui-grid js_grid">
     <div class="weui-grid__icon">
-      <a href="show"><img src="images/icon_nav_button.png" alt=""></a>
+      <a href="#"><img src="images/icon_nav_button.png" alt=""></a>
     </div>
     <p class="weui-grid__label">
-      	<a href="show">业主信息浏览入口</a>
+      	<a href="#">业主信息浏览入口</a>
     </p>
   </div>
   <div class="weui-grid js_grid">
     <div class="weui-grid__icon">
-      <a href="release"><img src="images/icon_nav_cell.png" alt=""></a>
+      <a href="#"><img src="images/icon_nav_cell.png" alt=""></a>
     </div>
     <p class="weui-grid__label">
-      <a href="release">业主委员管理入口</a>
+      <a href="#">业主委员管理入口</a>
+    </p>
+  </div>
+  <div class="weui-grid js_grid">
+    <div class="weui-grid__icon">
+      <a><img src="images/icon_nav_cell.png" alt=""></a>
+    </div>
+    <p class="weui-grid__label">
+      <a>刷新</a>
     </p>
   </div>
 </div>
@@ -40,25 +48,26 @@
 <!-- 如果使用了某些拓展插件还需要额外的JS -->
 <script src="jquery-weui/js/swiper.min.js"></script>
 <script src="jquery-weui/js/city-picker.min.js"></script>
-<script src="js/public.js"></script>
+<script src="js/public.js?ver=001"></script>
 <script type="text/javascript">
 <!--
-if(is_weixin()){
-}
-function autoLogin(){
-	window.uexOnload = function(type){
-		////自动登录注册////
-		var moblieMac=uexDevice.getInfo("10");//用户手机唯一识别码
-		$.get("login/autoLogin.do",{"moblieMac":moblieMac},function(data){
-			if(data.msg=="1"){
-				window.location.href="release";
-			}else if(data.msg=="0"){
-				window.location.href="show";
-			}
-		});
-	};
-}
-autoLogin();
+// autoLogin();
+$.get("login/autoLogin.do",{"moblieMac":"1231464"},function(data){
+	if(data.msg=="1"){
+		window.location.href="release";
+	}else if(data.msg=="0"){
+		window.location.href="show";
+	}
+});
+$(".js_grid:eq(0)").click(function(){
+	window.location.href="show/index.html?ver="+Math.random();
+});
+$(".js_grid:eq(1)").click(function(){
+	window.location.href="release/index.html?ver="+Math.random();
+});
+$(".js_grid:eq(2)").click(function(){
+	window.location.href="index.html?ver="+Math.random();
+});
 //-->
 </script>
   </body>
