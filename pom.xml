@@ -274,6 +274,14 @@
     <artifactId>axis2-adb</artifactId>
     <version>1.6.2</version>
 </dependency>
+
+<!-- https://mvnrepository.com/artifact/cn.jpush.api/jpush-client  APPcan极光推送服务器端依赖包 -->
+<dependency>
+    <groupId>cn.jpush.api</groupId>
+    <artifactId>jpush-client</artifactId>
+    <version>3.3.5</version>
+</dependency>
+
     </dependencies>
     <build>
         <finalName>hxxq</finalName>

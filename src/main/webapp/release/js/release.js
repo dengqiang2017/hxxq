@@ -75,8 +75,7 @@ $(function() {
 				onClick: function() {
 					window.location.href="index.html?ver="+Math.random();
 				}
-			},
-			{
+			},{
 				text: "意见建议",
 				onClick: function() {
 //					$("#myModal").modal("toggle");

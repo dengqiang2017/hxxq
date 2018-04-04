@@ -36,7 +36,7 @@ $(function(){
 					if(keyCode==0){
 						if(fan==2){
 							uexWidgetOne.exit(0);//退出
-//	        		uexWidget.moveToBack();//返回桌面
+//							uexWidget.moveToBack();//返回桌面
 						}else{
 							++fan;
 							$.toast("再按一次退出程序","text");
@@ -48,6 +48,11 @@ $(function(){
 				};
 				uexWindow.setReportKey(0,1);
 			}
+		}
+		try {
+//			var id=uexJPush.getRegistrationID();
+//			alert(id);
+		} catch (e) {
 		}
 		uexWidgetOne.cleanCache();
 	};
