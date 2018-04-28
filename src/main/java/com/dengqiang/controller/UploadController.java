@@ -72,6 +72,7 @@ public class UploadController extends BaseController{
  			 log.info(destFile);
  			file.transferTo(destFile);
  			imgResize(destFile, destFile, 1200, 0.9f);
+ 			pressText(destFile, file);
  			File destFile2=new File(destFile.getPath()+"_sl");
  			imgResize(destFile, destFile2, 800, 0.5f);
 		} catch (IllegalStateException e) {

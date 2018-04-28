@@ -1,7 +1,10 @@
 package com.dengqiang.controller;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
@@ -22,23 +25,28 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.ImageIcon;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dengqiang.bean.HousingEstateBean;
 import com.dengqiang.bean.ResultInfo;
 import com.dengqiang.bean.UserInfoBean;
+import com.dengqiang.util.ConfigFile;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 
 /**
  * 公共工具类
@@ -494,5 +502,91 @@ public abstract class BaseController {
             e.printStackTrace(System.out);   
         }   
         return macAddress;   
-    }  
+    }
+    private final static String TEXT_WATERMARK="和谐共创DengQiang";
+    /**
+     * 打印文字水印图片
+	 * @param watermark 是否添加水印默认添加
+     * @param targetImg --
+     *            目标图片
+     * @param fontName --
+     *            字体名
+     * @param fontStyle --
+     *            字体样式
+     * @param color --
+     *            字体颜色
+     * @param fontSize --
+     *            字体大小
+     * @param x --
+     *            偏移量
+     * @param y
+     */
+    public static void pressText(File file,MultipartFile fileReq) {
+    	String ext=FilenameUtils.getExtension(file.getName());
+    	if ("jpg".equalsIgnoreCase(ext)||"png".equalsIgnoreCase(ext)||"gif".equalsIgnoreCase(ext)||"jpeg".equalsIgnoreCase(ext)||"bmp".equalsIgnoreCase(ext)) {
+        try {
+            ByteInputStream stream= new ByteInputStream(fileReq.getBytes(), fileReq.getBytes().length);
+            Image src = ImageIO.read(stream);
+            int wideth = src.getWidth(null);
+            int height = src.getHeight(null);
+            int fontSize=getFontSize(wideth);
+            int x=wideth/10;
+            int y=height/10;
+            BufferedImage image = new BufferedImage(wideth, height,
+                    BufferedImage.TYPE_INT_RGB);
+            Graphics2D g = image.createGraphics();
+            g.drawImage(src, 0, 0, wideth, height, null);
+            g.setColor(new Color(159, 147, 123));//|Font.ITALIC
+            g.setFont(new Font("宋体", Font.BOLD, fontSize));
+            g.rotate(Math.toRadians(20));//,(double) x, (double) y);
+            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,0.8f));
+            g.drawString(TEXT_WATERMARK,  x,y );
+//            g.drawString(pressText[1],  x,y+fontSize+30);
+//            g.drawString(pressText[2],  x+20,y+fontSize+100);
+            g.dispose();
+            if (!file.getParentFile().exists()) {
+				file.getParentFile().mkdirs();
+			}
+            FileOutputStream out = new FileOutputStream(file);
+            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+            encoder.encode(image); 
+            out.close();
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+    	}else if("xls".equals(ext)||"xlsx".equals(ext)){//修改 
+    		try {
+				fileReq.transferTo(file);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} 
+    	}else{	//修改 
+    		try {
+				fileReq.transferTo(file);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} 
+    	}
+    }
+	private synchronized static int getFontSize(int height) {
+		int size=4;
+		if (height>200&&height<400) {
+			size=16;
+		}else if (height>400&&height<500) {
+			size=25;
+		}else if (height>500&&height<600) {
+			size=30;
+		}else if (height>600&&height<800) {
+			size=35;
+		}else if (height>800&&height<1000) {
+			size=40;
+		}else{
+			size=48;
+		}
+		return size;
+	}
 }
