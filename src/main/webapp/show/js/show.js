@@ -68,7 +68,7 @@ $(function() {
 			$("#zl_edit_dia").popup();
 		});
 	});
-	$("article").css("height",$("#about .weui-popup__modal").get(0).offsetHeight-100);
+	$("article").css("height",window.height-100);
 	/////////////////////
 	$("#actions,.glyphicon-th-large").click(function(){
 		$.actions({
@@ -121,7 +121,11 @@ function loadNoticeData(page,count,housingEstate){
 				var n = data.rows[i];
 				var item=$($("#noticeItem").html());
 				$("#noticeList").append(item);
-				item.find(".weui-media-box__title").html(n.noticeTitle);
+				if(n.top){
+					item.find(".weui-media-box__title").html("【置顶】"+n.noticeTitle);
+				}else{
+					item.find(".weui-media-box__title").html(n.noticeTitle);
+				}
 				item.find(".weui-media-box__desc").html(n.noticeDesc.substr(0,150)+"...");
 				item.click(n,function(event){
 					$("#about").popup();
@@ -134,13 +138,11 @@ function loadNoticeData(page,count,housingEstate){
 							var img=event.data.fileList[i].filePath;
 							if (/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(img)) {
 								$(".weui-article").append("<img src='../"+img+"'>");
-							}
-						}
-						for (var i = 0; i < event.data.fileList.length; i++) {
-							var img=event.data.fileList[i].filePath;
-							var name=event.data.fileList[i].fileName;
-							if (!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(img)) {
-								$(".weui-article").append("<a href='../"+img+"'>"+name+"</a>");
+							}else{
+								if (!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(img)&&img.indexOf("_sl")==-1) {
+									var name=event.data.fileList[i].fileName;
+									$(".weui-article").append("<a href='../"+img+"'>"+name+"</a>");
+								}
 							}
 						}
 					}

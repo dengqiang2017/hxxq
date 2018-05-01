@@ -76,6 +76,11 @@ $(function() {
 					window.location.href="index.html?ver="+Math.random();
 				}
 			},{
+				text: "预览",
+				onClick: function() {
+					window.location.href="../show/index.html?ver="+Math.random();
+				}
+			},{
 				text: "意见建议",
 				onClick: function() {
 //					$("#myModal").modal("toggle");
@@ -147,7 +152,7 @@ $(function() {
 			$.post("../releaseManager/saveNoticeInfo.do",json,function(data){
 				 $.hideLoading();
 				if(data.success){
-					 $.toast("操作成功");
+					 $.toast("提交成功,请等待审核!");
 					 $("#notice_id").html(data.msg);
 				}else{
 					$.alert(data.msg,"系统提示");
@@ -195,7 +200,7 @@ $(function() {
 			$.post("../releaseManager/saveVoteInfo.do",json,function(data){
 				$.hideLoading();
 				if(data.success){
-					 $.toast("操作成功");
+					 $.toast("提交成功,请等待审核!");
 					 $("#vote_id").html(data.msg);
 				}else{
 					$.alert(data.msg,"系统提示");

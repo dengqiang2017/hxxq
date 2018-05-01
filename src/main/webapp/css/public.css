@@ -30,9 +30,10 @@ body,html {
 }
 
 .demos-sub-title {
-  text-align: center;
+  text-align: left;
   color: #888;
   font-size: 12px;
+  margin-left: 10px;
 }
 
 .demos-header {
@@ -44,12 +45,10 @@ body,html {
 }
 
 .demos-second-title {
-  text-align: center;
   color: #3cc51f;
   font-weight: 400;
-  margin: 0 15%;
+  padding: 10px 5px 5px 5px;
   width: 100%;
-  margin-left: 0;
   font-size: 20px;
 }
 .weui-uploader__file>span{display: none;}
