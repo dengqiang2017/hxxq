@@ -35,6 +35,9 @@ import net.sf.json.JSONObject;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,7 +45,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dengqiang.bean.HousingEstateBean;
 import com.dengqiang.bean.ResultInfo;
 import com.dengqiang.bean.UserInfoBean;
-import com.dengqiang.util.ConfigFile;
+import com.dengqiang.integerceptor.StringEscapeEditor;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
@@ -588,5 +591,16 @@ public abstract class BaseController {
 			size=48;
 		}
 		return size;
+	}
+	@InitBinder 
+	public void initBinder(ServletRequestDataBinder binder) {
+	/** 
+	* 自动转换日期类型的字段格式 
+	*/ 
+	binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), true));
+	/** 
+	* 防止XSS攻击 
+	*/ 
+	binder.registerCustomEditor(String.class, new StringEscapeEditor(true, false));
 	}
 }
