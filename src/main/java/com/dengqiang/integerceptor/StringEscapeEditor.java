@@ -1,9 +1,9 @@
 package com.dengqiang.integerceptor;
 
-import java.beans.PropertyEditorSupport;
-
 import org.springframework.web.util.HtmlUtils;
 import org.springframework.web.util.JavaScriptUtils;
+
+import java.beans.PropertyEditorSupport;
 /**
  * 防止XSS攻击
  * @author 邓强
@@ -31,7 +31,8 @@ public class StringEscapeEditor extends PropertyEditorSupport {
 		} else {
 			String value = text;
 			if (escapeHTML) {
-				value = HtmlUtils.htmlEscape(value);
+				value = HtmlUtils.htmlEscape(value);//将html编码
+//				String s2 = HtmlUtils.htmlUnescape(s); //解码为html代码
 			}
 			if (escapeJavaScript) {
 				value = JavaScriptUtils.javaScriptEscape(value);
