@@ -12,12 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dengqiang.bean.HousingEstateBean;
 import com.dengqiang.bean.UserInfoBean;
 import com.dengqiang.bean.UserInfoHousingBean;
-import com.dengqiang.controller.BaseController;
 import com.dengqiang.dao.interfaces.ICustomerDao;
 import com.dengqiang.service.ICustomerService;
 
 @Service
-public class CustomerServiceImpl extends BaseController implements ICustomerService {
+public class CustomerServiceImpl extends BaseService implements ICustomerService {
 	public static Logger log = Logger.getLogger(CustomerServiceImpl.class);
 	
 	@Autowired

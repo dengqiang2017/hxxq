@@ -52,11 +52,11 @@ $(function() {
 		$(".weui-tab__bd-item").eq(i).addClass("weui-tab__bd-item--active");
 	});
 	$(".weui-tabbar__item:eq(0)").click(function(){
-		init("notice");
+//		init("notice");
 		$(".head-title>span:eq(0)").html("公告发布");
 	});
 	$(".weui-tabbar__item:eq(1)").click(function(){
-		init("vote");
+//		init("vote");
 		$(".head-title>span:eq(0)").html("发起投票");
 	});
 	$(".weui-tabbar__item:eq(2)").click(function(){
@@ -65,9 +65,9 @@ $(function() {
 	var type=getQueryString("type");
 	if (type=="vote") {
 		$(".weui-tabbar__item:eq(1)").click();
-	}else{
-		init("notice");
 	}
+	init("notice");
+	init("vote");
 	$("#actions,.glyphicon-th-large").click(function(){
 		$.actions({
 			actions: [{
@@ -81,23 +81,9 @@ $(function() {
 					window.location.href="../show/index.html?ver="+Math.random();
 				}
 			},{
-				text: "意见建议",
+				text: "建议留言",
 				onClick: function() {
-//					$("#myModal").modal("toggle");
-					$.prompt({
-						  title: "留言",
-						  text: "意见建议",
-						  input:"",
-						  empty: false, // 是否允许为空
-						  onOK: function (text) {
-						    //点击确认
-							  $.confirm(text);
-							  $.toast("操作成功");
-						  },
-						  onCancel: function () {
-						    //点击取消
-						  }
-						});
+					window.location.href="../suggest.html";
 				}
 			}]
 		});
@@ -216,22 +202,33 @@ $(function() {
 	$("#uploaderInput").click(function(){
 		var imgPath="/temp/notice/"+Math.random()+".jpg";
 		weixinfileup.imguploadToWeixin(this, imgPath, function(){
-			$("#uploaderFiles").append('<li class="weui-uploader__file" style="background-image:url('+imgPath+')"><span>'+imgPath+'</span></li>');
+			var li=$('<li class="weui-uploader__file" style="background-image:url('+imgPath+')"><span class="badge">x</span><span>'+imgPath+'</span></li>');
+			$("#uploaderFiles").append(li);
+			badgeClick(li, imgUrl);
 		});
 	});
 	$("#voteImgUpload").click(function(){
 		var imgPath="/temp/vote/"+Math.random()+".jpg";
 		weixinfileup.imguploadToWeixin(this, imgPath, function(){
-			$("#vote_uploaderFiles").append('<li class="weui-uploader__file" style="background-image:url('+imgPath+')"><span>'+imgPath+'</span></li>');
+			var li=$('<li class="weui-uploader__file" style="background-image:url('+imgPath+')"><span class="badge">x</span><span>'+imgPath+'</span></li>');
+			$("#vote_uploaderFiles").append(li);
+			badgeClick(li, imgUrl);
 		});
 		$("#vote_img_num").html($("#vote_uploaderFiles li").length);
 	});
-	
 	//////////////////
 });
+//移除上传图片
+function badgeClick(li,imgUrl){
+	li.find(".badge").click({"imgUrl":imgUrl},function(event){
+		$.post("../upload/removeTemp.do",{"imgUrl":event.data.imgUrl});
+		$(this).parent().remove();
+	});
+}
+//上传图片
 function imageUpload(t,fileName,type){
 //	$.showLoading();
-	var li=$('<li class="weui-uploader__file"><span></span><div class="weui-uploader__file-content"></div></li>');
+	var li=$('<li class="weui-uploader__file"><span class="badge">x</span><span></span><div class="weui-uploader__file-content"></div></li>');
 	if(type=="vote"){
 		$("#vote_uploaderFiles").append(li);
 		var len=$("#vote_uploaderFiles li").length;
@@ -251,7 +248,7 @@ function imageUpload(t,fileName,type){
 	},t,function(imgUrl){
 		$.hideLoading();
 		li.css("background-image","url(../"+imgUrl+"_sl)");
-		li.find("span").html(imgUrl);
+		li.find("span:eq(1)").html(imgUrl);
 		if(type=="vote"){
 			$("#vote_uploaderFiles").append(li);
 			var len=$("#vote_uploaderFiles li").length;
@@ -261,5 +258,6 @@ function imageUpload(t,fileName,type){
 			var len=$("#uploaderFiles li").length;
 			$("#img_num").html(len+"/"+len);
 		}
+		badgeClick(li, imgUrl);
 	});
 }

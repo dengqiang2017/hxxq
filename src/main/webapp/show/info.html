@@ -10,33 +10,69 @@
     <link rel="stylesheet" href="../bootstrap3/css/bootstrap.min.css">
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
     <script type="text/javascript" src="../jquery-weui/lib/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="../bootstrap3/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/public.js"></script>
     <style type="text/css">
-    .navbar-fixed-top{width: 100%;min-height: 35px;padding-top: 5px;}
-    .close{position: absolute;top: 10px;left: 5px;font-size: 16px;}
-    .vertical{position: absolute;top: 5px;right: 10px;font-size: 16px;}
-    .vertical:focus, .vertical:hover,.close:focus, .close:hover{}
-    .headTitle{text-align: center;font-size: 16px;}
-    .cont{height: 900px;background-color: #ccc;margin-top: 35px;}
-    
+    .navbar-fixed-top{width: 100%;min-height: 40px;padding-top: 5px;background-color: #006766}
+    .fanhui{position: absolute;left: 5px;font-size: 22px;color: white;}
+    .vertical{position: absolute;top: 5px;right: 10px;font-size: 24px;color: white;}
+    .vertical:focus, .vertical:hover,.close:focus, .close:hover{color: white;}
+    .headTitle{text-align: center;font-size: 18px;font-weight: bold;padding-bottom: 5px;padding-top: 5px;}
+    .cont{height:auto; margin-top: 35px;padding: 5px;width: 100%;position: static;}
+    .weui-article{font-size: 16px;text-indent: 2em;}
     </style>
-    <script type="text/javascript">
+  </head>
+  <body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<a class="fanhui" href="index.html"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a>
+		<a class="vertical"><span
+			class="glyphicon glyphicon-option-horizontal"></span></a>
+	</nav>
+	<div class="cont">
+		<div class="headTitle" id="noticeTitle"></div>
+		<p id=noticeInfo style="color: #cc7"></p>
+		<div class="weui-article"></div>
+		<div>
+			<textarea rows="5" cols="30" style="width: 100%;" placeholder="请输入评论内容"></textarea>
+			<div style="text-align: right;">
+			<button type="button" class="btn btn-primary btn-sm">提交</button>
+			</div>
+		</div>
+		<div style="margin-top: 5px;">
+		  <div style="border: 1px solid #ccc;">
+			  <p>xxxxxx用户:</p>
+			  <p>评论内容,评论内容评论内容评论内容评论内容评论内容</p>
+		  </div>
+		  
+		</div>
+		<div style="width: 100%;text-align: center;">CopyRight ©2018 邓强</div>
+	</div>
+	 <script type="text/javascript">
     <!--
-    
+    var id=getQueryString("id");
+    if(id){
+    $(".weui-article").css("min-height",window.screen.height-338);
+    	$.get("../showc/getNoticeInfo.do",{"id":id},function(data){
+			$("#noticeTitle").html(data.noticeTitle);
+			var time=new Date(data.creationTime);
+			$("#noticeInfo").html("发布人:"+data.founder.userName+"&ensp;发布时间:"+time.Format("yyyy-MM-dd"));
+			$(".weui-article").html(data.noticeDesc);
+			if (data.fileList&&data.fileList.length>0) {
+				for (var i = 0; i < data.fileList.length; i++) {
+					var img=data.fileList[i].filePath;
+					if (/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(img)) {
+						$(".weui-article").append("<img src='../"+img+"'>");
+					}else{
+						if (!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(img)&&img.indexOf("_sl")==-1) {
+							var name=data.fileList[i].fileName;
+							$(".weui-article").append("<a href='../"+img+"'>"+name+"</a>");
+						}
+					}
+				}
+			}
+    	});
+    }
     //-->
     </script>
-  </head>
-  <body style="position: relative;">
-  <nav class="navbar navbar-default navbar-fixed-top">
-  <a class="close"><span class="glyphicon glyphicon-arrow-left"></span></a>
-  <div class="headTitle">
-    标题标题标题标题标题标题
-  </div>
-  <a class="vertical"><span class="glyphicon glyphicon-option-horizontal"></span></a>
-</nav>
-    <div class="cont">
-    <p style="">顶部</p>
-    <div style="position: absolute;bottom: 0;text-align: center;width: 100%;">CopyRight ©2018 邓强</div>
-    </div>
-  </body>
+</body>
 </html>

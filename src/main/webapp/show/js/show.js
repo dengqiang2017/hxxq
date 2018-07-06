@@ -78,7 +78,7 @@ $(function() {
 					window.location.href="index.html?ver="+Math.random();
 				}
 			},{
-				text: "发布公告",
+				text: "发布公告信息",
 				onClick: function() {
 					window.location.href="../release/index.html?type=notice";
 				}
@@ -88,23 +88,24 @@ $(function() {
 					window.location.href="../release/index.html?type=vote";
 				}
 			},{
-				text: "意见建议",
+				text: "建议留言",
 				onClick: function() {
+					window.location.href="../suggest.html";
 //					$("#myModal").modal("toggle");
-					$.prompt({
-						  title: "留言",
-						  text: "意见建议",
-						  input:"",
-						  empty: false, // 是否允许为空
-						  onOK: function (text) {
-						    //点击确认
-							  $.confirm(text);
-							  $.toast("操作成功");
-						  },
-						  onCancel: function () {
-						    //点击取消
-						  }
-						});
+//					$.prompt({
+//						  title: "留言",
+//						  text: "建议",
+//						  input:"",
+//						  empty: false, // 是否允许为空
+//						  onOK: function (text) {
+//						    //点击确认
+//							  $.confirm(text);
+//							  $.toast("操作成功");
+//						  },
+//						  onCancel: function () {
+//						    //点击取消
+//						  }
+//						});
 				}
 			}]
 		});
@@ -113,7 +114,7 @@ $(function() {
 });
 
 function loadNoticeData(page,count,housingEstate){
-	$.get("../releaseManager/getNoticePage.do",{
+	$.get("../showc/getNoticePage.do",{
 		"rows":10,"page":page,"count":count,"housingEstate":housingEstate
 		},function(data){
 		if (data.rows&&data.rows.length) {
@@ -128,24 +129,7 @@ function loadNoticeData(page,count,housingEstate){
 				}
 				item.find(".weui-media-box__desc").html(n.noticeDesc.substr(0,150)+"...");
 				item.click(n,function(event){
-					$("#about").popup();
-					$("#noticeTitle").html(event.data.noticeTitle);
-					var time=new Date(event.data.creationTime);
-					$("#noticeInfo").html("发布人:"+event.data.founder.userName+"&ensp;发布时间:"+time.Format("yyyy-MM-dd"));
-					$(".weui-article").html(event.data.noticeDesc);
-					if (event.data.fileList&&event.data.fileList.length>0) {
-						for (var i = 0; i < event.data.fileList.length; i++) {
-							var img=event.data.fileList[i].filePath;
-							if (/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(img)) {
-								$(".weui-article").append("<img src='../"+img+"'>");
-							}else{
-								if (!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(img)&&img.indexOf("_sl")==-1) {
-									var name=event.data.fileList[i].fileName;
-									$(".weui-article").append("<a href='../"+img+"'>"+name+"</a>");
-								}
-							}
-						}
-					}
+					window.location.href="info.html?id="+event.data.id;
 				});
 			}
 			noticeLoad.loading=false;
@@ -156,7 +140,7 @@ function loadNoticeData(page,count,housingEstate){
 	});
 }
 function loadVoteData(page,count,housingEstate){
-	$.get("../releaseManager/getVotePage.do",{
+	$.get("../showc/getVotePage.do",{
 		"rows":10,"page":page,"count":count,"housingEstate":housingEstate
 		},function(data){
 		if (data.rows&&data.rows.length) {

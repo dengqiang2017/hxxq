@@ -19,7 +19,7 @@
       <a href="#"><img src="images/icon_nav_button.png" alt=""></a>
     </div>
     <p class="weui-grid__label">
-      	<a href="#">业主信息浏览入口</a>
+      	<a href="#">公告信息</a>
     </p>
   </div>
   <div class="weui-grid js_grid">
@@ -27,7 +27,23 @@
       <a href="#"><img src="images/icon_nav_cell.png" alt=""></a>
     </div>
     <p class="weui-grid__label">
-      <a href="#">业主委员管理入口</a>
+      <a href="#">投票</a>
+    </p>
+  </div>
+  <div class="weui-grid js_grid">
+    <div class="weui-grid__icon">
+      <a href="#"><img src="images/icon_nav_cell.png" alt=""></a>
+    </div>
+    <p class="weui-grid__label">
+      <a href="#">上报水电</a>
+    </p>
+  </div>
+  <div class="weui-grid js_grid">
+    <div class="weui-grid__icon">
+      <a href="#"><img src="images/icon_nav_cell.png" alt=""></a>
+    </div>
+    <p class="weui-grid__label">
+      <a href="#">查询物业费</a>
     </p>
   </div>
   <div class="weui-grid js_grid">
@@ -52,13 +68,13 @@
 <script type="text/javascript">
 <!--
 // autoLogin();
-$.get("login/autoLogin.do",{"moblieMac":"1231464"},function(data){
+// $.get("login/autoLogin.do",{"moblieMac":"1231464"},function(data){
 // 	if(data.msg=="1"){
 // 		window.location.href="release";
 // 	}else if(data.msg=="0"){
-		window.location.href="show";
+// 		window.location.href="show";
 // 	}
-});
+// });
 $(".js_grid:eq(0)").click(function(){
 	window.location.href="show/index.html?ver="+Math.random();
 });

@@ -9,13 +9,14 @@
 	</properties>
 	<!-- 	二级缓存开启 -->
     <settings>  
-        <setting name="cacheEnabled" value="false"/>   
+        <setting name="cacheEnabled" value="true"/>   
 <!--         <setting name="logImpl" value="LOG4J" /> -->
     </settings>  
 	<mappers>
 	    <mapper resource="com/dengqiang/dao/xml/operatorsDao.xml"></mapper>
 	    <mapper resource="com/dengqiang/dao/xml/releaseManagerDao.xml"></mapper>
 	    <mapper resource="com/dengqiang/dao/xml/customerDao.xml"></mapper>
+	    <mapper resource="com/dengqiang/dao/xml/showDao.xml"></mapper>
 	</mappers>
 
 </configuration>

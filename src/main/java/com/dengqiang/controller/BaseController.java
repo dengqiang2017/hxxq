@@ -18,9 +18,11 @@ import java.io.LineNumberReader;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
@@ -42,6 +44,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dengqiang.bean.FileBean;
 import com.dengqiang.bean.HousingEstateBean;
 import com.dengqiang.bean.ResultInfo;
 import com.dengqiang.bean.UserInfoBean;
@@ -506,7 +509,7 @@ public abstract class BaseController {
         }   
         return macAddress;   
     }
-    private final static String TEXT_WATERMARK="和谐共创DengQiang";
+    private final static String TEXT_WATERMARK="和谐共创-邓强";
     /**
      * 打印文字水印图片
 	 * @param watermark 是否添加水印默认添加
@@ -602,5 +605,41 @@ public abstract class BaseController {
 	* 防止XSS攻击 
 	*/ 
 	binder.registerCustomEditor(String.class, new StringEscapeEditor(true, false));
+	}
+	/**
+	 * 获取图片路径前缀-tomcat目录
+	 * @return tomcat文件夹所在目录
+	 */
+	public String getImgPathPrefix() {
+		String tomcat_dir = System.getProperty("user.dir");
+		if (tomcat_dir.contains("bin")) {
+			File file = new File(tomcat_dir);
+			tomcat_dir = file.getParent();
+		}
+		return tomcat_dir+"\\imgs\\";
+	}
+	/**
+	 * 获取图片列表
+	 * @param img 图片所在文件夹相对路径
+	 * @return 图片文件相对地址列表
+	 */
+	public List<FileBean> getImgList(String img){
+		File src=new File(getImgPathPrefix()+img);
+		if (src.exists()&&src.isDirectory()) {
+			File[] srcList=src.listFiles();
+			if (srcList!=null&&srcList.length>0) {
+				List<FileBean> fileList=new ArrayList<>();
+				for (File imgFile : srcList) {
+					FileBean bean=new FileBean();
+					if(imgFile.getName().contains("_sl")){
+						bean.setFilePath(img+imgFile.getName());
+						bean.setFileName(imgFile.getName());
+						fileList.add(bean);
+					}
+				}
+				return fileList;
+			}
+		}
+		return null;
 	}
 }

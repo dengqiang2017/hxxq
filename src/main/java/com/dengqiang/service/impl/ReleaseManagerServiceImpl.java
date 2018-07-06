@@ -15,11 +15,10 @@ import com.dengqiang.bean.FileBean;
 import com.dengqiang.bean.NoticeBean;
 import com.dengqiang.bean.PageList;
 import com.dengqiang.bean.VoteBean;
-import com.dengqiang.controller.BaseController;
 import com.dengqiang.dao.interfaces.IReleaseManagerDao;
 import com.dengqiang.service.IReleaseManagerService;
 @Service
-public class ReleaseManagerServiceImpl extends BaseController implements IReleaseManagerService {
+public class ReleaseManagerServiceImpl extends BaseService implements IReleaseManagerService {
 
 	@Autowired
 	private IReleaseManagerDao releaseManagerDao;

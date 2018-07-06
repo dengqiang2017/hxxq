@@ -3,42 +3,8 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- xml文件 -->
-<mapper namespace="com.dengqiang.dao.interfaces.IReleaseManagerDao">
-<!-- 	<cache/>  -->
-	<insert id="saveNoticeInfo" flushCache="true" parameterType="hashMap" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-	   <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-         select LAST_INSERT_ID() as id
-        </selectKey>
-        insert into t_notice (user_info_id,housing_estate_id,noticeTitle,noticeDesc,isComment,showName,isTop,isShow,creationTime,showTime)
-        values(#{founder},#{housingEstate},#{noticeTitle},#{noticeDesc},#{isComment},#{showName},#{isTop},#{isShow},#{creationTime},#{showTime});
-	</insert>
-	<update id="updateNoticeInfo" parameterType="hashMap" flushCache="true">
-	update t_notice set auditor_id=null,auditStatus=0,auditDate=null,
-	user_info_id=#{founder},housing_estate_id=#{housingEstate},noticeTitle=#{noticeTitle},
-	noticeDesc=#{noticeDesc},isComment=#{isComment},showName=#{showName},isTop=#{isTop},
-	isShow=#{isShow},creationTime=#{creationTime},showTime=#{showTime}
-	 where id=#{id}
-	</update>
-	<insert id="saveVoteInfo" parameterType="hashMap" flushCache="true" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-	   <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-          select LAST_INSERT_ID() as id
-        </selectKey>
-        insert into t_vote(user_info_id,housing_estate_id,voteTitle,voteDesc,beginTime,endTime,creationTime,isComment,showName)
-        values(#{founder},#{housingEstate},#{voteTitle},#{voteDesc},#{beginTime},#{endTime},#{creationTime},#{isComment},#{showName});
-	</insert>
-	<update id="updateVoteInfo" parameterType="hashMap" flushCache="true">
-	update t_vote set auditor_id=null,auditStatus=0,auditDate=null,
-	user_info_id=#{founder},housing_estate_id=#{housingEstate},voteTitle=#{voteTitle},beginTime=#{beginTime},
-	endTime=#{endTime},creationTime=#{creationTime},isComment=#{isComment},showName=#{showName}
-	 where id=#{id}
-	</update>
-	<update id="saveAuditorInfo" parameterType="hashMap" flushCache="true">
-	update 
-	<if test="type=='vote'">t_vote</if>
-	<if test="type=='notice'">t_notice</if>
-	<if test="type=='review'">t_review_content</if>
-	 set auditor_id=#{auditor},auditStatus=#{auditStatus},auditDate=#{auditDate} where id=#{id}
-	</update>
+<mapper namespace="com.dengqiang.dao.interfaces.IShowDao">
+<cache eviction="FIFO" flushInterval="60" size="512" readOnly="true"></cache>
 <resultMap type="com.dengqiang.bean.UserInfoBean" id="userInfo">
   <id property="id" column="id"/>
   <result property="userName" column="userName"/>
@@ -55,32 +21,13 @@
   <result property="noticeTitle" column="noticeTitle"/>
   <result property="noticeDesc" column="noticeDesc"/>
   <result property="comment" column="isComment"/>
+  <result property="top" column="isTop"/>
   <result property="creationTime" column="creationTime"/>
   <result property="founder.id" column="user_info_id"/>
   <result property="founder.userName" column="userName"/>
   <result property="housingEstate.housingName" column="housingName"/>
   <result property="housingEstate.id" column="housing_estate_id"/>
 </resultMap>
-
-<sql id="noticeWhere">
- from t_notice t 
- LEFT JOIN t_user_info t2 on t.user_info_id=t2.id
-LEFT JOIN t_housing_estate t3 on t.housing_estate_id=t3.id
-where t.isShow =#{isShow}
-<![CDATA[ and t.showTime<=#{now} ]]>
-and t.housing_estate_id in(#{housingEstate}) and t.auditStatus=#{auditStatus}
-</sql>
-<select id="getNoticeCount" parameterType="hashMap" resultType="Integer">
-select count(t.id) <include refid="noticeWhere"/>
-</select>
-<select id="getNoticeList" parameterType="hashMap" resultMap="noticeBean">
-select 
-t.id,t.noticeTitle,t.noticeDesc,t.isComment,t.creationTime,t2.userName,t3.housingName,
-t.housing_estate_id,t.user_info_id
-<include refid="noticeWhere"/>
-ORDER BY isTop desc,t.creationTime DESC
-LIMIT ${page},${rows};
-</select>
 <resultMap type="com.dengqiang.bean.VoteBean" id="voteBean">
 <id column="id" property="id"/>
 <result property="voteTitle" column="voteTitle"/>
@@ -99,6 +46,33 @@ LIMIT ${page},${rows};
 <result property="voteHistory.voteTime" column="voteTime"/>
 <result property="voteHistory.commentState" column="commentState"/>
 </resultMap>
+<sql id="noticeWhere">
+ from t_notice t 
+ LEFT JOIN t_user_info t2 on t.user_info_id=t2.id
+LEFT JOIN t_housing_estate t3 on t.housing_estate_id=t3.id
+where t.isShow =#{isShow}
+<![CDATA[ and t.showTime<=#{now} ]]>
+and t.housing_estate_id in(#{housingEstate}) and t.auditStatus=#{auditStatus}
+</sql>
+<select id="getNoticeCount" parameterType="hashMap" resultType="Integer">
+select count(t.id) <include refid="noticeWhere"/>
+</select>
+<select id="getNoticeList" parameterType="hashMap" resultMap="noticeBean">
+	select 
+	t.id,t.noticeTitle,t.noticeDesc,t.isComment,t.creationTime,t2.userName,t3.housingName,t.isTop,
+	t.housing_estate_id,t.user_info_id
+	<include refid="noticeWhere"/>
+	ORDER BY isTop desc,t.showTime desc
+	LIMIT ${page},${rows};
+</select>
+<select id="getNoticeInfo" parameterType="hashMap" resultMap="noticeBean">
+	select t.id,t.noticeTitle,t.noticeDesc,t.isComment,t.creationTime,t2.userName,t3.housingName,
+	t.housing_estate_id,t.user_info_id from t_notice t 
+	LEFT JOIN t_user_info t2 on t.user_info_id=t2.id
+	LEFT JOIN t_housing_estate t3 on t.housing_estate_id=t3.id
+	where t.id=#{id}
+</select>
+
 <sql id="voteWhere">
 LEFT JOIN t_user_info t2 on t.user_info_id=t2.id
 LEFT JOIN t_housing_estate t3 on t.housing_estate_id=t3.id
@@ -115,4 +89,13 @@ from t_vote t <include refid="voteWhere"/>
 order by t.beginTime DESC
 LIMIT ${page},${rows};
 </select>
+<select id="" parameterType="hashMap" resultMap="voteBean">
+select t.id,t.voteTitle,t.isComment,t.showName,t.voteDesc,t.beginTime,t.endTime,t.user_info_id as founder_user_id,t.housing_estate_id
+,t2.userName,t3.housingName,t1.voteResult,t1.voteTime,t1.id as history_id,t1.commentState,t1.user_info_id
+from t_vote t LEFT JOIN t_user_info t2 on t.user_info_id=t2.id
+LEFT JOIN t_housing_estate t3 on t.housing_estate_id=t3.id
+left JOIN t_vote_history t1 on t.id=t1.vote_id
+where t.id=#{id}
+</select>
+ 
 </mapper>

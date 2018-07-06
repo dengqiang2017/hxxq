@@ -110,7 +110,7 @@ public class ReleaseManagerController extends BaseController {
 //						List<FileBean> beans=new ArrayList<>();
 						for (File src : fs) {
 							String img="notice/"+userInfo.getId()+"/"+id+"/"+src.getName();
-							File destFile=new File(getRealPath(request)+img);
+							File destFile=new File(getImgPathPrefix()+img);
 							mkdirsDirectory(destFile);
 							FileUtils.moveFile(src, destFile);
 //							FileBean fileBean=new FileBean();
@@ -228,7 +228,7 @@ public class ReleaseManagerController extends BaseController {
 						File[] fs=srcFile.listFiles();
 						for (File src : fs) {
 							String img="vote/"+userInfo.getId()+"/"+id+"/"+src.getName();
-							File destFile=new File(getRealPath(request)+img);
+							File destFile=new File(getImgPathPrefix()+img);
 							mkdirsDirectory(destFile);
 							FileUtils.moveFile(src, destFile);
 						}
@@ -348,7 +348,7 @@ public class ReleaseManagerController extends BaseController {
 		}
 		return releaseManagerService.getNoticePage(map);
 	}
-	
+
 	@RequestMapping("getVotePage")
 	@ResponseBody
 	public PageList<VoteBean> getVotePage(HttpServletRequest request) {

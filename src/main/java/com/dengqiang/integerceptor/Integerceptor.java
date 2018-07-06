@@ -43,7 +43,7 @@ public class Integerceptor extends BaseController implements HandlerInterceptor 
 		boolean login=true;
 		if (userInfo==null) {
 			login=false;
-			if (request.getRequestURI().contains("/login/")) {
+			if (request.getRequestURI().contains("/login/")||request.getRequestURI().contains("/showc/")) {
 				login=true;
 			}
 		}
