@@ -42,7 +42,7 @@ $(function(){
 							$.toast("再按一次退出程序","text");
 							setTimeout(function(){
 								fan=0;
-							}, 5000);
+							}, 1000);
 						}
 					}
 				};

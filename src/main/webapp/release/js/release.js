@@ -126,11 +126,25 @@ $(function() {
 		json.agree=$("#notice #weuiAgree2").prop("checked");
 		json.imgList=[];
 		var imgs=$("#uploaderFiles>li>span").html();
-		for (var i = 0; i < imgs.length; i++) {
-			json.imgList.push(imgs[i]);
+		var b=false;
+		if (imgs) {
+			for (var i = 0; i < imgs.length; i++) {
+				json.imgList.push(imgs[i]);
+				b=true;
+			}
+		}
+		if (json.noticeDesc&&json.noticeDesc!="") {
+			b=true;
 		}
 		if(!json.noticeTitle){
-			$.alert("请输入标题!","系统提示");
+			$.alert("请输入标题!","系统提示",function(){
+				$("body").scrollTop(0);
+				$("#noticeForm input[name='noticeTitle']").focus();
+			});
+		}else if(!b){
+			$.alert("请输入内容或者直接上传图片!","系统提示",function(){
+				$("#noticeDesc").focus();
+			});
 		}else if(!json.agree){
 			$.alert("请阅读并确认《信息发布条款》！","系统提示");
 		}else{
@@ -138,7 +152,13 @@ $(function() {
 			$.post("../releaseManager/saveNoticeInfo.do",json,function(data){
 				 $.hideLoading();
 				if(data.success){
-					 $.toast("提交成功,请等待审核!");
+					 $.modal({
+						 "text":"提交成功,请等待审核!",
+						 "buttons":[{"text":"再发布一个", onClick: function(){
+							 $("#noticeForm button[type='reset']").click();
+							 $("body").scrollTop(0);
+							 }},
+					         {text: "返回浏览页面", onClick: function(){window.location.href="../show/index.html?ver="+Math.random();}}]});
 					 $("#notice_id").html(data.msg);
 				}else{
 					$.alert(data.msg,"系统提示");
@@ -170,15 +190,24 @@ $(function() {
 		json.agree=$("#weuiAgree").prop("checked");
 		json.imgList=[];
 		var imgs=$("#vote_uploaderFiles>li>span").html();
-		for (var i = 0; i < imgs.length; i++) {
-			json.imgList.push(imgs[i]);
+		if (imgs) {
+			for (var i = 0; i < imgs.length; i++) {
+				json.imgList.push(imgs[i]);
+			}
 		}
 		if(!json.voteTitle){
-			$.alert("请输入标题!","系统提示");
+			$.alert("请输入标题!","系统提示",function(){
+				$("body").scrollTop(0);
+				$("#voteForm input[name='voteTitle']").focus();
+			});
 		}else if(!json.endTime){
-			$.alert("请选择投票截止时间!","系统提示");
+			$.alert("请选择投票截止时间!","系统提示",function(){
+				$("#voteForm input[name='endTime']").focus();
+			});
 		}else if(!json.voteDesc){
-			$.alert("请投票描述!","系统提示");
+			$.alert("请投票描述!","系统提示",function(){
+				$("#voteForm #voteDesc").focus();
+			});
 		}else if(!json.agree){
 			$.alert("请阅读并确认《信息发布条款》！","系统提示");
 		}else{
@@ -186,7 +215,15 @@ $(function() {
 			$.post("../releaseManager/saveVoteInfo.do",json,function(data){
 				$.hideLoading();
 				if(data.success){
-					 $.toast("提交成功,请等待审核!");
+					$.modal({
+						 "text":"提交成功,请等待审核!",
+						 "buttons":[{"text":"再发布一个", onClick: function(){
+							 $("#voteForm button[type='reset']").click();
+							 $("body").scrollTop(0);
+							}},
+					        {text: "返回浏览页面", onClick: function(){
+					        	window.location.href="../show/index.html?type=2&ver="+Math.random();
+					        }}]});
 					 $("#vote_id").html(data.msg);
 				}else{
 					$.alert(data.msg,"系统提示");
