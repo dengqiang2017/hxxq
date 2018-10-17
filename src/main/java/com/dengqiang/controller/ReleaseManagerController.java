@@ -1,10 +1,8 @@
 package com.dengqiang.controller;
 
-import java.io.File;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.dengqiang.bean.*;
+import com.dengqiang.service.ICustomerService;
+import com.dengqiang.service.IReleaseManagerService;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -15,14 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dengqiang.bean.NoticeBean;
-import com.dengqiang.bean.PageList;
-import com.dengqiang.bean.ResultInfo;
-import com.dengqiang.bean.UserInfoBean;
-import com.dengqiang.bean.UserInfoHousingBean;
-import com.dengqiang.bean.VoteBean;
-import com.dengqiang.service.ICustomerService;
-import com.dengqiang.service.IReleaseManagerService;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.Map;
 /**
  * 信息发布
  * @author 邓强
